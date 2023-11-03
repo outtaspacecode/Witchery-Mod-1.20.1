@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.25,
+  "group": "clay_vessel",
+  "ingredient": {
+    "item": "witchery:raw_clay_vessel"
+  },
+  "result": "witchery:clay_vessel"
+}

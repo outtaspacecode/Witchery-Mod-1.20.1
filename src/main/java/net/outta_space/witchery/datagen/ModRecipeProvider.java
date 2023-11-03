@@ -1,0 +1,39 @@
+package net.outta_space.witchery.datagen;
+
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.recipes.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.fml.common.Mod;
+import net.outta_space.witchery.block.ModBlocks;
+import net.outta_space.witchery.item.ModItems;
+
+import java.util.List;
+import java.util.function.Consumer;
+
+public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
+    private static final List<ItemLike> WITCHERY_SMELTABLE_SAPLINGS = List.of(ModBlocks.ROWAN_SAPLING.get(),
+            ModBlocks.ALDER_SAPLING.get(), ModBlocks.HAWTHORN_SAPLING.get(), Blocks.OAK_SAPLING, Blocks.SPRUCE_SAPLING,
+            Blocks.BIRCH_SAPLING, Blocks.JUNGLE_SAPLING, Blocks.ACACIA_SAPLING, Blocks.DARK_OAK_SAPLING, Blocks.CHERRY_SAPLING);
+
+    public ModRecipeProvider(PackOutput pOutput) {
+        super(pOutput);
+    }
+
+    @Override
+    protected void buildRecipes(Consumer<FinishedRecipe> pWriter) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.RAW_CLAY_VESSEL.get(), 4)
+                .pattern(" A ")
+                .pattern("AAA")
+                .define('A', Items.CLAY_BALL)
+                .unlockedBy("has_clay_ball", inventoryTrigger(ItemPredicate.Builder.item().of(Items.CLAY_BALL).build()))
+                .save(pWriter);
+
+        oreSmelting(pWriter, List.of(ModItems.RAW_CLAY_VESSEL.get()), RecipeCategory.MISC, ModItems.CLAY_VESSEL.get(), 0.25f, 200, "clay_vessel");
+        oreSmelting(pWriter, WITCHERY_SMELTABLE_SAPLINGS, RecipeCategory.MISC, ModItems.WOOD_ASH.get(), 0.25f, 200, "wood_ash");
+    }
+}
