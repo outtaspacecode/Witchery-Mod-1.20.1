@@ -33,7 +33,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_clay_ball", inventoryTrigger(ItemPredicate.Builder.item().of(Items.CLAY_BALL).build()))
                 .save(pWriter);
 
-        oreSmelting(pWriter, List.of(ModItems.RAW_CLAY_VESSEL.get()), RecipeCategory.MISC, ModItems.CLAY_VESSEL.get(), 0.25f, 200, "clay_vessel");
-        oreSmelting(pWriter, WITCHERY_SMELTABLE_SAPLINGS, RecipeCategory.MISC, ModItems.WOOD_ASH.get(), 0.25f, 200, "wood_ash");
+        oreSmelting(pWriter, List.of(ModItems.RAW_CLAY_VESSEL.get()), RecipeCategory.MISC, ModItems.CLAY_VESSEL.get(), 0.3f, 200, "clay_vessel");
+        oreSmelting(pWriter, WITCHERY_SMELTABLE_SAPLINGS, RecipeCategory.MISC, ModItems.WOOD_ASH.get(), 0.1f, 200, "wood_ash");
     }
 }
