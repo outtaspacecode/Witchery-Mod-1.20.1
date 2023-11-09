@@ -73,6 +73,8 @@ public class ModItems {
     /////////////////////
     // WATER ARTICHOKE //
     /////////////////////
+    /* Special thanks to Sir Bl4ckL1on from the Kaupenjoe discord server for suggesting  *
+     *      the PlaceOnWaterBlockItem() method                                           */
     public static final RegistryObject<Item> WATER_ARTICHOKE_SEEDS = ITEMS.register("water_artichoke_seeds",
             () -> new PlaceOnWaterBlockItem(ModBlocks.WATER_ARTICHOKE_CROP.get(), new Item.Properties()));
     public static final RegistryObject<Item> WATER_ARTICHOKE = ITEMS.register("water_artichoke",

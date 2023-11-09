@@ -93,7 +93,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         makeCrop((BelladonnaCropBlock) ModBlocks.BELLADONNA_CROP.get(), "belladonna_stage", "belladonna_stage");
         makeCrop((MandrakeCropBlock) ModBlocks.MANDRAKE_CROP.get(), "mandrake_stage", "mandrake_stage");
-        makeWaterCrop((WaterArtichokeCropBlock) ModBlocks.WATER_ARTICHOKE_CROP.get(), "water_artichoke_stage", "water_artichoke_stage");
+        makeCrop((WaterArtichokeCropBlock) ModBlocks.WATER_ARTICHOKE_CROP.get(), "water_artichoke_stage", "water_artichoke_stage");
 
 
         /**********************************************************************
@@ -113,20 +113,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         ConfiguredModel[] models = new ConfiguredModel[1];
         models[0] = new ConfiguredModel(models().crop(modelName + state.getValue(((WitcheryCropBlock) block).getAgeProperty()),
                 new ResourceLocation(WitcheryMod.MOD_ID, "block/" + textureName + state.getValue(((WitcheryCropBlock) block).getAgeProperty()))).renderType("cutout"));
-
-        return models;
-    }
-
-    public void makeWaterCrop(WaterCropBlock block, String modelName, String textureName) {
-        Function<BlockState, ConfiguredModel[]> function = state -> wc_states(state, block, modelName, textureName);
-
-        getVariantBuilder(block).forAllStates(function);
-    }
-
-    private ConfiguredModel[] wc_states(BlockState state, WaterCropBlock block, String modelName, String textureName) {
-        ConfiguredModel[] models = new ConfiguredModel[1];
-        models[0] = new ConfiguredModel(models().crop(modelName + state.getValue(((WaterArtichokeCropBlock) block).getAgeProperty()),
-                new ResourceLocation(WitcheryMod.MOD_ID, "block/" + textureName + state.getValue(((WaterArtichokeCropBlock) block).getAgeProperty()))).renderType("cutout"));
 
         return models;
     }
