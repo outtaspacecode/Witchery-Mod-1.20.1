@@ -46,6 +46,6 @@
   "item.witchery.belladonna_flower" : "Belladonna Flower",
   "item.witchery.mandrake_seeds" : "Mandrake Seeds",
   "item.witchery.mandrake_root" : "Mandrake Root",
-  "item.witchery.water_artichoke_seeds" : "Water Artichoke Seeds",
+  "block.witchery.water_artichoke_crop" : "Water Artichoke Seeds",
   "item.witchery.water_artichoke" : "Water Artichoke"
 }

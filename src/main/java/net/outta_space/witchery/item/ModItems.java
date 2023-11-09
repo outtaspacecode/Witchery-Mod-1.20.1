@@ -2,6 +2,7 @@ package net.outta_space.witchery.item;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -73,7 +74,7 @@ public class ModItems {
     // WATER ARTICHOKE //
     /////////////////////
     public static final RegistryObject<Item> WATER_ARTICHOKE_SEEDS = ITEMS.register("water_artichoke_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.WATER_ARTICHOKE_CROP.get(), new Item.Properties()));
+            () -> new PlaceOnWaterBlockItem(ModBlocks.WATER_ARTICHOKE_CROP.get(), new Item.Properties()));
     public static final RegistryObject<Item> WATER_ARTICHOKE = ITEMS.register("water_artichoke",
             () -> new Item(new Item.Properties()));
 

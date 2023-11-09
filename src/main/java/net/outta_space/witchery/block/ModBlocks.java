@@ -52,7 +52,7 @@ public class ModBlocks {
     // WATER ARTICHOKE //
     //////////////
     public static final RegistryObject<Block> WATER_ARTICHOKE_CROP = BLOCKS.register("water_artichoke_crop",
-            () -> new WaterArtichokeCropBlock(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().noOcclusion()));
+            () -> new WaterArtichokeCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT).noCollission().noOcclusion()));
 
 
     /********************************************************************************************
