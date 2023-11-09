@@ -2,7 +2,7 @@
   "type": "minecraft:smelting",
   "category": "misc",
   "cookingtime": 200,
-  "experience": 0.25,
+  "experience": 0.1,
   "group": "wood_ash",
   "ingredient": {
     "item": "witchery:rowan_sapling"

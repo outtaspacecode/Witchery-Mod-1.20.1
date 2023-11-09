@@ -16,7 +16,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.outta_space.witchery.WitcheryMod;
+import net.outta_space.witchery.block.custom.BelladonnaCropBlock;
+import net.outta_space.witchery.block.custom.MandrakeCropBlock;
 import net.outta_space.witchery.block.custom.ModFlammableRotatedPillarBlock;
+import net.outta_space.witchery.block.custom.WaterArtichokeCropBlock;
 import net.outta_space.witchery.item.ModItems;
 
 import java.util.function.Supplier;
@@ -26,6 +29,44 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, WitcheryMod.MOD_ID);
 
+
+    /*******************************************************************************************
+     * Crop Blocks:
+     *      - Belladonna
+     ********************************************************************************************/
+
+    ////////////////
+    // BELLADONNA //
+    ////////////////
+    public static final RegistryObject<Block> BELLADONNA_CROP = BLOCKS.register("belladonna_crop",
+            () -> new BelladonnaCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT).noCollission().noOcclusion()));
+
+
+    //////////////
+    // MANDRAKE //
+    //////////////
+    public static final RegistryObject<Block> MANDRAKE_CROP = BLOCKS.register("mandrake_crop",
+            () -> new MandrakeCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT).noCollission().noOcclusion()));
+
+    //////////////
+    // WATER ARTICHOKE //
+    //////////////
+    public static final RegistryObject<Block> WATER_ARTICHOKE_CROP = BLOCKS.register("water_artichoke_crop",
+            () -> new WaterArtichokeCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT).noCollission().noOcclusion()));
+
+
+    /********************************************************************************************
+     *   Beginning of wood blocks:
+     *      - Rowan
+     *      - Alder
+     *      - Hawthorn
+     *
+     *      Includes sapling, log and log variants, leaves, and planks
+     ********************************************************************************************/
+
+    //////////////////
+    // ROWAN BLOCKS //
+    //////////////////
 
     public static final RegistryObject<Block> ROWAN_SAPLING = registerBlock("rowan_sapling",
             () -> new SaplingBlock(null, BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
@@ -71,6 +112,12 @@ public class ModBlocks {
                     return 30;
                 }
             });
+
+
+
+    //////////////////
+    // ALDER BLOCKS //
+    //////////////////
 
     public static final RegistryObject<Block> ALDER_SAPLING = registerBlock("alder_sapling",
             () -> new SaplingBlock(null, BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
@@ -118,6 +165,10 @@ public class ModBlocks {
             });
 
 
+    /////////////////////
+    // HAWTHORN BLOCKS //
+    /////////////////////
+
     public static final RegistryObject<Block> HAWTHORN_SAPLING = registerBlock("hawthorn_sapling",
             () -> new SaplingBlock(null, BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
     public static final RegistryObject<Block> HAWTHORN_LOG = registerBlock("hawthorn_log",
@@ -162,6 +213,10 @@ public class ModBlocks {
                     return 30;
                 }
             });
+
+    /*********************************************************************************************
+     * END OF WOOD ITEMS
+     **********************************************************************************************/
 
 
 

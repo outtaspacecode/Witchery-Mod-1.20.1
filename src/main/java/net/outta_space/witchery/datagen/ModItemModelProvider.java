@@ -19,6 +19,20 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+
+        /**********************************************************************
+         * Crop Items
+         ***********************************************************************/
+        simpleItem(ModItems.BELLADONNA_SEEDS);
+        simpleItem(ModItems.BELLADONNA_FLOWER);
+        simpleItem(ModItems.MANDRAKE_SEEDS);
+        simpleItem(ModItems.MANDRAKE_ROOT);
+        simpleItem(ModItems.WATER_ARTICHOKE_SEEDS);
+        simpleItem(ModItems.WATER_ARTICHOKE);
+
+        /**********************************************************************
+         * Bottled Magic Items
+         ***********************************************************************/
         simpleItem(ModItems.WOOD_ASH);
         simpleItem(ModItems.RAW_CLAY_VESSEL);
         simpleItem(ModItems.CLAY_VESSEL);
@@ -30,6 +44,9 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.REEK_OF_MISFORTUNE);
         simpleItem(ModItems.ODOUR_OF_PURITY);
 
+        /**********************************************************************
+         * Sapling Items
+         ***********************************************************************/
         saplingItem(ModBlocks.ROWAN_SAPLING);
         saplingItem(ModBlocks.ALDER_SAPLING);
         saplingItem(ModBlocks.HAWTHORN_SAPLING);

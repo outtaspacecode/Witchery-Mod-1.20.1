@@ -4,6 +4,9 @@
   "item.witchery.wood_ash": "Wood Ash",
   "item.witchery.raw_clay_vessel": "Raw Clay Vessel",
   "item.witchery.clay_vessel": "Clay Vessel",
+
+
+
   "item.witchery.exhale_of_the_horned_one": "Exhale of the Horned One",
   "item.witchery.hint_of_rebirth": "Hint of Rebirth",
   "item.witchery.breath_of_the_goddess": "Breath of the Goddess",
@@ -11,6 +14,8 @@
   "item.witchery.whiff_of_magic": "Whiff of Magic",
   "item.witchery.reek_of_misfortune": "Reek of Misfortune",
   "item.witchery.odour_of_purity": "Odour of Purity",
+
+
 
   "block.witchery.rowan_sapling": "Rowan Sapling",
   "block.witchery.rowan_log": "Rowan Log",
@@ -34,5 +39,13 @@
   "block.witchery.hawthorn_wood": "Hawthorn Wood",
   "block.witchery.stripped_hawthorn_wood": "Stripped Hawthorn Wood",
   "block.witchery.hawthorn_leaves": "Hawthorn Leaves",
-  "block.witchery.hawthorn_planks": "Hawthorn Planks"
+  "block.witchery.hawthorn_planks": "Hawthorn Planks",
+
+
+  "item.witchery.belladonna_seeds": "Belladonna Seeds",
+  "item.witchery.belladonna_flower" : "Belladonna Flower",
+  "item.witchery.mandrake_seeds" : "Mandrake Seeds",
+  "item.witchery.mandrake_root" : "Mandrake Root",
+  "item.witchery.water_artichoke_seeds" : "Water Artichoke Seeds",
+  "item.witchery.water_artichoke" : "Water Artichoke"
 }

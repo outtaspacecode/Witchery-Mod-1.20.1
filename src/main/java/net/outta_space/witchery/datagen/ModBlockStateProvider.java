@@ -2,15 +2,25 @@ package net.outta_space.witchery.datagen;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.block.ModBlocks;
+import net.outta_space.witchery.block.custom.BelladonnaCropBlock;
+import net.outta_space.witchery.block.custom.MandrakeCropBlock;
+import net.outta_space.witchery.block.custom.WaterArtichokeCropBlock;
+import net.outta_space.witchery.block.custom.WitcheryCropBlock;
+
+import java.util.function.Function;
 
 public class ModBlockStateProvider extends BlockStateProvider {
     public ModBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -20,6 +30,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
 
+        /**********************************************************************
+         * Tree and wood items
+         ***********************************************************************/
+
+        ///////////
+        // ROWAN //
+        ///////////
         logBlock((RotatedPillarBlock) ModBlocks.ROWAN_LOG.get());
         axisBlock((RotatedPillarBlock) ModBlocks.ROWAN_WOOD.get(), blockTexture(ModBlocks.ROWAN_LOG.get()), blockTexture(ModBlocks.ROWAN_LOG.get()));
         axisBlock((RotatedPillarBlock) ModBlocks.STRIPPED_ROWAN_LOG.get(), new ResourceLocation(WitcheryMod.MOD_ID, "block/stripped_rowan_log"),
@@ -34,6 +51,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(ModBlocks.ROWAN_LEAVES);
         saplingBlock(ModBlocks.ROWAN_SAPLING);
 
+        ///////////
+        // ALDER //
+        ///////////
         logBlock((RotatedPillarBlock) ModBlocks.ALDER_LOG.get());
         axisBlock((RotatedPillarBlock) ModBlocks.ALDER_WOOD.get(), blockTexture(ModBlocks.ALDER_LOG.get()), blockTexture(ModBlocks.ALDER_LOG.get()));
         axisBlock((RotatedPillarBlock) ModBlocks.STRIPPED_ALDER_LOG.get(), new ResourceLocation(WitcheryMod.MOD_ID, "block/stripped_alder_log"),
@@ -48,6 +68,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(ModBlocks.ALDER_LEAVES);
         saplingBlock(ModBlocks.ALDER_SAPLING);
 
+        //////////////
+        // HAWTHORN //
+        //////////////
         logBlock((RotatedPillarBlock) ModBlocks.HAWTHORN_LOG.get());
         axisBlock((RotatedPillarBlock) ModBlocks.HAWTHORN_WOOD.get(), blockTexture(ModBlocks.HAWTHORN_LOG.get()), blockTexture(ModBlocks.HAWTHORN_LOG.get()));
         axisBlock((RotatedPillarBlock) ModBlocks.STRIPPED_HAWTHORN_LOG.get(), new ResourceLocation(WitcheryMod.MOD_ID, "block/stripped_hawthorn_log"),
@@ -62,8 +85,38 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(ModBlocks.HAWTHORN_LEAVES);
         saplingBlock(ModBlocks.HAWTHORN_SAPLING);
 
+        /**********************************************************************
+         * End of tree and wood items
+         ***********************************************************************/
+
+        /**********************************************************************
+         * Crop items
+         ***********************************************************************/
+
+        makeCrop((BelladonnaCropBlock) ModBlocks.BELLADONNA_CROP.get(), "belladonna_stage", "belladonna_stage");
+        makeCrop((MandrakeCropBlock) ModBlocks.MANDRAKE_CROP.get(), "mandrake_stage", "mandrake_stage");
+        makeCrop((WaterArtichokeCropBlock) ModBlocks.WATER_ARTICHOKE_CROP.get(), "water_artichoke_stage", "water_artichoke_stage");
 
 
+        /**********************************************************************
+         * End of crop items
+         ***********************************************************************/
+
+
+    }
+
+    public void makeCrop(CropBlock block, String modelName, String textureName) {
+        Function<BlockState, ConfiguredModel[]> function = state -> states(state, block, modelName, textureName);
+
+        getVariantBuilder(block).forAllStates(function);
+    }
+
+    private ConfiguredModel[] states(BlockState state, CropBlock block, String modelName, String textureName) {
+        ConfiguredModel[] models = new ConfiguredModel[1];
+        models[0] = new ConfiguredModel(models().crop(modelName + state.getValue(((WitcheryCropBlock) block).getAgeProperty()),
+                new ResourceLocation(WitcheryMod.MOD_ID, "block/" + textureName + state.getValue(((WitcheryCropBlock) block).getAgeProperty()))).renderType("cutout"));
+
+        return models;
     }
 
     private void leavesBlock(RegistryObject<Block> blockRegistryObject) {

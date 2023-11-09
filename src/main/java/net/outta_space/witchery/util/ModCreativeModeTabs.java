@@ -1,4 +1,4 @@
-package net.outta_space.witchery;
+package net.outta_space.witchery.util;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -20,9 +20,28 @@ public class ModCreativeModeTabs {
                 .title(Component.translatable("creativetab.witchery_tab"))
                 .displayItems((displayParameters, output) -> {
 
+                    /************************************************************
+                     * Seed and crop items
+                     ************************************************************/
+                    output.accept(ModItems.BELLADONNA_SEEDS.get());
+                    output.accept(ModItems.BELLADONNA_FLOWER.get());
+                    output.accept(ModItems.MANDRAKE_SEEDS.get());
+                    output.accept(ModItems.MANDRAKE_ROOT.get());
+                    output.accept(ModItems.WATER_ARTICHOKE_SEEDS.get());
+                    output.accept(ModItems.WATER_ARTICHOKE.get());
+
+                    /************************************************************
+                     * Basic items
+                     ************************************************************/
+
                     output.accept(ModItems.WOOD_ASH.get());
                     output.accept(ModItems.RAW_CLAY_VESSEL.get());
                     output.accept(ModItems.CLAY_VESSEL.get());
+
+                    /************************************************************
+                     * Bottled magic items
+                     ************************************************************/
+
                     output.accept(ModItems.EXHALE_OF_THE_HORNED_ONE.get());
                     output.accept(ModItems.HINT_OF_REBIRTH.get());
                     output.accept(ModItems.BREATH_OF_THE_GODDESS.get());
@@ -31,6 +50,13 @@ public class ModCreativeModeTabs {
                     output.accept(ModItems.REEK_OF_MISFORTUNE.get());
                     output.accept(ModItems.ODOUR_OF_PURITY.get());
 
+                    /************************************************************
+                     * Tree and wood items
+                     ************************************************************/
+
+                    ///////////
+                    // ROWAN //
+                    ///////////
                     output.accept(ModBlocks.ROWAN_SAPLING.get());
                     output.accept(ModBlocks.ROWAN_LOG.get());
                     output.accept(ModBlocks.STRIPPED_ROWAN_LOG.get());
@@ -39,6 +65,9 @@ public class ModCreativeModeTabs {
                     output.accept(ModBlocks.ROWAN_LEAVES.get());
                     output.accept(ModBlocks.ROWAN_PLANKS.get());
 
+                    ///////////
+                    // ALDER //
+                    ///////////
                     output.accept(ModBlocks.ALDER_SAPLING.get());
                     output.accept(ModBlocks.ALDER_LOG.get());
                     output.accept(ModBlocks.STRIPPED_ALDER_LOG.get());
@@ -47,6 +76,9 @@ public class ModCreativeModeTabs {
                     output.accept(ModBlocks.ALDER_LEAVES.get());
                     output.accept(ModBlocks.ALDER_PLANKS.get());
 
+                    //////////////
+                    // HAWTHORN //
+                    //////////////
                     output.accept(ModBlocks.HAWTHORN_SAPLING.get());
                     output.accept(ModBlocks.HAWTHORN_LOG.get());
                     output.accept(ModBlocks.STRIPPED_HAWTHORN_LOG.get());
