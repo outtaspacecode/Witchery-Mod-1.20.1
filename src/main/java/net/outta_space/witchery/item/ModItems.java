@@ -84,6 +84,27 @@ public class ModItems {
     public static final RegistryObject<Item> WATER_ARTICHOKE = ITEMS.register("water_artichoke",
             () -> new Item(new Item.Properties()));
 
+    //////////////
+    // SNOWBELL //
+    //////////////
+    public static final RegistryObject<Item> SNOWBELL_SEEDS = ITEMS.register("snowbell_seeds",
+            () -> new ItemNameBlockItem(ModBlocks.SNOWBELL_CROP.get(), new Item.Properties()));
+
+    ///////////////
+    // WOLFSBANE //
+    ///////////////
+    public static final RegistryObject<Item> WOLFSBANE_SEEDS = ITEMS.register("wolfsbane_seeds",
+            () -> new ItemNameBlockItem(ModBlocks.WOLFSBANE_CROP.get(), new Item.Properties()));
+    public static final RegistryObject<Item> WOLFSBANE = ITEMS.register("wolfsbane",
+            () -> new Item(new Item.Properties()));
+
+    //////////////
+    // WORMWOOD //
+    //////////////
+    public static final RegistryObject<Item> WORMWOOD_SEEDS = ITEMS.register("wormwood_seeds",
+            () -> new ItemNameBlockItem(ModBlocks.WORMWOOD_CROP.get(), new Item.Properties()));
+    public static final RegistryObject<Item> WORMWOOD = ITEMS.register("wormwood",
+            () -> new Item(new Item.Properties()));
 
 
 

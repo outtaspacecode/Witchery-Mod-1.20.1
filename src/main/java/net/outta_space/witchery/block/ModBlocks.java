@@ -2,7 +2,6 @@ package net.outta_space.witchery.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
@@ -15,10 +14,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.block.custom.*;
+import net.outta_space.witchery.block.custom.crobblock.*;
 import net.outta_space.witchery.item.ModItems;
 
 import java.util.function.Supplier;
-import java.util.random.RandomGenerator;
 
 public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
@@ -35,6 +34,9 @@ public class ModBlocks {
      *      - Belladonna
      *      - Mandrake
      *      - Water Artichoke
+     *      - Snowbell
+     *      - Wolfsbane
+     *      - Wormwood
      ********************************************************************************************/
 
     ////////////////
@@ -55,6 +57,24 @@ public class ModBlocks {
     /////////////////////
     public static final RegistryObject<Block> WATER_ARTICHOKE_CROP = BLOCKS.register("water_artichoke_crop",
             () -> new WaterArtichokeCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT).noCollission().noOcclusion()));
+
+    //////////////
+    // SNOWBELL //
+    //////////////
+    public static final RegistryObject<Block> SNOWBELL_CROP = BLOCKS.register("snowbell_crop",
+            () -> new SnowBellCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT).noCollission().noOcclusion()));
+
+    ///////////////
+    // WOLFSBANE //
+    ///////////////
+    public static final RegistryObject<Block> WOLFSBANE_CROP = BLOCKS.register("wolfsbane_crop",
+            () -> new WolfsbaneCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT).noCollission().noOcclusion()));
+
+    //////////////
+    // WORMWOOD //
+    //////////////
+    public static final RegistryObject<Block> WORMWOOD_CROP = BLOCKS.register("wormwood_crop",
+            () -> new WormwoodCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT).noCollission().noOcclusion()));
 
 
     /********************************************************************************************

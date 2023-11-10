@@ -35,6 +35,8 @@ public class AnointingPasteItem extends Item {
             if(pBlock.is(Blocks.CAULDRON)) {
                 pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
                         SoundEvents.PLAYER_LEVELUP ,SoundSource.BLOCKS, 1f, -1f, 0);
+                pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
+                        SoundEvents.LAVA_EXTINGUISH ,SoundSource.BLOCKS, 1f, -1f, 0);
                 pLevel.setBlockAndUpdate(pPos, ModBlocks.WITCH_CAULDRON.get().defaultBlockState());
                 assert pPlayer != null;
                 pContext.getItemInHand().setCount(pContext.getItemInHand().getCount() - 1);

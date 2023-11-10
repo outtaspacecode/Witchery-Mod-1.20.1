@@ -2,11 +2,9 @@ package net.outta_space.witchery.datagen;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
@@ -16,7 +14,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.block.ModBlocks;
-import net.outta_space.witchery.block.custom.*;
+import net.outta_space.witchery.block.custom.crobblock.*;
 
 import java.util.function.Function;
 
@@ -97,9 +95,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
          * Crop items
          ***********************************************************************/
 
-        makeCrop((BelladonnaCropBlock) ModBlocks.BELLADONNA_CROP.get(), "belladonna_stage", "belladonna_stage");
-        makeCrop((MandrakeCropBlock) ModBlocks.MANDRAKE_CROP.get(), "mandrake_stage", "mandrake_stage");
-        makeCrop((WaterArtichokeCropBlock) ModBlocks.WATER_ARTICHOKE_CROP.get(), "water_artichoke_stage", "water_artichoke_stage");
+        makeCrop((BelladonnaCropBlock) ModBlocks.BELLADONNA_CROP.get(), "belladonna_stage", "belladonna_stage", false);
+        makeCrop((MandrakeCropBlock) ModBlocks.MANDRAKE_CROP.get(), "mandrake_stage", "mandrake_stage", false);
+        makeCrop((WaterArtichokeCropBlock) ModBlocks.WATER_ARTICHOKE_CROP.get(), "water_artichoke_stage", "water_artichoke_stage", false);
+        makeCrop((SnowBellCropBlock) ModBlocks.SNOWBELL_CROP.get(), "snowbell_stage", "snowbell_stage", true);
+        makeCrop((WolfsbaneCropBlock) ModBlocks.WOLFSBANE_CROP.get(), "wolfsbane_stage", "wolfsbane_stage", true);
+        makeCrop((WormwoodCropBlock) ModBlocks.WORMWOOD_CROP.get(), "wormwood_stage", "wormwood_stage", true);
 
 
         /**********************************************************************
@@ -109,16 +110,21 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     }
 
-    public void makeCrop(CropBlock block, String modelName, String textureName) {
-        Function<BlockState, ConfiguredModel[]> function = state -> states(state, block, modelName, textureName);
+    public void makeCrop(CropBlock block, String modelName, String textureName, boolean isCross) {
+        Function<BlockState, ConfiguredModel[]> function = state -> states(state, block, modelName, textureName, isCross);
 
         getVariantBuilder(block).forAllStates(function);
     }
 
-    private ConfiguredModel[] states(BlockState state, CropBlock block, String modelName, String textureName) {
+    private ConfiguredModel[] states(BlockState state, CropBlock block, String modelName, String textureName, boolean isCross) {
         ConfiguredModel[] models = new ConfiguredModel[1];
-        models[0] = new ConfiguredModel(models().crop(modelName + state.getValue(((WitcheryCropBlock) block).getAgeProperty()),
-                new ResourceLocation(WitcheryMod.MOD_ID, "block/" + textureName + state.getValue(((WitcheryCropBlock) block).getAgeProperty()))).renderType("cutout"));
+        if(isCross) {
+            models[0] = new ConfiguredModel(models().cross(modelName + state.getValue(((WitcheryCropBlock) block).getAgeProperty()),
+                    new ResourceLocation(WitcheryMod.MOD_ID, "block/" + textureName + state.getValue(((WitcheryCropBlock) block).getAgeProperty()))).renderType("cutout"));
+        } else {
+            models[0] = new ConfiguredModel(models().crop(modelName + state.getValue(((WitcheryCropBlock) block).getAgeProperty()),
+                    new ResourceLocation(WitcheryMod.MOD_ID, "block/" + textureName + state.getValue(((WitcheryCropBlock) block).getAgeProperty()))).renderType("cutout"));
+        }
 
         return models;
     }

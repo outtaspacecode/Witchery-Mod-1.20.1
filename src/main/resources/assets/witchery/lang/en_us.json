@@ -49,5 +49,10 @@
   "item.witchery.mandrake_seeds" : "Mandrake Seeds",
   "item.witchery.mandrake_root" : "Mandrake Root",
   "block.witchery.water_artichoke_crop" : "Water Artichoke Seeds",
-  "item.witchery.water_artichoke" : "Water Artichoke"
+  "item.witchery.water_artichoke" : "Water Artichoke",
+  "item.witchery.snowbell_seeds": "Snowbell Seeds",
+  "item.witchery.wolfsbane_seeds": "Wolfsbane Seeds",
+  "item.witchery.wolfsbane": "Wolfsbane",
+  "item.witchery.wormwood_seeds": "Wormwood Seeds",
+  "item.witchery.wormwood": "Wormwood"
 }

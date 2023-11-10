@@ -29,11 +29,17 @@ public class ModCreativeModeTabs {
                     output.accept(ModItems.MANDRAKE_ROOT.get());
                     output.accept(ModItems.WATER_ARTICHOKE_SEEDS.get());
                     output.accept(ModItems.WATER_ARTICHOKE.get());
+                    output.accept(ModItems.SNOWBELL_SEEDS.get());
+                    output.accept(ModItems.WOLFSBANE_SEEDS.get());
+                    output.accept(ModItems.WOLFSBANE.get());
+                    output.accept(ModItems.WORMWOOD_SEEDS.get());
+                    output.accept(ModItems.WORMWOOD.get());
 
                     /************************************************************
                      * Basic items
                      ************************************************************/
 
+                    output.accept(ModItems.ANOINTING_PASTE.get());
                     output.accept(ModBlocks.WITCH_CAULDRON.get());
                     output.accept(ModItems.WOOD_ASH.get());
                     output.accept(ModItems.RAW_CLAY_VESSEL.get());

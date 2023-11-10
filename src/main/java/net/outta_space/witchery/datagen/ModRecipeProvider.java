@@ -40,6 +40,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .requires(ModItems.WATER_ARTICHOKE_SEEDS.get())
                 .requires(ModItems.MANDRAKE_SEEDS.get())
                 .requires(ModItems.BELLADONNA_SEEDS.get())
+                .requires(ModItems.SNOWBELL_SEEDS.get())
                 .unlockedBy("has_belladonna_seeds", inventoryTrigger(ItemPredicate.Builder.item()
                         .of(ModItems.BELLADONNA_SEEDS.get()).build()))
                 .save(pWriter);

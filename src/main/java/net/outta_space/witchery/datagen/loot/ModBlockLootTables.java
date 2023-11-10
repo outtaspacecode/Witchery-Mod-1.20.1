@@ -2,16 +2,14 @@ package net.outta_space.witchery.datagen.loot;
 
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.registries.RegistryObject;
 import net.outta_space.witchery.block.ModBlocks;
-import net.outta_space.witchery.block.custom.BelladonnaCropBlock;
-import net.outta_space.witchery.block.custom.MandrakeCropBlock;
-import net.outta_space.witchery.block.custom.WaterArtichokeCropBlock;
+import net.outta_space.witchery.block.custom.crobblock.*;
 import net.outta_space.witchery.item.ModItems;
 
 import java.util.Set;
@@ -47,13 +45,37 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.add(ModBlocks.MANDRAKE_CROP.get(), this.createCropDrops(ModBlocks.MANDRAKE_CROP.get(),
                 ModItems.MANDRAKE_ROOT.get(), ModItems.MANDRAKE_SEEDS.get(), lootitemcondition$builder2));
 
-        //////////////
-        // MANDRAKE //
-        //////////////
+        /////////////////////
+        // WATER ARTICHOKE //
+        /////////////////////
         LootItemCondition.Builder lootitemcondition$builder3 = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.WATER_ARTICHOKE_CROP.get())
                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WaterArtichokeCropBlock.AGE, 4));
         this.add(ModBlocks.WATER_ARTICHOKE_CROP.get(), this.createCropDrops(ModBlocks.WATER_ARTICHOKE_CROP.get(),
                 ModItems.WATER_ARTICHOKE.get(), ModItems.WATER_ARTICHOKE_SEEDS.get(), lootitemcondition$builder3));
+
+        //////////////
+        // SNOWBELL //
+        //////////////
+        LootItemCondition.Builder lootitemcondition$builder4 = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.SNOWBELL_CROP.get())
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SnowBellCropBlock.AGE, 4));
+        this.add(ModBlocks.SNOWBELL_CROP.get(), this.createCropDrops(ModBlocks.SNOWBELL_CROP.get(),
+                Items.SNOWBALL, ModItems.SNOWBELL_SEEDS.get(), lootitemcondition$builder4));
+
+        ///////////////
+        // WOLFSBANE //
+        ///////////////
+        LootItemCondition.Builder lootitemcondition$builder5 = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.WOLFSBANE_CROP.get())
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WolfsbaneCropBlock.AGE, 7));
+        this.add(ModBlocks.WOLFSBANE_CROP.get(), this.createCropDrops(ModBlocks.WOLFSBANE_CROP.get(),
+                ModItems.WOLFSBANE.get(), ModItems.WOLFSBANE_SEEDS.get(), lootitemcondition$builder5));
+
+        //////////////
+        // WORMWOOD //
+        //////////////
+        LootItemCondition.Builder lootitemcondition$builder6 = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.WORMWOOD_CROP.get())
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WormwoodCropBlock.AGE, 4));
+        this.add(ModBlocks.WORMWOOD_CROP.get(), this.createCropDrops(ModBlocks.WORMWOOD_CROP.get(),
+                ModItems.WORMWOOD.get(), ModItems.WORMWOOD_SEEDS.get(), lootitemcondition$builder6));
 
 
 

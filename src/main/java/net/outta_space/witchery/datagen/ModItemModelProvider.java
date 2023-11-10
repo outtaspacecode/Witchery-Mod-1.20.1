@@ -40,6 +40,11 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.MANDRAKE_ROOT);
         simpleItem(ModItems.WATER_ARTICHOKE_SEEDS);
         simpleItem(ModItems.WATER_ARTICHOKE);
+        simpleItem(ModItems.SNOWBELL_SEEDS);
+        simpleItem(ModItems.WOLFSBANE_SEEDS);
+        simpleItem(ModItems.WOLFSBANE);
+        simpleItem(ModItems.WORMWOOD_SEEDS);
+        simpleItem(ModItems.WORMWOOD);
 
         /**********************************************************************
          * Bottled Magic Items

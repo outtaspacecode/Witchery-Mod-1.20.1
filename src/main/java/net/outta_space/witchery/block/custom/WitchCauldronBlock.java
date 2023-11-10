@@ -16,6 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
@@ -27,9 +28,11 @@ import net.outta_space.witchery.block.ModBlocks;
 
 public class WitchCauldronBlock extends Block {
     public static final IntegerProperty FILL_LEVEL = IntegerProperty.create("fill_level", 0, 3);
+    public static final BooleanProperty IS_BOILING = BooleanProperty.create("is_boiling");
     public WitchCauldronBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.defaultBlockState().setValue(FILL_LEVEL, 0));
+        this.registerDefaultState(this.defaultBlockState().setValue(IS_BOILING, false));
     }
 
     private static final VoxelShape OUTSIDE = box(1.0D, 0.0D, 1.0D, 15.0D, 13.0D, 15.0D);
@@ -73,6 +76,7 @@ public class WitchCauldronBlock extends Block {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FILL_LEVEL);
+        pBuilder.add(FILL_LEVEL)
+                .add(IS_BOILING);
     }
 }
