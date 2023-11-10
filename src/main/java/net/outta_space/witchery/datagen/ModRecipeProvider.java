@@ -35,5 +35,13 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         oreSmelting(pWriter, List.of(ModItems.RAW_CLAY_VESSEL.get()), RecipeCategory.MISC, ModItems.CLAY_VESSEL.get(), 0.3f, 200, "clay_vessel");
         oreSmelting(pWriter, WITCHERY_SMELTABLE_SAPLINGS, RecipeCategory.MISC, ModItems.WOOD_ASH.get(), 0.1f, 200, "wood_ash");
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.ANOINTING_PASTE.get())
+                .requires(ModItems.WATER_ARTICHOKE_SEEDS.get())
+                .requires(ModItems.MANDRAKE_SEEDS.get())
+                .requires(ModItems.BELLADONNA_SEEDS.get())
+                .unlockedBy("has_belladonna_seeds", inventoryTrigger(ItemPredicate.Builder.item()
+                        .of(ModItems.BELLADONNA_SEEDS.get()).build()))
+                .save(pWriter);
     }
 }

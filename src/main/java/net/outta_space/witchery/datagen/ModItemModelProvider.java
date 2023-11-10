@@ -25,6 +25,10 @@ public class ModItemModelProvider extends ItemModelProvider {
         /**********************************************************************
          * Basic Items
          ***********************************************************************/
+        simpleItem(ModItems.WOOD_ASH);
+        simpleItem(ModItems.RAW_CLAY_VESSEL);
+        simpleItem(ModItems.CLAY_VESSEL);
+        simpleItem(ModItems.ANOINTING_PASTE);
         modeledBlock(ModBlocks.WITCH_CAULDRON.get());
 
         /**********************************************************************
@@ -40,9 +44,6 @@ public class ModItemModelProvider extends ItemModelProvider {
         /**********************************************************************
          * Bottled Magic Items
          ***********************************************************************/
-        simpleItem(ModItems.WOOD_ASH);
-        simpleItem(ModItems.RAW_CLAY_VESSEL);
-        simpleItem(ModItems.CLAY_VESSEL);
         simpleItem(ModItems.EXHALE_OF_THE_HORNED_ONE);
         simpleItem(ModItems.HINT_OF_REBIRTH);
         simpleItem(ModItems.BREATH_OF_THE_GODDESS);
