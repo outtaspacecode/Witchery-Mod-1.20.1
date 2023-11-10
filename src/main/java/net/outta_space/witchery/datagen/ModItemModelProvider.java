@@ -2,11 +2,13 @@ package net.outta_space.witchery.datagen;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.block.ModBlocks;
@@ -19,6 +21,11 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+
+        /**********************************************************************
+         * Basic Items
+         ***********************************************************************/
+        complexBlock(ModBlocks.WITCH_CAULDRON.get());
 
         /**********************************************************************
          * Crop Items
@@ -50,6 +57,11 @@ public class ModItemModelProvider extends ItemModelProvider {
         saplingItem(ModBlocks.ROWAN_SAPLING);
         saplingItem(ModBlocks.ALDER_SAPLING);
         saplingItem(ModBlocks.HAWTHORN_SAPLING);
+    }
+
+    private ItemModelBuilder complexBlock(Block block) {
+        return withExistingParent(ForgeRegistries.BLOCKS.getKey(block).getPath(), new ResourceLocation(WitcheryMod.MOD_ID,
+                "block/" + ForgeRegistries.BLOCKS.getKey(block).getPath()));
     }
 
     private ItemModelBuilder saplingItem(RegistryObject<Block> item) {

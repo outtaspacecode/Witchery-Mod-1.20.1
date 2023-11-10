@@ -29,6 +29,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
 
         /**********************************************************************
+         * Basic items
+         ***********************************************************************/
+        horizontalBlock(ModBlocks.WITCH_CAULDRON.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/witch_cauldron")));
+
+        /**********************************************************************
          * Tree and wood items
          ***********************************************************************/
 

@@ -34,6 +34,7 @@ public class ModCreativeModeTabs {
                      * Basic items
                      ************************************************************/
 
+                    output.accept(ModBlocks.WITCH_CAULDRON.get());
                     output.accept(ModItems.WOOD_ASH.get());
                     output.accept(ModItems.RAW_CLAY_VESSEL.get());
                     output.accept(ModItems.CLAY_VESSEL.get());

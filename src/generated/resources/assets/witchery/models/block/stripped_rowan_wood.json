@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "witchery:block/stripped_rowan_log",
-    "side": "witchery:block/stripped_rowan_log"
-  }
-}

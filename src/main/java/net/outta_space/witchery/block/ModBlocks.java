@@ -16,10 +16,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.outta_space.witchery.WitcheryMod;
-import net.outta_space.witchery.block.custom.BelladonnaCropBlock;
-import net.outta_space.witchery.block.custom.MandrakeCropBlock;
-import net.outta_space.witchery.block.custom.ModFlammableRotatedPillarBlock;
-import net.outta_space.witchery.block.custom.WaterArtichokeCropBlock;
+import net.outta_space.witchery.block.custom.*;
 import net.outta_space.witchery.item.ModItems;
 
 import java.util.function.Supplier;
@@ -29,10 +26,17 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, WitcheryMod.MOD_ID);
 
+    /*******************************************************************************************
+     * Basic Blocks
+     ********************************************************************************************/
+    public static final RegistryObject<Block> WITCH_CAULDRON = registerBlock("witch_cauldron",
+            () -> new WitchCauldronBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
 
     /*******************************************************************************************
      * Crop Blocks:
      *      - Belladonna
+     *      - Mandrake
+     *      - Water Artichoke
      ********************************************************************************************/
 
     ////////////////
