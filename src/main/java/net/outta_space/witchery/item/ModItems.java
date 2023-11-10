@@ -10,8 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.item.custom.AnointingPasteItem;
-
-import javax.swing.*;
+import net.outta_space.witchery.item.custom.chalk.GoldenChalkItem;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
@@ -28,6 +27,9 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ANOINTING_PASTE = ITEMS.register("anointing_paste",
             () -> new AnointingPasteItem(new Item.Properties()));
+
+    public static final RegistryObject<Item> GOLDEN_CHALK = ITEMS.register("golden_chalk",
+            () -> new GoldenChalkItem(ModBlocks.HEART_GLYPH.get(), new Item.Properties().durability(65)));
 
 
 

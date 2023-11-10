@@ -14,6 +14,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.item.ModItems;
+import net.outta_space.witchery.sound.ModSounds;
 import net.outta_space.witchery.util.ModCreativeModeTabs;
 import org.slf4j.Logger;
 
@@ -33,6 +34,7 @@ public class WitcheryMod {
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
 
+        ModSounds.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 

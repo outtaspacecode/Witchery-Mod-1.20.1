@@ -30,6 +30,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.CLAY_VESSEL);
         simpleItem(ModItems.ANOINTING_PASTE);
         modeledBlock(ModBlocks.WITCH_CAULDRON.get());
+        simpleItem(ModItems.GOLDEN_CHALK);
 
         /**********************************************************************
          * Crop Items

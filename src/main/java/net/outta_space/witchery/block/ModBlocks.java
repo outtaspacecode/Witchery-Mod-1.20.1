@@ -2,6 +2,7 @@ package net.outta_space.witchery.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
@@ -16,6 +17,7 @@ import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.block.custom.*;
 import net.outta_space.witchery.block.custom.crobblock.*;
 import net.outta_space.witchery.item.ModItems;
+import net.outta_space.witchery.sound.ModSounds;
 
 import java.util.function.Supplier;
 
@@ -28,6 +30,9 @@ public class ModBlocks {
      ********************************************************************************************/
     public static final RegistryObject<Block> WITCH_CAULDRON = registerBlock("witch_cauldron",
             () -> new WitchCauldronBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).noOcclusion()));
+
+    public static final RegistryObject<Block> HEART_GLYPH = registerBlock("heart_glyph",
+            () -> new HeartGlyphBlock(BlockBehaviour.Properties.copy(Blocks.CYAN_CARPET).sound(SoundType.STONE).noOcclusion()));
 
     /*******************************************************************************************
      * Crop Blocks:

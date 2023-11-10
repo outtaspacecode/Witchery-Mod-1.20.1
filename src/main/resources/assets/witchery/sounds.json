@@ -1,0 +1,8 @@
+{
+  "draw_with_chalk": {
+    "subtitle": "sounds.witchery.draw_with_chalk",
+    "sounds": [
+      "witchery:draw_with_chalk"
+    ]
+  }
+}
