@@ -31,7 +31,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         /**********************************************************************
          * Basic items
          ***********************************************************************/
-        horizontalBlock(ModBlocks.WITCH_CAULDRON.get(),
+        simpleBlock(ModBlocks.WITCH_CAULDRON.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/witch_cauldron")));
 
         /**********************************************************************

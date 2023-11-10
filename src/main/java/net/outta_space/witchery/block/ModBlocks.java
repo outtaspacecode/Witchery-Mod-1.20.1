@@ -2,13 +2,11 @@ package net.outta_space.witchery.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LeavesBlock;
-import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -30,7 +28,7 @@ public class ModBlocks {
      * Basic Blocks
      ********************************************************************************************/
     public static final RegistryObject<Block> WITCH_CAULDRON = registerBlock("witch_cauldron",
-            () -> new WitchCauldronBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
+            () -> new WitchCauldronBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).noOcclusion()));
 
     /*******************************************************************************************
      * Crop Blocks:

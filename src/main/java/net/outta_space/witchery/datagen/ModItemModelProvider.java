@@ -25,7 +25,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         /**********************************************************************
          * Basic Items
          ***********************************************************************/
-        complexBlock(ModBlocks.WITCH_CAULDRON.get());
+        modeledBlock(ModBlocks.WITCH_CAULDRON.get());
 
         /**********************************************************************
          * Crop Items
@@ -59,7 +59,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         saplingItem(ModBlocks.HAWTHORN_SAPLING);
     }
 
-    private ItemModelBuilder complexBlock(Block block) {
+    private ItemModelBuilder modeledBlock(Block block) {
         return withExistingParent(ForgeRegistries.BLOCKS.getKey(block).getPath(), new ResourceLocation(WitcheryMod.MOD_ID,
                 "block/" + ForgeRegistries.BLOCKS.getKey(block).getPath()));
     }
