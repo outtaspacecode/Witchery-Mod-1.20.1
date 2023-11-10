@@ -1,46 +1,39 @@
+A mod originally by Emoniph.
+https://www.curseforge.com/minecraft/mc-mods/witchery
 
-Source installation information for modders
--------------------------------------------
-This code follows the Minecraft Forge installation methodology. It will apply
-some small patches to the vanilla MCP source code, giving you and it access 
-to some of the data and functions you need to build a successful mod.
+Due to the extensive protective nature of the language around the original Witchery mod made by
+Emoniph, this mod will most likely never come close to being able to be published for the general
+public.
 
-Note also that the patches are built against "un-renamed" MCP source code (aka
-SRG Names) - this means that you will not be able to read them directly against
-normal code.
+This mod recreation is a passion project, as it is hands down my favorite mod ever made. It is very sad
+to me that it has now been discontinued for the better part of a decade, and it is for that reason that
+I decided to remake it. As has been stated, almost certainly I will not be able to publicly release the
+mod, so it will boil down to my own sole personal use. It pains me to know that many will likely never
+even know the greatness of the Witchery mod.
 
-Setup Process:
-==============================
+I hope to be able to reach out to Emoniph and gain permission to release this mod to the public,
+however I am not hopeful.
 
-Step 1: Open your command-line and browse to the folder where you extracted the zip file.
 
-Step 2: You're left with a choice.
-If you prefer to use Eclipse:
-1. Run the following command: `gradlew genEclipseRuns` (`./gradlew genEclipseRuns` if you are on Mac/Linux)
-2. Open Eclipse, Import > Existing Gradle Project > Select Folder 
-   or run `gradlew eclipse` to generate the project.
+The original CurseForge description of the mod:
+"Witchery allows players to explore the magical art of witchcraft and though it, to learn to control the natural magic present in the world (and sometimes other dimensions).
 
-If you prefer to use IntelliJ:
-1. Open IDEA, and import project.
-2. Select your build.gradle file and have it import.
-3. Run the following command: `gradlew genIntellijRuns` (`./gradlew genIntellijRuns` if you are on Mac/Linux)
-4. Refresh the Gradle Project in IDEA if required.
+ Witchery provides several branches of witchcraft for a new witch or warlock to try their hand at. Witchcraft does not really resemble the flashy spell-casting performed by wizards and their ilk. There are no lightning wands or spell books, enchanted armor or flaming swords; instead, a well tended witch's garden will provide a lot of helpful ingredients for magic that will get you out of the occasional scrape.
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can 
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+ There are of course darker sides to magic; and although these may bring power more quickly, the cost may be too high. Making bargains with demons should never be undertaken lightly!
 
-Mapping Names:
-=============================
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license, if you do not agree with it you can change your mapping names to other crowdsourced names in your 
-build.gradle. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/MinecraftForge/MCPConfig/blob/master/Mojang.md
+ Notable features:
+  - Witches Garden
+  - Brewing with a Kettle
+  - Poppets and Voodoo Dolls
+  - Dream Weaving and Spirit World dimension
+  - Circle Magic and Rituals
+  - Necromancy and Demonology
+  - Dimensional Infusions
+  - Mutation
+  - Familiars
+  - Covens
+  - Become a werewolf or vampire
+  - New mobs, plants and plant mobs"
 
-Additional Resources: 
-=========================
-Community Documentation: https://mcforge.readthedocs.io/en/latest/gettingstarted/  
-LexManos' Install Video: https://www.youtube.com/watch?v=8VEdtQLuLO0  
-Forge Forum: https://forums.minecraftforge.net/  
-Forge Discord: https://discord.gg/UvedJ9m  
+  Further information can be found at the above link and on the Wayback Machine's archived version of the mod's Wiki.
