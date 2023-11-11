@@ -44,5 +44,14 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_belladonna_seeds", inventoryTrigger(ItemPredicate.Builder.item()
                         .of(ModItems.BELLADONNA_SEEDS.get()).build()))
                 .save(pWriter);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.BROOM.get())
+                .pattern(" A ")
+                .pattern(" A ")
+                .pattern("BBB")
+                .define('A', Items.STICK)
+                .define('B', ModBlocks.HAWTHORN_SAPLING.get())
+                .unlockedBy("has_hawthorn_sapling", inventoryTrigger(ItemPredicate.Builder.item().of(ModBlocks.HAWTHORN_SAPLING.get()).build()))
+                .save(pWriter);
     }
 }

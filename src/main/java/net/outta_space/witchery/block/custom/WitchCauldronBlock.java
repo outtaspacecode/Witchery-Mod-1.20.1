@@ -25,6 +25,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.outta_space.witchery.block.ModBlocks;
+import org.jetbrains.annotations.NotNull;
 
 
 public class WitchCauldronBlock extends Block {
@@ -45,7 +46,7 @@ public class WitchCauldronBlock extends Block {
     //protected double FILL_LEVEL = 0.0D;
     protected static final int FULL = 3;
     @Override
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    public @NotNull VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPE;
     }
 

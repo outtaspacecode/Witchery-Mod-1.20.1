@@ -32,7 +32,7 @@ public class ModBlocks {
             () -> new WitchCauldronBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).noOcclusion()));
 
     public static final RegistryObject<Block> HEART_GLYPH = registerBlock("heart_glyph",
-            () -> new HeartGlyphBlock(BlockBehaviour.Properties.copy(Blocks.CYAN_CARPET).sound(SoundType.STONE).noOcclusion().noCollission()));
+            () -> new HeartGlyphBlock(BlockBehaviour.Properties.copy(Blocks.CYAN_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission()));
 
     /*******************************************************************************************
      * Crop Blocks:

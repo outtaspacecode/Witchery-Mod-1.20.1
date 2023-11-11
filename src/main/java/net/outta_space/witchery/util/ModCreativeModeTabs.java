@@ -40,6 +40,7 @@ public class ModCreativeModeTabs {
                      ************************************************************/
 
                     output.accept(ModItems.GOLDEN_CHALK.get());
+                    output.accept(ModItems.BROOM.get());
                     output.accept(ModItems.ANOINTING_PASTE.get());
                     output.accept(ModBlocks.WITCH_CAULDRON.get());
                     output.accept(ModItems.WOOD_ASH.get());
