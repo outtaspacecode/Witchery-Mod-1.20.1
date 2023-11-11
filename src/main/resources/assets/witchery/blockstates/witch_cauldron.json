@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "fill_level=0": {
+      "model": "witchery:block/witch_cauldron"
+    },
+    "fill_level=1": {
+      "model": "witchery:block/witch_cauldron1"
+    },
+    "fill_level=2": {
+      "model": "witchery:block/witch_cauldron2"
+    },
+    "fill_level=3": {
+      "model": "witchery:block/witch_cauldron3"
+    }
+  }
+}

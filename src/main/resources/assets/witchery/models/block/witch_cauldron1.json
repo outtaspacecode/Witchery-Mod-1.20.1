@@ -1,7 +1,9 @@
 {
+	"ambientocclusion": false,
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "witchery:block/witch_cauldron",
+		"1": "block/water_still",
 		"particle": "block/cauldron_bottom"
 	},
 	"elements": [
@@ -256,45 +258,15 @@
 				"up": {"uv": [0.5, 0.25, 0.75, 0.5], "texture": "#0"},
 				"down": {"uv": [0.5, 0.25, 0.75, 0.5], "texture": "#0"}
 			}
+		},
+		{
+			"from": [2, 3, 2],
+			"to": [14, 6, 14],
+			"faces": {
+				"up": { "texture": "#1", "tintindex": 0 }
+			}
 		}
 	],
-	"display": {
-		"thirdperson_righthand": {
-			"rotation": [45, 45, 0],
-			"translation": [0, 2.25, -0.5],
-			"scale": [0.25, 0.25, 0.25]
-		},
-		"thirdperson_lefthand": {
-			"rotation": [45, 45, 0],
-			"translation": [0, 2.25, -0.5],
-			"scale": [0.25, 0.25, 0.25]
-		},
-		"firstperson_righthand": {
-			"rotation": [3, -2, 0],
-			"translation": [-1, 0, 0],
-			"scale": [0.5, 0.5, 0.5]
-		},
-		"firstperson_lefthand": {
-			"rotation": [3, -2, 0],
-			"translation": [-1, 0, 0],
-			"scale": [0.5, 0.5, 0.5]
-		},
-		"ground": {
-			"translation": [0, 0.5, 0],
-			"scale": [0.25, 0.25, 0.25]
-		},
-		"gui": {
-			"rotation": [20, 40, 0],
-			"scale": [0.65, 0.65, 0.65]
-		},
-		"head": {
-			"translation": [0, 11.5, 0]
-		},
-		"fixed": {
-			"translation": [0, 0, 1.5],
-			"scale": [0.85, 0.85, 0.85]
-		}
-	},
 	"groups": [
 		{
 			"name": "North",
@@ -325,6 +297,8 @@
 			"origin": [8, 8, 8],
 			"color": 0,
 			"children": [16, 17, 18, 19, 20]
-		}
-	]
+		},
+		21
+	],
+	"ambient_occlusion": false
 }
