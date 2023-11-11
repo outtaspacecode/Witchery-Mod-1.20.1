@@ -6,7 +6,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -15,7 +14,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.block.ModBlocks;
-import net.outta_space.witchery.block.custom.crobblock.*;
+import net.outta_space.witchery.block.custom.cropblock.*;
 
 import java.util.function.Function;
 
@@ -30,8 +29,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         /**********************************************************************
          * Basic items
          ***********************************************************************/
-        //simpleBlock(ModBlocks.WITCH_CAULDRON.get(),
-        //        new ModelFile.UncheckedModelFile(modLoc("block/witch_cauldron")));
         carpetBlock(ModBlocks.HEART_GLYPH);
 
         /**********************************************************************

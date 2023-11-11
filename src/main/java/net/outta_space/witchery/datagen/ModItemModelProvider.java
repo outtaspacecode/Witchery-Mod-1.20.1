@@ -31,7 +31,13 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.ANOINTING_PASTE);
         modeledBlock(ModBlocks.WITCH_CAULDRON.get());
         simpleItem(ModItems.GOLDEN_CHALK);
+        simpleItem(ModItems.RITUAL_CHALK);
+        simpleItem(ModItems.INFERNAL_CHALK);
+        simpleItem(ModItems.OTHERWHERE_CHALK);
         simpleItemForBlock(ModBlocks.HEART_GLYPH);
+        simpleItemForBlock(ModBlocks.WHITE_CIRCLE_GLYPH);
+        simpleItemForBlock(ModBlocks.INFERNAL_CIRCLE_GLYPH, "7");
+        simpleItemForBlock(ModBlocks.OTHERWHERE_CIRCLE_GLYPH, "5");
         handheldItem(ModItems.BROOM);
 
         /**********************************************************************
@@ -95,5 +101,11 @@ public class ModItemModelProvider extends ItemModelProvider {
         return withExistingParent(block.getId().getPath(),
                 new ResourceLocation("item/generated")).texture("layer0",
                 new ResourceLocation(WitcheryMod.MOD_ID, "block/" + block.getId().getPath()));
+    }
+
+    private ItemModelBuilder simpleItemForBlock(RegistryObject<Block> block, String index) {
+        return withExistingParent(block.getId().getPath(),
+                new ResourceLocation("item/generated")).texture("layer0",
+                new ResourceLocation(WitcheryMod.MOD_ID, "block/" + block.getId().getPath() + index));
     }
 }

@@ -2,7 +2,6 @@ package net.outta_space.witchery.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
@@ -15,9 +14,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.block.custom.*;
-import net.outta_space.witchery.block.custom.crobblock.*;
+import net.outta_space.witchery.block.custom.cropblock.*;
 import net.outta_space.witchery.item.ModItems;
-import net.outta_space.witchery.sound.ModSounds;
 
 import java.util.function.Supplier;
 
@@ -32,7 +30,13 @@ public class ModBlocks {
             () -> new WitchCauldronBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).noOcclusion()));
 
     public static final RegistryObject<Block> HEART_GLYPH = registerBlock("heart_glyph",
-            () -> new HeartGlyphBlock(BlockBehaviour.Properties.copy(Blocks.CYAN_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission()));
+            () -> new HeartGlyphBlock(BlockBehaviour.Properties.copy(Blocks.YELLOW_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission()));
+    public static final RegistryObject<Block> WHITE_CIRCLE_GLYPH = registerBlock("white_circle_glyph",
+            () -> new GlyphBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission()));
+    public static final RegistryObject<Block> INFERNAL_CIRCLE_GLYPH = registerBlock("infernal_circle_glyph",
+            () -> new GlyphBlock(BlockBehaviour.Properties.copy(Blocks.RED_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission()));
+    public static final RegistryObject<Block> OTHERWHERE_CIRCLE_GLYPH = registerBlock("otherwhere_circle_glyph",
+            () -> new GlyphBlock(BlockBehaviour.Properties.copy(Blocks.PURPLE_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission()));
 
     /*******************************************************************************************
      * Crop Blocks:

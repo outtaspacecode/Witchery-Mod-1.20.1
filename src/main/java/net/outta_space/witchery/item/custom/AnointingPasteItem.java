@@ -32,7 +32,7 @@ public class AnointingPasteItem extends Item {
             BlockState pBlock = pContext.getLevel().getBlockState(pPos);
             Player pPlayer = pContext.getPlayer();
 
-            if(pBlock.is(Blocks.CAULDRON)) {
+            if(pBlock.is(Blocks.CAULDRON) || pBlock.is(Blocks.WATER_CAULDRON) || pBlock.is(Blocks.LAVA_CAULDRON) || pBlock.is(Blocks.POWDER_SNOW_CAULDRON)) {
                 pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
                         SoundEvents.PLAYER_LEVELUP ,SoundSource.BLOCKS, 1f, -1f, 0);
                 pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),

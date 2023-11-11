@@ -1,4 +1,4 @@
-package net.outta_space.witchery.block.custom.crobblock;
+package net.outta_space.witchery.block.custom.cropblock;
 
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;

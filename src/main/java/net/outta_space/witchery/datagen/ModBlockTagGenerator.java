@@ -26,7 +26,10 @@ public class ModBlockTagGenerator  extends BlockTagsProvider {
                 .add(ModBlocks.WITCH_CAULDRON.get());
 
         this.tag(ModTags.Blocks.MINEABLE_WITH_BROOM)
-                .add(ModBlocks.HEART_GLYPH.get());
+                .add(ModBlocks.HEART_GLYPH.get())
+                .add(ModBlocks.WHITE_CIRCLE_GLYPH.get())
+                .add(ModBlocks.INFERNAL_CIRCLE_GLYPH.get())
+                .add(ModBlocks.OTHERWHERE_CIRCLE_GLYPH.get());
 
         /*this.tag(BlockTags.LOGS_THAT_BURN)
                 .add(ModBlocks.ROWAN_LOG.get())

@@ -7,10 +7,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 import net.outta_space.witchery.block.ModBlocks;
-import net.outta_space.witchery.block.custom.crobblock.*;
+import net.outta_space.witchery.block.custom.cropblock.*;
 import net.outta_space.witchery.item.ModItems;
 
 import java.util.Set;
@@ -26,6 +25,9 @@ public class ModBlockLootTables extends BlockLootSubProvider {
          ************************************************************************************/
         this.dropSelf(ModBlocks.WITCH_CAULDRON.get());
         this.dropOther(ModBlocks.HEART_GLYPH.get(), Items.AIR);
+        this.dropOther(ModBlocks.WHITE_CIRCLE_GLYPH.get(), Items.AIR);
+        this.dropOther(ModBlocks.INFERNAL_CIRCLE_GLYPH.get(), Items.AIR);
+        this.dropOther(ModBlocks.OTHERWHERE_CIRCLE_GLYPH.get(), Items.AIR);
 
         /***********************************************************************************
          * Crop block loot tables

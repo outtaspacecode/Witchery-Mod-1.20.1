@@ -39,7 +39,10 @@ public class ModCreativeModeTabs {
                      * Basic items
                      ************************************************************/
 
+                    output.accept(ModItems.RITUAL_CHALK.get());
                     output.accept(ModItems.GOLDEN_CHALK.get());
+                    output.accept(ModItems.INFERNAL_CHALK.get());
+                    output.accept(ModItems.OTHERWHERE_CHALK.get());
                     output.accept(ModItems.BROOM.get());
                     output.accept(ModItems.ANOINTING_PASTE.get());
                     output.accept(ModBlocks.WITCH_CAULDRON.get());

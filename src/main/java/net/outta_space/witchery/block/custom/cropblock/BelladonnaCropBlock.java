@@ -1,4 +1,4 @@
-package net.outta_space.witchery.block.custom.crobblock;
+package net.outta_space.witchery.block.custom.cropblock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;

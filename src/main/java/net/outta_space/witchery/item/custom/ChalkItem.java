@@ -1,4 +1,4 @@
-package net.outta_space.witchery.item.custom.chalk;
+package net.outta_space.witchery.item.custom;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -20,6 +20,9 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.outta_space.witchery.sound.ModSounds;
 
 import java.util.Objects;
+import java.util.Random;
+
+import static net.outta_space.witchery.block.custom.GlyphBlock.STYLE;
 
 public class ChalkItem extends ItemNameBlockItem {
     public ChalkItem(Block pBlock, Properties pProperties) {
@@ -48,7 +51,9 @@ public class ChalkItem extends ItemNameBlockItem {
                     Player player = blockplacecontext.getPlayer();
                     ItemStack itemstack = blockplacecontext.getItemInHand();
                     BlockState blockstate1 = level.getBlockState(blockpos);
-                    if (blockstate1.is(blockstate.getBlock())) {
+                    Random rand = new Random();
+                    blockstate1.getBlock().defaultBlockState().setValue(STYLE, rand.nextInt(11));
+                    if (blockstate1.is(blockstate.getBlock()) && level.getBlockState(blockpos.below()).isSolid()) {
                         blockstate1 = this.updateBlockStateFromTag(blockpos, level, itemstack, blockstate1);
                         this.updateCustomBlockEntityTag(blockpos, level, player, itemstack, blockstate1);
                         blockstate1.getBlock().setPlacedBy(level, blockpos, blockstate1, player, itemstack);

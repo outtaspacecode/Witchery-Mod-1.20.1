@@ -11,7 +11,7 @@ import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.item.custom.AnointingPasteItem;
 import net.outta_space.witchery.item.custom.BroomItem;
-import net.outta_space.witchery.item.custom.chalk.GoldenChalkItem;
+import net.outta_space.witchery.item.custom.ChalkItem;
 import net.outta_space.witchery.util.ModTags;
 import net.outta_space.witchery.util.ModToolTiers;
 
@@ -32,7 +32,14 @@ public class ModItems {
             () -> new AnointingPasteItem(new Item.Properties()));
 
     public static final RegistryObject<Item> GOLDEN_CHALK = ITEMS.register("golden_chalk",
-            () -> new GoldenChalkItem(ModBlocks.HEART_GLYPH.get(), new Item.Properties().durability(65)));
+            () -> new ChalkItem(ModBlocks.HEART_GLYPH.get(), new Item.Properties().durability(65)));
+    public static final RegistryObject<Item> RITUAL_CHALK = ITEMS.register("ritual_chalk",
+            () -> new ChalkItem(ModBlocks.HEART_GLYPH.get(), new Item.Properties().durability(65)));
+    public static final RegistryObject<Item> INFERNAL_CHALK = ITEMS.register("infernal_chalk",
+            () -> new ChalkItem(ModBlocks.HEART_GLYPH.get(), new Item.Properties().durability(65)));
+    public static final RegistryObject<Item> OTHERWHERE_CHALK = ITEMS.register("otherwhere_chalk",
+            () -> new ChalkItem(ModBlocks.HEART_GLYPH.get(), new Item.Properties().durability(65)));
+
 
     public static final RegistryObject<Item> BROOM = ITEMS.register("broom",
             () -> new BroomItem(ModToolTiers.BROOM, 1,1, ModTags.Blocks.MINEABLE_WITH_BROOM, new Item.Properties().stacksTo(1)));
