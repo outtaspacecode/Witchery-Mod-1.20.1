@@ -1,40 +1,40 @@
 {
   "variants": {
     "style=0": {
-      "texture": "witchery:block/otherwhere_circle_glyph"
+      "model": "witchery:block/otherwhere_circle_glyph"
     },
     "style=1": {
-      "texture": "witchery:block/otherwhere_circle_glyph1"
+      "model": "witchery:block/otherwhere_circle_glyph1"
     },
     "style=2": {
-      "texture": "witchery:block/otherwhere_circle_glyph2"
+      "model": "witchery:block/otherwhere_circle_glyph2"
     },
     "style=3": {
-      "texture": "witchery:block/otherwhere_circle_glyph3"
+      "model": "witchery:block/otherwhere_circle_glyph3"
     },
     "style=4": {
-      "texture": "witchery:block/otherwhere_circle_glyph4"
+      "model": "witchery:block/otherwhere_circle_glyph4"
     },
     "style=5": {
-      "texture": "witchery:block/otherwhere_circle_glyph5"
+      "model": "witchery:block/otherwhere_circle_glyph5"
     },
     "style=6": {
-      "texture": "witchery:block/otherwhere_circle_glyph6"
+      "model": "witchery:block/otherwhere_circle_glyph6"
     },
     "style=7": {
-      "texture": "witchery:block/otherwhere_circle_glyph7"
+      "model": "witchery:block/otherwhere_circle_glyph7"
     },
     "style=8": {
-      "texture": "witchery:block/otherwhere_circle_glyph8"
+      "model": "witchery:block/otherwhere_circle_glyph8"
     },
     "style=9": {
-      "texture": "witchery:block/otherwhere_circle_glyph9"
+      "model": "witchery:block/otherwhere_circle_glyph9"
     },
     "style=10": {
-      "texture": "witchery:block/otherwhere_circle_glyph10"
+      "model": "witchery:block/otherwhere_circle_glyph10"
     },
     "style=11": {
-      "texture": "witchery:block/otherwhere_circle_glyph11"
+      "model": "witchery:block/otherwhere_circle_glyph11"
     }
   }
 }

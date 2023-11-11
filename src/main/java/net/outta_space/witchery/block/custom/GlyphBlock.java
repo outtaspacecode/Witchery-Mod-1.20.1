@@ -19,4 +19,6 @@ public class GlyphBlock extends CarpetBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(STYLE);
     }
+
+
 }

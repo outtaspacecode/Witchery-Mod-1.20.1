@@ -34,11 +34,11 @@ public class ModItems {
     public static final RegistryObject<Item> GOLDEN_CHALK = ITEMS.register("golden_chalk",
             () -> new ChalkItem(ModBlocks.HEART_GLYPH.get(), new Item.Properties().durability(65)));
     public static final RegistryObject<Item> RITUAL_CHALK = ITEMS.register("ritual_chalk",
-            () -> new ChalkItem(ModBlocks.HEART_GLYPH.get(), new Item.Properties().durability(65)));
+            () -> new ChalkItem(ModBlocks.WHITE_CIRCLE_GLYPH.get(), new Item.Properties().durability(65)));
     public static final RegistryObject<Item> INFERNAL_CHALK = ITEMS.register("infernal_chalk",
-            () -> new ChalkItem(ModBlocks.HEART_GLYPH.get(), new Item.Properties().durability(65)));
+            () -> new ChalkItem(ModBlocks.INFERNAL_CIRCLE_GLYPH.get(), new Item.Properties().durability(65)));
     public static final RegistryObject<Item> OTHERWHERE_CHALK = ITEMS.register("otherwhere_chalk",
-            () -> new ChalkItem(ModBlocks.HEART_GLYPH.get(), new Item.Properties().durability(65)));
+            () -> new ChalkItem(ModBlocks.OTHERWHERE_CIRCLE_GLYPH.get(), new Item.Properties().durability(65)));
 
 
     public static final RegistryObject<Item> BROOM = ITEMS.register("broom",
