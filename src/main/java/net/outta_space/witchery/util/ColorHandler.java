@@ -1,13 +1,15 @@
-package net.outta_space.witchery;
+package net.outta_space.witchery.util;
 
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.block.ModBlocks;
 
 
@@ -20,7 +22,8 @@ public class ColorHandler {
         event.getItemColors().register((pStack, pTintIndex) ->  {
           BlockState state = ((BlockItem)pStack.getItem()).getBlock().defaultBlockState();
           return event.getBlockColors().getColor(state, null, null, pTintIndex); },
-                ModBlocks.WITCH_CAULDRON.get());
+                ModBlocks.WITCH_CAULDRON.get(), ModBlocks.ROWAN_LEAVES.get(), ModBlocks.ALDER_LEAVES.get(),
+                ModBlocks.HAWTHORN_LEAVES.get());
     }
 
     @SubscribeEvent
@@ -28,6 +31,10 @@ public class ColorHandler {
         event.getBlockColors().register((state, world, pos, tintIndex) ->
                 world != null && pos != null ? BiomeColors.getAverageWaterColor(world, pos) : GrassColor.getDefaultColor(),
                 ModBlocks.WITCH_CAULDRON.get());
+
+        event.getBlockColors().register((state, world, pos, tintIndex) ->
+                        world != null && pos != null ? BiomeColors.getAverageFoliageColor(world, pos) : FoliageColor.getDefaultColor(),
+                ModBlocks.ROWAN_LEAVES.get(), ModBlocks.ALDER_LEAVES.get(), ModBlocks.HAWTHORN_LEAVES.get());
     }
 
 }

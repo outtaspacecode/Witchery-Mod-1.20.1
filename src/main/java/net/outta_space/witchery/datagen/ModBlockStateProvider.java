@@ -4,6 +4,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -49,7 +50,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockItem(ModBlocks.STRIPPED_ROWAN_LOG);
         blockItem(ModBlocks.STRIPPED_ROWAN_WOOD);
         blockWithItem(ModBlocks.ROWAN_PLANKS);
-        blockWithItem(ModBlocks.ROWAN_LEAVES);
         saplingBlock(ModBlocks.ROWAN_SAPLING);
 
         ///////////
@@ -66,7 +66,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockItem(ModBlocks.STRIPPED_ALDER_LOG);
         blockItem(ModBlocks.STRIPPED_ALDER_WOOD);
         blockWithItem(ModBlocks.ALDER_PLANKS);
-        blockWithItem(ModBlocks.ALDER_LEAVES);
         saplingBlock(ModBlocks.ALDER_SAPLING);
 
         //////////////
@@ -83,7 +82,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockItem(ModBlocks.STRIPPED_HAWTHORN_LOG);
         blockItem(ModBlocks.STRIPPED_HAWTHORN_WOOD);
         blockWithItem(ModBlocks.HAWTHORN_PLANKS);
-        blockWithItem(ModBlocks.HAWTHORN_LEAVES);
         saplingBlock(ModBlocks.HAWTHORN_SAPLING);
 
         /**********************************************************************
@@ -126,11 +124,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         }
 
         return models;
-    }
-
-    private void leavesBlock(RegistryObject<Block> blockRegistryObject) {
-        simpleBlock(blockRegistryObject.get(),
-                models().cubeAll(ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath(), blockTexture(blockRegistryObject.get())).renderType("cutout"));
     }
 
     private void saplingBlock(RegistryObject<Block> blockRegistryObject) {
