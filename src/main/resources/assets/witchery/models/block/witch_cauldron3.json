@@ -262,7 +262,7 @@
 			"from": [3, 8, 3],
 			"to": [13, 11, 13],
 			"faces": {
-				"up": { "texture": "#1", "tintindex": 0 }
+				"up": { "texture": "#1", "tintindex": 1 }
 			}
 		}
 	],
