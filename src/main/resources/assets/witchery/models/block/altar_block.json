@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "witchery:block/altar_top",
+    "side": "witchery:block/altar"
+  }
+}

@@ -38,6 +38,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> OTHERWHERE_CIRCLE_GLYPH = registerBlock("otherwhere_circle_glyph",
             () -> new GlyphBlock(BlockBehaviour.Properties.copy(Blocks.PURPLE_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission()));
 
+    public static final RegistryObject<Block> ALTAR_BLOCK = registerBlock("altar_block",
+            () -> new AltarBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+
     /*******************************************************************************************
      * Crop Blocks:
      *      - Belladonna
