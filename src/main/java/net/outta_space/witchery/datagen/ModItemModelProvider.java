@@ -41,6 +41,14 @@ public class ModItemModelProvider extends ItemModelProvider {
         handheldItem(ModItems.BROOM);
 
         /**********************************************************************
+         * Mob Drop Items
+         ***********************************************************************/
+        simpleItem(ModItems.CREEPER_HEART);
+        simpleItem(ModItems.TONGUE_OF_DOG);
+        simpleItem(ModItems.WOOL_OF_BAT);
+
+
+        /**********************************************************************
          * Crop Items
          ***********************************************************************/
         simpleItem(ModItems.BELLADONNA_SEEDS);

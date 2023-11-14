@@ -47,6 +47,18 @@ public class ModItems {
 
 
     /*********************************************************************************************
+     * Mob drops
+     *********************************************************************************************/
+    public static final RegistryObject<Item> CREEPER_HEART = ITEMS.register("creeper_heart",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> TONGUE_OF_DOG = ITEMS.register("tongue_of_dog",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> WOOL_OF_BAT = ITEMS.register("wool_of_bat",
+            () -> new Item(new Item.Properties()));
+
+
+
+    /*********************************************************************************************
      * Beginning of Bottled Magic items
      *********************************************************************************************/
 

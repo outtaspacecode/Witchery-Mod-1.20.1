@@ -51,6 +51,11 @@ public class ModCreativeModeTabs {
                     output.accept(ModItems.RAW_CLAY_VESSEL.get());
                     output.accept(ModItems.CLAY_VESSEL.get());
 
+
+                    output.accept(ModItems.CREEPER_HEART.get());
+                    output.accept(ModItems.TONGUE_OF_DOG.get());
+                    output.accept(ModItems.WOOL_OF_BAT.get());
+
                     /************************************************************
                      * Bottled magic items
                      ************************************************************/
