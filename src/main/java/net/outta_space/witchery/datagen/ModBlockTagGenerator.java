@@ -23,7 +23,8 @@ public class ModBlockTagGenerator  extends BlockTagsProvider {
     protected void addTags(HolderLookup.Provider pProvider) {
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(ModBlocks.WITCH_CAULDRON.get());
+                .add(ModBlocks.WITCH_CAULDRON.get())
+                .add(ModBlocks.ALTAR_BLOCK.get());
 
         this.tag(ModTags.Blocks.MINEABLE_WITH_BROOM)
                 .add(ModBlocks.HEART_GLYPH.get())

@@ -7,6 +7,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemNameBlockItem;
@@ -50,6 +51,7 @@ public class ChalkItem extends ItemNameBlockItem {
                 pLevel.setBlockAndUpdate(pPos, getBlock().defaultBlockState().setValue(STYLE, rand.nextInt(11)));
                 pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
                         ModSounds.DRAW_WITH_CHALK.get() ,SoundSource.BLOCKS, 1f, 1f, 0);
+                pContext.getPlayer().getItemInHand(InteractionHand.MAIN_HAND).hurtAndBreak(1,pContext.getPlayer(), player -> player.broadcastBreakEvent(player.getUsedItemHand()));
                 return InteractionResult.SUCCESS;
             }
 

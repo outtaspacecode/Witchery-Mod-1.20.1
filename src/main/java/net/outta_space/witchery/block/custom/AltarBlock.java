@@ -56,7 +56,7 @@ public class AltarBlock extends Block {
             ArrayList<BlockPos> visited = new ArrayList<>();
             toVisit.add(pPos);
 
-            while (!toVisit.isEmpty()) {
+            while (!toVisit.isEmpty() && visited.size() < 10) {
 
                 BlockPos visiting = toVisit.get(0);
                 BlockPos[] tile = new BlockPos[]{visiting.north(), visiting.south(), visiting.east(), visiting.west()};
@@ -79,8 +79,27 @@ public class AltarBlock extends Block {
             visited.remove(exclude);
 
             if(visited.size() == 6) {
-                for (BlockPos blockPos : visited) {
-                    pLevel.setBlockAndUpdate(blockPos, ModBlocks.ALTAR_BLOCK.get().defaultBlockState().setValue(IS_MULTIBLOCK, true));
+                int[] xCoords = new int[6];
+                int[] zCoords = new int[6];
+                for(int i = 0; i < visited.size(); i++) {
+                    xCoords[i] = visited.get(i).getX();
+                    zCoords[i] = visited.get(i).getZ();
+                }
+
+                Arrays.sort(xCoords);
+                Arrays.sort(zCoords);
+
+                boolean valid = ((xCoords[0] + 2 == xCoords[5]) && (zCoords[0] + 1 == zCoords[5]))
+                        || ((zCoords[0] + 2 == zCoords[5]) && (xCoords[0] + 1 == xCoords[5]));
+
+                if(valid) {
+                    for (BlockPos blockPos : visited) {
+                        pLevel.setBlockAndUpdate(blockPos, ModBlocks.ALTAR_BLOCK.get().defaultBlockState().setValue(IS_MULTIBLOCK, true));
+                    }
+                } else {
+                    for (BlockPos blockPos : visited) {
+                        pLevel.setBlockAndUpdate(blockPos, ModBlocks.ALTAR_BLOCK.get().defaultBlockState().setValue(IS_MULTIBLOCK, false));
+                    }
                 }
             } else {
                 for (BlockPos blockPos : visited) {
