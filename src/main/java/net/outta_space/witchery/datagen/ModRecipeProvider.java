@@ -90,5 +90,15 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_apple", inventoryTrigger(ItemPredicate.Builder.item()
                         .of(Items.APPLE).build()))
                 .save(pWriter);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ATTUNED_STONE.get())
+                .pattern("A")
+                .pattern("B")
+                .pattern("C")
+                .define('A', ModItems.WHIFF_OF_MAGIC.get())
+                .define('B', Items.DIAMOND)
+                .define('C', Items.LAVA_BUCKET)
+                .unlockedBy("has_diamond", inventoryTrigger(ItemPredicate.Builder.item().of(Items.DIAMOND).build()))
+                .save(pWriter);
     }
 }
