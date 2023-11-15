@@ -47,6 +47,15 @@ public class ModItems {
     public static final RegistryObject<Item> ATTUNED_STONE = ITEMS.register("attuned_stone",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> WORMY_APPLE = ITEMS.register("wormy_apple",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> BONE_NEEDLE = ITEMS.register("bone_needle",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> WAYSTONE = ITEMS.register("waystone",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> ICY_NEEDLE = ITEMS.register("icy_needle",
+            () -> new Item(new Item.Properties()));
+
 
 
     /*********************************************************************************************
@@ -78,6 +87,26 @@ public class ModItems {
     public static final RegistryObject<Item> REEK_OF_MISFORTUNE = ITEMS.register("reek_of_misfortune",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ODOUR_OF_PURITY = ITEMS.register("odour_of_purity",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PURIFIED_MILK = ITEMS.register("purified_milk",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> DEMONIC_BLOOD = ITEMS.register("demonic_blood",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> DIAMOND_VAPOR = ITEMS.register("diamond_vapor",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MELLIFLUOUS_HUNGER = ITEMS.register("mellifluous_hunger",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> OIL_OF_VITRIOL = ITEMS.register("oil_of_vitriol",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> DROP_OF_LUCK = ITEMS.register("drop_of_luck",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> ENDER_DEW = ITEMS.register("ender_dew",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> TEAR_OF_THE_GODDESS = ITEMS.register("tear_of_the_goddess",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> FOCUSED_WILL = ITEMS.register("focused_will",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CONDENSED_FEAR = ITEMS.register("condensed_fear",
             () -> new Item(new Item.Properties()));
 
     /*********************************************************************************************

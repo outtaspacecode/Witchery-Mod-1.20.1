@@ -42,6 +42,11 @@ public class ModItemModelProvider extends ItemModelProvider {
         handheldItem(ModItems.BROOM);
         simpleItem(ModItems.ATTUNED_STONE);
 
+        simpleItem(ModItems.WORMY_APPLE);
+        simpleItem(ModItems.BONE_NEEDLE);
+        simpleItem(ModItems.WAYSTONE);
+        simpleItem(ModItems.ICY_NEEDLE);
+
         /**********************************************************************
          * Mob Drop Items
          ***********************************************************************/
@@ -75,6 +80,16 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.WHIFF_OF_MAGIC);
         simpleItem(ModItems.REEK_OF_MISFORTUNE);
         simpleItem(ModItems.ODOUR_OF_PURITY);
+        simpleItem(ModItems.PURIFIED_MILK);
+        simpleItem(ModItems.DEMONIC_BLOOD);
+        simpleItem(ModItems.DIAMOND_VAPOR);
+        simpleItem(ModItems.MELLIFLUOUS_HUNGER);
+        simpleItem(ModItems.OIL_OF_VITRIOL);
+        simpleItem(ModItems.DROP_OF_LUCK);
+        simpleItem(ModItems.ENDER_DEW);
+        simpleItem(ModItems.TEAR_OF_THE_GODDESS);
+        simpleItem(ModItems.FOCUSED_WILL);
+        simpleItem(ModItems.CONDENSED_FEAR);
 
         /**********************************************************************
          * Sapling Items

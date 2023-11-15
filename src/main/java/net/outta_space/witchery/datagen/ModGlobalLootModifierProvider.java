@@ -83,11 +83,11 @@ public class ModGlobalLootModifierProvider extends GlobalLootModifierProvider {
         }, ModItems.CREEPER_HEART.get()));
         add("tongue_from_dog", new AddItemModifier(new LootItemCondition[]{
                 new LootTableIdCondition.Builder(new ResourceLocation("entities/wolf")).build(),
-                LootItemRandomChanceCondition.randomChance(0.25f).build()
+                LootItemRandomChanceCondition.randomChance(0.4f).build()
         }, ModItems.TONGUE_OF_DOG.get()));
         add("wool_from_bat", new AddItemModifier(new LootItemCondition[]{
                 new LootTableIdCondition.Builder(new ResourceLocation("entities/bat")).build(),
-                LootItemRandomChanceCondition.randomChance(0.25f).build()
+                LootItemRandomChanceCondition.randomChance(0.5f).build()
         }, ModItems.WOOL_OF_BAT.get()));
 
 

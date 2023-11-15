@@ -68,5 +68,27 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('D', ModItems.ATTUNED_STONE.get())
                 .unlockedBy("has_attuned_stone", inventoryTrigger(ItemPredicate.Builder.item().of(ModItems.ATTUNED_STONE.get()).build()))
                 .save(pWriter);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.BONE_NEEDLE.get(), 8)
+                .requires(Items.BONE)
+                .requires(Items.FLINT)
+                .unlockedBy("has_bone", inventoryTrigger(ItemPredicate.Builder.item()
+                        .of(Items.BONE).build()))
+                .save(pWriter);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.WAYSTONE.get())
+                .requires(Items.FLINT)
+                .requires(ModItems.BONE_NEEDLE.get())
+                .unlockedBy("has_bone_needle", inventoryTrigger(ItemPredicate.Builder.item()
+                        .of(ModItems.BONE_NEEDLE.get()).build()))
+                .save(pWriter);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.WORMY_APPLE.get())
+                .requires(Items.APPLE)
+                .requires(Items.ROTTEN_FLESH)
+                .requires(Items.SUGAR)
+                .unlockedBy("has_apple", inventoryTrigger(ItemPredicate.Builder.item()
+                        .of(Items.APPLE).build()))
+                .save(pWriter);
     }
 }

@@ -30,6 +30,7 @@ public class ModCreativeModeTabs {
                     output.accept(ModItems.WATER_ARTICHOKE_SEEDS.get());
                     output.accept(ModItems.WATER_ARTICHOKE.get());
                     output.accept(ModItems.SNOWBELL_SEEDS.get());
+                    output.accept(ModItems.ICY_NEEDLE.get());
                     output.accept(ModItems.WOLFSBANE_SEEDS.get());
                     output.accept(ModItems.WOLFSBANE.get());
                     output.accept(ModItems.WORMWOOD_SEEDS.get());
@@ -50,25 +51,40 @@ public class ModCreativeModeTabs {
                     output.accept(ModBlocks.WITCH_CAULDRON.get());
                     output.accept(ModBlocks.DISTILLERY.get());
                     output.accept(ModItems.WOOD_ASH.get());
-                    output.accept(ModItems.RAW_CLAY_VESSEL.get());
-                    output.accept(ModItems.CLAY_VESSEL.get());
+
+                    output.accept(ModItems.WORMY_APPLE.get());
+                    output.accept(ModItems.BONE_NEEDLE.get());
+                    output.accept(ModItems.WAYSTONE.get());
 
 
                     output.accept(ModItems.CREEPER_HEART.get());
                     output.accept(ModItems.TONGUE_OF_DOG.get());
                     output.accept(ModItems.WOOL_OF_BAT.get());
 
+                    output.accept(ModItems.RAW_CLAY_VESSEL.get());
+                    output.accept(ModItems.CLAY_VESSEL.get());
+
                     /************************************************************
                      * Bottled magic items
                      ************************************************************/
 
-                    output.accept(ModItems.EXHALE_OF_THE_HORNED_ONE.get());
-                    output.accept(ModItems.HINT_OF_REBIRTH.get());
-                    output.accept(ModItems.BREATH_OF_THE_GODDESS.get());
                     output.accept(ModItems.FOUL_FUME.get());
+                    output.accept(ModItems.DIAMOND_VAPOR.get());
+                    output.accept(ModItems.OIL_OF_VITRIOL.get());
+                    output.accept(ModItems.EXHALE_OF_THE_HORNED_ONE.get());
+                    output.accept(ModItems.BREATH_OF_THE_GODDESS.get());
+                    output.accept(ModItems.HINT_OF_REBIRTH.get());
                     output.accept(ModItems.WHIFF_OF_MAGIC.get());
                     output.accept(ModItems.REEK_OF_MISFORTUNE.get());
                     output.accept(ModItems.ODOUR_OF_PURITY.get());
+                    output.accept(ModItems.TEAR_OF_THE_GODDESS.get());
+                    output.accept(ModItems.DROP_OF_LUCK.get());
+                    output.accept(ModItems.ENDER_DEW.get());
+                    output.accept(ModItems.DEMONIC_BLOOD.get());
+                    output.accept(ModItems.MELLIFLUOUS_HUNGER.get());
+                    output.accept(ModItems.PURIFIED_MILK.get());
+                    output.accept(ModItems.FOCUSED_WILL.get());
+                    output.accept(ModItems.CONDENSED_FEAR.get());
 
                     /************************************************************
                      * Tree and wood items
