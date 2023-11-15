@@ -32,6 +32,7 @@ public class WitcheryMod {
 
         ModCreativeModeTabs.register(modEventBus);
 
+
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
 
