@@ -30,6 +30,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.CLAY_VESSEL);
         simpleItem(ModItems.ANOINTING_PASTE);
         modeledBlock(ModBlocks.WITCH_CAULDRON.get());
+        modeledBlock(ModBlocks.DISTILLERY.get());
         simpleItem(ModItems.GOLDEN_CHALK);
         simpleItem(ModItems.RITUAL_CHALK);
         simpleItem(ModItems.INFERNAL_CHALK);
@@ -39,6 +40,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItemForBlock(ModBlocks.INFERNAL_CIRCLE_GLYPH, "7");
         simpleItemForBlock(ModBlocks.OTHERWHERE_CIRCLE_GLYPH, "5");
         handheldItem(ModItems.BROOM);
+        simpleItem(ModItems.ATTUNED_STONE);
 
         /**********************************************************************
          * Mob Drop Items

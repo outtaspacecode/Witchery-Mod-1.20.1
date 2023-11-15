@@ -16,6 +16,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.block.custom.cropblock.*;
+import net.outta_space.witchery.loot.ModLootModifiers;
 
 import java.util.function.Function;
 
@@ -31,6 +32,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
          * Basic items
          ***********************************************************************/
         carpetBlock(ModBlocks.HEART_GLYPH);
+        horizontalBlock(ModBlocks.DISTILLERY.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/distillery")));
 
         /**********************************************************************
          * Tree and wood items

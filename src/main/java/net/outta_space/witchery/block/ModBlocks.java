@@ -28,6 +28,8 @@ public class ModBlocks {
      ********************************************************************************************/
     public static final RegistryObject<Block> WITCH_CAULDRON = registerBlock("witch_cauldron",
             () -> new WitchCauldronBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).noOcclusion()));
+    public static final RegistryObject<Block> DISTILLERY = registerBlock("distillery",
+            () -> new DistilleryBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).noOcclusion()));
 
     public static final RegistryObject<Block> HEART_GLYPH = registerBlock("heart_glyph",
             () -> new HeartGlyphBlock(BlockBehaviour.Properties.copy(Blocks.YELLOW_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission()));
@@ -39,7 +41,7 @@ public class ModBlocks {
             () -> new GlyphBlock(BlockBehaviour.Properties.copy(Blocks.PURPLE_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission()));
 
     public static final RegistryObject<Block> ALTAR_BLOCK = registerBlock("altar_block",
-            () -> new AltarBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+            () -> new AltarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).explosionResistance(1200.0f)));
 
     /*******************************************************************************************
      * Crop Blocks:

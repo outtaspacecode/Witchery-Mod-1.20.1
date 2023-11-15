@@ -45,8 +45,10 @@ public class ModCreativeModeTabs {
                     output.accept(ModItems.INFERNAL_CHALK.get());
                     output.accept(ModItems.OTHERWHERE_CHALK.get());
                     output.accept(ModItems.BROOM.get());
+                    output.accept(ModItems.ATTUNED_STONE.get());
                     output.accept(ModItems.ANOINTING_PASTE.get());
                     output.accept(ModBlocks.WITCH_CAULDRON.get());
+                    output.accept(ModBlocks.DISTILLERY.get());
                     output.accept(ModItems.WOOD_ASH.get());
                     output.accept(ModItems.RAW_CLAY_VESSEL.get());
                     output.accept(ModItems.CLAY_VESSEL.get());

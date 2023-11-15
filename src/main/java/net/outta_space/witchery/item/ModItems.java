@@ -44,6 +44,9 @@ public class ModItems {
     public static final RegistryObject<Item> BROOM = ITEMS.register("broom",
             () -> new BroomItem(ModToolTiers.BROOM, 1,1, ModTags.Blocks.MINEABLE_WITH_BROOM, new Item.Properties().stacksTo(1)));
 
+    public static final RegistryObject<Item> ATTUNED_STONE = ITEMS.register("attuned_stone",
+            () -> new Item(new Item.Properties()));
+
 
 
     /*********************************************************************************************

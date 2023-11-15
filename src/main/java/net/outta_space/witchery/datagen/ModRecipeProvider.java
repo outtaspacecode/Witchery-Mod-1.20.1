@@ -56,5 +56,17 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('B', ModBlocks.HAWTHORN_SAPLING.get())
                 .unlockedBy("has_hawthorn_sapling", inventoryTrigger(ItemPredicate.Builder.item().of(ModBlocks.HAWTHORN_SAPLING.get()).build()))
                 .save(pWriter);
+
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.DISTILLERY.get())
+                .pattern("ABA")
+                .pattern("BBB")
+                .pattern("CDC")
+                .define('A', ModItems.CLAY_VESSEL.get())
+                .define('B', Items.IRON_INGOT)
+                .define('C', Items.GOLD_INGOT)
+                .define('D', ModItems.ATTUNED_STONE.get())
+                .unlockedBy("has_attuned_stone", inventoryTrigger(ItemPredicate.Builder.item().of(ModItems.ATTUNED_STONE.get()).build()))
+                .save(pWriter);
     }
 }

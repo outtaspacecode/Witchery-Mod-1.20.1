@@ -5,6 +5,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -36,13 +38,13 @@ public class AltarBlock extends Block {
     @Override
     public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
         super.setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
-        updateMultiblock(pLevel, pPos, null, (Player)pPlacer);
+        updateMultiblock(pLevel, pPos, null);
     }
 
     @Override
     public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
         super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
-        updateMultiblock(pLevel, pPos, pPos, pPlayer);
+        updateMultiblock(pLevel, pPos, pPos);
     }
 
     @Override
@@ -50,7 +52,7 @@ public class AltarBlock extends Block {
         pBuilder.add(IS_MULTIBLOCK);
     }
 
-    private void updateMultiblock(Level pLevel, BlockPos pPos, BlockPos exclude, Player pPlayer) {
+    private void updateMultiblock(Level pLevel, BlockPos pPos, BlockPos exclude) {
         if(!pLevel.isClientSide()) {
             ArrayList<BlockPos> toVisit = new ArrayList<>();
             ArrayList<BlockPos> visited = new ArrayList<>();
@@ -75,7 +77,6 @@ public class AltarBlock extends Block {
                 }
             }
 
-//            pPlayer.sendSystemMessage(Component.literal("Blocks in altar: " + (visited.size())));
             visited.remove(exclude);
 
             if(visited.size() == 6) {
