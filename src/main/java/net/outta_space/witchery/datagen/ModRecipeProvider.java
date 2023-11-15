@@ -56,17 +56,5 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('B', ModBlocks.HAWTHORN_SAPLING.get())
                 .unlockedBy("has_hawthorn_sapling", inventoryTrigger(ItemPredicate.Builder.item().of(ModBlocks.HAWTHORN_SAPLING.get()).build()))
                 .save(pWriter);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ALTAR_BLOCK.get(), 3)
-                .pattern("ABC")
-                .pattern("DED")
-                .pattern("DED")
-                .define('A', ModItems.BREATH_OF_THE_GODDESS.get())
-                .define('B', Items.GLASS_BOTTLE)
-                .define('C', ModItems.EXHALE_OF_THE_HORNED_ONE.get())
-                .define('D', Blocks.STONE_BRICKS)
-                .define('E', ModBlocks.ROWAN_LOG.get())
-                .unlockedBy("has_exhale_of_the_horned_one", inventoryTrigger(ItemPredicate.Builder.item().of(ModItems.EXHALE_OF_THE_HORNED_ONE.get()).build()))
-                .save(pWriter);
     }
 }

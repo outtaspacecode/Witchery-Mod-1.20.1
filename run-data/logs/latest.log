@@ -1,29 +1,29 @@
-[14Nov2023 09:15:37.682] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, C:\Users\Cole\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.1.30, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, witchery, --all, --output, D:\Documents\Minecraft Stuff\witchery_1.20.1_0.0.1\src\generated\resources, --existing, D:\Documents\Minecraft Stuff\witchery_1.20.1_0.0.1\src\main\resources]
-[14Nov2023 09:15:37.692] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.9 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
-[14Nov2023 09:15:37.905] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
-[14Nov2023 09:15:37.984] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Cole/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
-[14Nov2023 09:15:38.429] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Cole\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.1.30\4d4d0a80501e2e9aa48fc6e933677dd93463f39b\javafmllanguage-1.20.1-47.1.30.jar is missing mods.toml file
-[14Nov2023 09:15:38.433] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Cole\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.1.30\8acf4742e3cd1689d59b70bfc1cd2649701f0813\lowcodelanguage-1.20.1-47.1.30.jar is missing mods.toml file
-[14Nov2023 09:15:38.438] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Cole\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.1.30\5498b88cec72cca4fe89809b82d1e3b9560c2c3\mclanguage-1.20.1-47.1.30.jar is missing mods.toml file
-[14Nov2023 09:15:38.442] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Cole\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.1.30\3b1e3ffb1449cc410d8baf64656b815fd6326930\fmlcore-1.20.1-47.1.30.jar is missing mods.toml file
-[14Nov2023 09:15:38.565] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
-[14Nov2023 09:15:40.456] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\Cole\.gradle\caches\forge_gradle\assets, --assetIndex, 5, --mod, witchery, --all, --output, D:\Documents\Minecraft Stuff\witchery_1.20.1_0.0.1\src\generated\resources, --existing, D:\Documents\Minecraft Stuff\witchery_1.20.1_0.0.1\src\main\resources]
-[14Nov2023 09:15:41.120] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [witchery]
-[14Nov2023 09:15:46.653] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.1.30, for MC 1.20.1 with MCP 20230612.114412
-[14Nov2023 09:15:46.658] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.1.30 Initialized
-[14Nov2023 09:15:47.417] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Cole/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.1.30_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.1.30_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
-[14Nov2023 09:15:47.418] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Cole/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.1.30_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.1.30_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
-[14Nov2023 09:15:47.725] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
-[14Nov2023 09:15:47.807] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 80 ms
-[14Nov2023 09:15:47.807] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Loot Tables
-[14Nov2023 09:15:47.929] [main/INFO] [net.minecraft.data.DataGenerator/]: Loot Tables finished after 121 ms
-[14Nov2023 09:15:47.930] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block Tags
-[14Nov2023 09:15:48.002] [main/INFO] [net.minecraft.data.DataGenerator/]: Block Tags finished after 72 ms
-[14Nov2023 09:15:48.002] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: witchery
-[14Nov2023 09:15:48.048] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: witchery finished after 44 ms
-[14Nov2023 09:15:48.048] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block States: witchery
-[14Nov2023 09:15:48.202] [main/INFO] [net.minecraft.data.DataGenerator/]: Block States: witchery finished after 154 ms
-[14Nov2023 09:15:48.202] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Global Loot Modifiers : witchery
-[14Nov2023 09:15:48.214] [main/INFO] [net.minecraft.data.DataGenerator/]: Global Loot Modifiers : witchery finished after 11 ms
-[14Nov2023 09:15:48.214] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 489 ms
-[14Nov2023 09:15:48.225] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 223, old count: 223, new count: 224, removed stale: 0, written: 12
+[14Nov2023 22:39:34.476] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, C:\Users\Cole\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.1.30, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, witchery, --all, --output, D:\Documents\Minecraft Stuff\witchery_1.20.1_0.0.1\src\generated\resources, --existing, D:\Documents\Minecraft Stuff\witchery_1.20.1_0.0.1\src\main\resources]
+[14Nov2023 22:39:34.487] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.9 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
+[14Nov2023 22:39:34.671] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
+[14Nov2023 22:39:34.750] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Cole/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
+[14Nov2023 22:39:35.096] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Cole\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.1.30\4d4d0a80501e2e9aa48fc6e933677dd93463f39b\javafmllanguage-1.20.1-47.1.30.jar is missing mods.toml file
+[14Nov2023 22:39:35.100] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Cole\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.1.30\8acf4742e3cd1689d59b70bfc1cd2649701f0813\lowcodelanguage-1.20.1-47.1.30.jar is missing mods.toml file
+[14Nov2023 22:39:35.104] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Cole\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.1.30\5498b88cec72cca4fe89809b82d1e3b9560c2c3\mclanguage-1.20.1-47.1.30.jar is missing mods.toml file
+[14Nov2023 22:39:35.108] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Cole\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.1.30\3b1e3ffb1449cc410d8baf64656b815fd6326930\fmlcore-1.20.1-47.1.30.jar is missing mods.toml file
+[14Nov2023 22:39:35.212] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
+[14Nov2023 22:39:36.878] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\Cole\.gradle\caches\forge_gradle\assets, --assetIndex, 5, --mod, witchery, --all, --output, D:\Documents\Minecraft Stuff\witchery_1.20.1_0.0.1\src\generated\resources, --existing, D:\Documents\Minecraft Stuff\witchery_1.20.1_0.0.1\src\main\resources]
+[14Nov2023 22:39:37.566] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [witchery]
+[14Nov2023 22:39:42.585] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.1.30, for MC 1.20.1 with MCP 20230612.114412
+[14Nov2023 22:39:42.590] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.1.30 Initialized
+[14Nov2023 22:39:43.288] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Cole/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.1.30_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.1.30_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
+[14Nov2023 22:39:43.289] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Cole/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.1.30_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.1.30_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
+[14Nov2023 22:39:43.668] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
+[14Nov2023 22:39:43.741] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 72 ms
+[14Nov2023 22:39:43.741] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Loot Tables
+[14Nov2023 22:39:43.843] [main/INFO] [net.minecraft.data.DataGenerator/]: Loot Tables finished after 100 ms
+[14Nov2023 22:39:43.843] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block Tags
+[14Nov2023 22:39:43.893] [main/INFO] [net.minecraft.data.DataGenerator/]: Block Tags finished after 47 ms
+[14Nov2023 22:39:43.893] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: witchery
+[14Nov2023 22:39:43.940] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: witchery finished after 46 ms
+[14Nov2023 22:39:43.940] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block States: witchery
+[14Nov2023 22:39:44.189] [main/INFO] [net.minecraft.data.DataGenerator/]: Block States: witchery finished after 248 ms
+[14Nov2023 22:39:44.189] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Global Loot Modifiers : witchery
+[14Nov2023 22:39:44.197] [main/INFO] [net.minecraft.data.DataGenerator/]: Global Loot Modifiers : witchery finished after 7 ms
+[14Nov2023 22:39:44.197] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 529 ms
+[14Nov2023 22:39:44.207] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 222, old count: 223, new count: 222, removed stale: 1, written: 0

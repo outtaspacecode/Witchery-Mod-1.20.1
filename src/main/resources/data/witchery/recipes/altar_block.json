@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "witchery:breath_of_the_goddess"
+    },
+    "B": {
+      "type": "forge:nbt",
+      "item": "minecraft:potion",
+      "nbt": {
+        "Potion": "minecraft:water"
+      }
+    },
+    "C": {
+      "item": "witchery:exhale_of_the_horned_one"
+    },
+    "D": {
+      "item": "minecraft:stone_bricks"
+    },
+    "E": {
+      "item": "witchery:rowan_log"
+    }
+  },
+  "pattern": [
+    "ABC",
+    "DED",
+    "DED"
+  ],
+  "result": {
+    "count": 3,
+    "item": "witchery:altar_block"
+  },
+  "show_notification": true
+}
