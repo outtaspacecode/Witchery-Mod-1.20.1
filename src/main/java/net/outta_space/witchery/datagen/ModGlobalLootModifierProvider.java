@@ -29,6 +29,10 @@ public class ModGlobalLootModifierProvider extends GlobalLootModifierProvider {
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.FERN).build(),
                 LootItemRandomChanceCondition.randomChance(SEED_CHANCE).build()
         }, ModItems.BELLADONNA_SEEDS.get()));
+        add("belladonna_seeds_from_tall_grass", new AddItemModifier(new LootItemCondition[]{
+                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TALL_GRASS).build(),
+                LootItemRandomChanceCondition.randomChance(SEED_CHANCE).build()
+        }, ModItems.BELLADONNA_SEEDS.get()));
 
         add("mandrake_seeds_from_grass", new AddItemModifier(new LootItemCondition[]{
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.GRASS).build(),
@@ -36,6 +40,10 @@ public class ModGlobalLootModifierProvider extends GlobalLootModifierProvider {
         }, ModItems.MANDRAKE_SEEDS.get()));
         add("mandrake_seeds_from_fern", new AddItemModifier(new LootItemCondition[]{
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.FERN).build(),
+                LootItemRandomChanceCondition.randomChance(SEED_CHANCE).build()
+        }, ModItems.MANDRAKE_SEEDS.get()));
+        add("mandrake_seeds_from_tall_grass", new AddItemModifier(new LootItemCondition[]{
+                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TALL_GRASS).build(),
                 LootItemRandomChanceCondition.randomChance(SEED_CHANCE).build()
         }, ModItems.MANDRAKE_SEEDS.get()));
 
@@ -47,6 +55,10 @@ public class ModGlobalLootModifierProvider extends GlobalLootModifierProvider {
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.FERN).build(),
                 LootItemRandomChanceCondition.randomChance(SEED_CHANCE).build()
         }, ModItems.WATER_ARTICHOKE_SEEDS.get()));
+        add("water_artichoke_seeds_from_tall_grass", new AddItemModifier(new LootItemCondition[]{
+                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TALL_GRASS).build(),
+                LootItemRandomChanceCondition.randomChance(SEED_CHANCE).build()
+        }, ModItems.WATER_ARTICHOKE_SEEDS.get()));
 
         add("snowbell_seeds_from_grass", new AddItemModifier(new LootItemCondition[]{
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.GRASS).build(),
@@ -54,6 +66,10 @@ public class ModGlobalLootModifierProvider extends GlobalLootModifierProvider {
         }, ModItems.SNOWBELL_SEEDS.get()));
         add("snowbell_seeds_from_fern", new AddItemModifier(new LootItemCondition[]{
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.FERN).build(),
+                LootItemRandomChanceCondition.randomChance(SEED_CHANCE).build()
+        }, ModItems.SNOWBELL_SEEDS.get()));
+        add("snowbell_seeds_from_tall_grass", new AddItemModifier(new LootItemCondition[]{
+                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TALL_GRASS).build(),
                 LootItemRandomChanceCondition.randomChance(SEED_CHANCE).build()
         }, ModItems.SNOWBELL_SEEDS.get()));
 
@@ -65,6 +81,10 @@ public class ModGlobalLootModifierProvider extends GlobalLootModifierProvider {
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.FERN).build(),
                 LootItemRandomChanceCondition.randomChance(SEED_CHANCE).build()
         }, ModItems.WOLFSBANE_SEEDS.get()));
+        add("wolfsbane_seeds_from_tall_grass", new AddItemModifier(new LootItemCondition[]{
+                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TALL_GRASS).build(),
+                LootItemRandomChanceCondition.randomChance(SEED_CHANCE).build()
+        }, ModItems.WOLFSBANE_SEEDS.get()));
 
         add("wormwood_seeds_from_grass", new AddItemModifier(new LootItemCondition[]{
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.GRASS).build(),
@@ -74,12 +94,16 @@ public class ModGlobalLootModifierProvider extends GlobalLootModifierProvider {
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.FERN).build(),
                 LootItemRandomChanceCondition.randomChance(SEED_CHANCE).build()
         }, ModItems.WORMWOOD_SEEDS.get()));
+        add("wormwood_seeds_from_tall_grass", new AddItemModifier(new LootItemCondition[]{
+                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.TALL_GRASS).build(),
+                LootItemRandomChanceCondition.randomChance(SEED_CHANCE).build()
+        }, ModItems.WORMWOOD_SEEDS.get()));
 
 
 
         add("creeper_heart_from_creeper", new AddItemModifier(new LootItemCondition[]{
                 new LootTableIdCondition.Builder(new ResourceLocation("entities/creeper")).build(),
-                LootItemRandomChanceCondition.randomChance(0.01f).build()
+                LootItemRandomChanceCondition.randomChance(0.18f).build()
         }, ModItems.CREEPER_HEART.get()));
         add("tongue_from_dog", new AddItemModifier(new LootItemCondition[]{
                 new LootTableIdCondition.Builder(new ResourceLocation("entities/wolf")).build(),
