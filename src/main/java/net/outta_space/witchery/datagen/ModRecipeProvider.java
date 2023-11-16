@@ -100,5 +100,11 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('C', Items.LAVA_BUCKET)
                 .unlockedBy("has_diamond", inventoryTrigger(ItemPredicate.Builder.item().of(Items.DIAMOND).build()))
                 .save(pWriter);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.GUNPOWDER, 5)
+                .requires(ModItems.CREEPER_HEART.get())
+                .unlockedBy("has_creeper_heart", inventoryTrigger(ItemPredicate.Builder.item()
+                        .of(ModItems.CREEPER_HEART.get()).build()))
+                .save(pWriter);
     }
 }
