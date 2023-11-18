@@ -24,6 +24,8 @@ public class ModBlockTagGenerator  extends BlockTagsProvider {
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(ModBlocks.WITCH_CAULDRON.get())
+                .add(ModBlocks.WITCH_OVEN.get())
+                .add(ModBlocks.DISTILLERY.get())
                 .add(ModBlocks.ALTAR_BLOCK.get());
 
         this.tag(ModTags.Blocks.MINEABLE_WITH_BROOM)
@@ -32,7 +34,7 @@ public class ModBlockTagGenerator  extends BlockTagsProvider {
                 .add(ModBlocks.INFERNAL_CIRCLE_GLYPH.get())
                 .add(ModBlocks.OTHERWHERE_CIRCLE_GLYPH.get());
 
-        /*this.tag(BlockTags.LOGS_THAT_BURN)
+        this.tag(BlockTags.LOGS_THAT_BURN)
                 .add(ModBlocks.ROWAN_LOG.get())
                 .add(ModBlocks.ROWAN_WOOD.get())
                 .add(ModBlocks.STRIPPED_ROWAN_LOG.get())
@@ -54,7 +56,7 @@ public class ModBlockTagGenerator  extends BlockTagsProvider {
                 .add(ModBlocks.STRIPPED_HAWTHORN_LOG.get())
                 .add(ModBlocks.STRIPPED_HAWTHORN_WOOD.get());
         this.tag(BlockTags.PLANKS)
-                .add(ModBlocks.HAWTHORN_PLANKS.get());*/
+                .add(ModBlocks.HAWTHORN_PLANKS.get());
     }
 
     @Override
