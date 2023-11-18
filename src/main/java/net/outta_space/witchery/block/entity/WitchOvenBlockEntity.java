@@ -66,7 +66,6 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
 
     private int burnProgress = 0;
     private int burnTime = 1600;
-    public boolean fuelIsBurning = false;
 
 
     public WitchOvenBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -152,7 +151,6 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
         pTag.putInt("maxProgress", maxProgress);
         pTag.putInt("burnProgress", burnProgress);
         pTag.putInt("burnTime", burnTime);
-        pTag.putBoolean("fuelIsBurning", fuelIsBurning);
 
 
         super.saveAdditional(pTag);
@@ -167,12 +165,11 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
         maxProgress = pTag.getInt("maxProgress");
         burnProgress = pTag.getInt("burnProgress");
         burnTime = pTag.getInt("burnTime");
-        fuelIsBurning = pTag.getBoolean("fuelIsBurning");
     }
 
     public void tick(Level level, BlockPos pPos, BlockState pState) {
 
-        if(fuelIsBurning) {
+        if(fuelIsBurning()) {
             if(burnProgress <= burnTime) {
                 increaseBurnProgress();
             } else {
@@ -183,7 +180,8 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
         }
 
         if(isOutputSlotEmptyOrReceivable() && hasRecipe()) {
-            if(fuelIsBurning) {
+            if(fuelIsBurning()) {
+
                 increaseCraftingProcess();
                 setChanged(level, pPos, pState);
 
@@ -194,6 +192,12 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
 
                     resetProgress();
                 }
+            } else if(progress > 0 && !(this.itemHandler.getStackInSlot(FUEL_SLOT).getCount() > 0)) {
+                this.progress -= 5;
+
+                if(progress < 0) {
+                    resetProgress();
+                }
             }
         } else {
             resetProgress();
@@ -201,25 +205,26 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
 
     }
 
+    private boolean fuelIsBurning() {
+        return burnProgress > 0;
+    }
+
     private void checkForValidFuel() {
         if(this.itemHandler.getStackInSlot(FUEL_SLOT).getCount() > 0 &&
             hasRecipe()) {
-            fuelIsBurning = true;
+            burnProgress = 1;
 
             burnTime = net.minecraftforge.common.ForgeHooks.getBurnTime(this.itemHandler.getStackInSlot(FUEL_SLOT), null);
-            if(this.itemHandler.getStackInSlot(FUEL_SLOT).getItem() == Items.LAVA_BUCKET) {
+            if (this.itemHandler.getStackInSlot(FUEL_SLOT).getItem() == Items.LAVA_BUCKET) {
                 this.itemHandler.setStackInSlot(FUEL_SLOT, new ItemStack(Items.BUCKET, 1));
             } else {
                 this.itemHandler.extractItem(FUEL_SLOT, 1, false);
             }
-        } else {
-            fuelIsBurning = false;
         }
     }
 
     private void resetBurnProgress() {
         burnProgress = 0;
-        fuelIsBurning = false;
     }
 
     private void increaseBurnProgress() {
