@@ -21,7 +21,7 @@ public class WitchOvenMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public WitchOvenMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
+        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
     }
 
     public WitchOvenMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
@@ -36,7 +36,6 @@ public class WitchOvenMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
 
-
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler -> {
             this.addSlot(new SlotItemHandler(iItemHandler, 0, 56, 17));
             this.addSlot(new SlotItemHandler(iItemHandler, 1, 118, 21));
@@ -44,7 +43,6 @@ public class WitchOvenMenu extends AbstractContainerMenu {
             this.addSlot(new SlotItemHandler(iItemHandler, 3, 83, 53));
             this.addSlot(new SlotItemHandler(iItemHandler, 4, 118, 53));
         });
-
 
 
         addDataSlots(data);
@@ -66,7 +64,17 @@ public class WitchOvenMenu extends AbstractContainerMenu {
         return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
 
     }
+    public boolean hasFuelBurning() {
+        return this.data.get(2) > 0;
+    }
 
+    public int getFuelScaledProgress() {
+        int progress = this.data.get(2);
+        int maxProgress = this.data.get(3);
+        int fuelBurnSpriteSize = 12;
+
+        return maxProgress != 0 && progress != 0 ? (progress * fuelBurnSpriteSize / maxProgress) + 2 : 0;
+    }
 
 
 
@@ -75,7 +83,6 @@ public class WitchOvenMenu extends AbstractContainerMenu {
     ///////////////////////////////
     // QUICK MOVE STACK FUNCTION //
     ///////////////////////////////
-
 
 
     private static final int HOTBAR_SLOT_COUNT = 9;
@@ -93,20 +100,20 @@ public class WitchOvenMenu extends AbstractContainerMenu {
     @Override
     public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
         Slot sourceSlot = slots.get(pIndex);
-        if(sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;
+        if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;
         ItemStack sourceStack = sourceSlot.getItem();
         ItemStack copyOfSourceStack = sourceStack.copy();
 
         // Check if the slot clicked is one of the vanilla container slots
-        if(pIndex < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT) {
+        if (pIndex < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT) {
             // This is a vanilla container so merge the stack into the tile inventory
-            if(!moveItemStackTo(sourceStack, TE_INVENTORY_FIRST_SLOT_INDEX, TE_INVENTORY_FIRST_SLOT_INDEX
+            if (!moveItemStackTo(sourceStack, TE_INVENTORY_FIRST_SLOT_INDEX, TE_INVENTORY_FIRST_SLOT_INDEX
                     + TE_INVENTORY_SLOT_COUNT, false)) {
                 return ItemStack.EMPTY;
             }
-        } else if(pIndex < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT) {
+        } else if (pIndex < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT) {
             // This is a TE slot so merge the stack into the player's inventory
-            if(!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false)) {
+            if (!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false)) {
                 return ItemStack.EMPTY;
             }
         } else {
@@ -114,7 +121,7 @@ public class WitchOvenMenu extends AbstractContainerMenu {
             return ItemStack.EMPTY;
         }
         // If stack size == 0 (the entire stack was moved) set slot contents to null
-        if(sourceStack.getCount() == 0) {
+        if (sourceStack.getCount() == 0) {
             sourceSlot.set(ItemStack.EMPTY);
         } else {
             sourceSlot.setChanged();
@@ -124,12 +131,6 @@ public class WitchOvenMenu extends AbstractContainerMenu {
     }
 
 
-
-
-
-
-
-
     @Override
     public boolean stillValid(Player pPlayer) {
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()),
@@ -137,7 +138,7 @@ public class WitchOvenMenu extends AbstractContainerMenu {
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
-        for(int i = 0; i < 3; ++i) {
+        for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
                 this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 84 + i * 18));
             }

@@ -37,6 +37,13 @@ public class WitchOvenScreen extends AbstractContainerScreen<WitchOvenMenu> {
         pGuiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
 
         renderProgressArrow(pGuiGraphics, x, y);
+        renderBurnProgress(pGuiGraphics, x, y);
+    }
+
+    private void renderBurnProgress(GuiGraphics pGuiGraphics, int x, int y) {
+        if(menu.hasFuelBurning()) {
+            pGuiGraphics.blit(TEXTURE, x + 57, y + 37 + menu.getFuelScaledProgress() - 2, 176, menu.getFuelScaledProgress() - 2, 14, (14 - menu.getFuelScaledProgress()));
+        }
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {

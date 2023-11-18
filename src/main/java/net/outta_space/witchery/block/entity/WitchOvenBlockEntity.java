@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -15,16 +14,11 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FurnaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.data.ForgeItemTagsProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -70,6 +64,10 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
     private int progress = 0;
     private int maxProgress = 200;
 
+    private int burnProgress = 0;
+    private int burnTime = 1600;
+    public boolean fuelIsBurning = false;
+
 
     public WitchOvenBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.WITCH_OVEN_BE.get(), pPos, pBlockState);
@@ -79,6 +77,8 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
                 return switch(pIndex) {
                     case 0 -> WitchOvenBlockEntity.this.progress;
                     case 1 -> WitchOvenBlockEntity.this.maxProgress;
+                    case 2 -> WitchOvenBlockEntity.this.burnProgress;
+                    case 3 -> WitchOvenBlockEntity.this.burnTime;
                     default -> 0;
                 };
             }
@@ -88,12 +88,14 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
                 switch(pIndex) {
                     case 0 -> WitchOvenBlockEntity.this.progress = pValue;
                     case 1 -> WitchOvenBlockEntity.this.maxProgress = pValue;
+                    case 2 -> WitchOvenBlockEntity.this.burnProgress = pValue;
+                    case 3 -> WitchOvenBlockEntity.this.burnTime = pValue;
                 }
             }
 
             @Override
             public int getCount() {
-                return 2;
+                return 4;
             }
         };
     }
@@ -146,6 +148,11 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         pTag.put("inventory", itemHandler.serializeNBT());
+        pTag.putInt("progress", progress);
+        pTag.putInt("maxProgress", maxProgress);
+        pTag.putInt("burnProgress", burnProgress);
+        pTag.putInt("burnTime", burnTime);
+        pTag.putBoolean("fuelIsBurning", fuelIsBurning);
 
 
         super.saveAdditional(pTag);
@@ -156,29 +163,69 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
         super.load(pTag);
 
         itemHandler.deserializeNBT(pTag.getCompound("inventory"));
+        progress = pTag.getInt("progress");
+        maxProgress = pTag.getInt("maxProgress");
+        burnProgress = pTag.getInt("burnProgress");
+        burnTime = pTag.getInt("burnTime");
+        fuelIsBurning = pTag.getBoolean("fuelIsBurning");
     }
 
     public void tick(Level level, BlockPos pPos, BlockState pState) {
 
-        if(isOutputSlotEmptyOrReceivable() && hasRecipe()) {
-            increaseCraftingProcess();
-            setChanged(level, pPos, pState);
-
-            if(hasProgressFinished()) {
-
-                cookItem();
-                tryForBottledMagic();
-
-                resetProgress();
+        if(fuelIsBurning) {
+            if(burnProgress <= burnTime) {
+                increaseBurnProgress();
+            } else {
+                resetBurnProgress();
             }
+        } else {
+            checkForValidFuel();
+        }
 
+        if(isOutputSlotEmptyOrReceivable() && hasRecipe()) {
+            if(fuelIsBurning) {
+                increaseCraftingProcess();
+                setChanged(level, pPos, pState);
+
+                if (hasProgressFinished()) {
+
+                    cookItem();
+                    tryForBottledMagic();
+
+                    resetProgress();
+                }
+            }
         } else {
             resetProgress();
         }
 
-
-
     }
+
+    private void checkForValidFuel() {
+        if(this.itemHandler.getStackInSlot(FUEL_SLOT).getCount() > 0 &&
+            hasRecipe()) {
+            fuelIsBurning = true;
+
+            burnTime = net.minecraftforge.common.ForgeHooks.getBurnTime(this.itemHandler.getStackInSlot(FUEL_SLOT), null);
+            if(this.itemHandler.getStackInSlot(FUEL_SLOT).getItem() == Items.LAVA_BUCKET) {
+                this.itemHandler.setStackInSlot(FUEL_SLOT, new ItemStack(Items.BUCKET, 1));
+            } else {
+                this.itemHandler.extractItem(FUEL_SLOT, 1, false);
+            }
+        } else {
+            fuelIsBurning = false;
+        }
+    }
+
+    private void resetBurnProgress() {
+        burnProgress = 0;
+        fuelIsBurning = false;
+    }
+
+    private void increaseBurnProgress() {
+        burnProgress++;
+    }
+
     private static final int VESSEL_FILL_CHANCE = 30;
 
     private void tryForBottledMagic() {
