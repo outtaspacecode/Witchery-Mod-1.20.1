@@ -24,6 +24,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
          * Basic block loot tables
          ************************************************************************************/
         this.dropSelf(ModBlocks.WITCH_CAULDRON.get());
+        this.dropSelf(ModBlocks.WITCH_OVEN.get());
         this.dropSelf(ModBlocks.DISTILLERY.get());
         this.dropOther(ModBlocks.HEART_GLYPH.get(), Items.AIR);
         this.dropOther(ModBlocks.WHITE_CIRCLE_GLYPH.get(), Items.AIR);

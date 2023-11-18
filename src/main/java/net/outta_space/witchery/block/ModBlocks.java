@@ -28,6 +28,8 @@ public class ModBlocks {
      ********************************************************************************************/
     public static final RegistryObject<Block> WITCH_CAULDRON = registerBlock("witch_cauldron",
             () -> new WitchCauldronBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).noOcclusion()));
+    public static final RegistryObject<Block> WITCH_OVEN = registerBlock("witch_oven",
+            () -> new WitchOvenBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).noOcclusion()));
     public static final RegistryObject<Block> DISTILLERY = registerBlock("distillery",
             () -> new DistilleryBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).noOcclusion()));
 

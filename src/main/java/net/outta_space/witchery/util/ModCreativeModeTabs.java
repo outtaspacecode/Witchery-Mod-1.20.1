@@ -49,6 +49,7 @@ public class ModCreativeModeTabs {
                     output.accept(ModItems.ATTUNED_STONE.get());
                     output.accept(ModItems.ANOINTING_PASTE.get());
                     output.accept(ModBlocks.WITCH_CAULDRON.get());
+                    output.accept(ModBlocks.WITCH_OVEN.get());
                     output.accept(ModBlocks.DISTILLERY.get());
                     output.accept(ModItems.WOOD_ASH.get());
 

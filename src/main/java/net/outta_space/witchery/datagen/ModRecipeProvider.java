@@ -106,5 +106,14 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_creeper_heart", inventoryTrigger(ItemPredicate.Builder.item()
                         .of(ModItems.CREEPER_HEART.get()).build()))
                 .save(pWriter);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.WITCH_OVEN.get())
+                .pattern(" A ")
+                .pattern("BBB")
+                .pattern("BAB")
+                .define('A', Items.IRON_BARS)
+                .define('B', Items.IRON_INGOT)
+                .unlockedBy("has_iron_ingot", inventoryTrigger(ItemPredicate.Builder.item().of(Items.IRON_INGOT).build()))
+                .save(pWriter);
     }
 }
