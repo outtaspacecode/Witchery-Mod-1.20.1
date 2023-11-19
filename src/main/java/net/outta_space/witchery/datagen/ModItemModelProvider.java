@@ -42,6 +42,10 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItemForBlock(ModBlocks.OTHERWHERE_CIRCLE_GLYPH, "5");
         handheldItem(ModItems.BROOM);
         simpleItem(ModItems.ATTUNED_STONE);
+        simpleItem(ModItems.QUICKLIME);
+        simpleItem(ModItems.GYPSUM);
+        simpleItem(ModItems.DEMON_HEART);
+        simpleItem(ModItems.REFINED_EVIL);
 
         simpleItem(ModItems.WORMY_APPLE);
         simpleItem(ModItems.BONE_NEEDLE);

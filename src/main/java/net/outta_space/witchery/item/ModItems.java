@@ -56,6 +56,15 @@ public class ModItems {
     public static final RegistryObject<Item> ICY_NEEDLE = ITEMS.register("icy_needle",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> QUICKLIME = ITEMS.register("quicklime",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> GYPSUM = ITEMS.register("gypsum",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> REFINED_EVIL = ITEMS.register("refined_evil",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> DEMON_HEART = ITEMS.register("demon_heart",
+            () -> new Item(new Item.Properties()));
+
 
 
     /*********************************************************************************************

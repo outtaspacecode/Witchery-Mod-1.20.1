@@ -117,6 +117,22 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_iron_ingot", inventoryTrigger(ItemPredicate.Builder.item().of(Items.IRON_INGOT).build()))
                 .save(pWriter);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.RITUAL_CHALK.get())
+                .pattern("ABA")
+                .pattern("ACA")
+                .pattern("ACA")
+                .define('A', ModItems.WOOD_ASH.get())
+                .define('B', ModItems.TEAR_OF_THE_GODDESS.get())
+                .define('C', ModItems.GYPSUM.get())
+                .unlockedBy("has_tear_of_the_goddess", inventoryTrigger(ItemPredicate.Builder.item().of(ModItems.TEAR_OF_THE_GODDESS.get()).build()))
+                .save(pWriter);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.QUICKLIME.get())
+                .requires(ModItems.WOOD_ASH.get())
+                .unlockedBy("has_wood_ash", inventoryTrigger(ItemPredicate.Builder.item()
+                        .of(ModItems.WOOD_ASH.get()).build()))
+                .save(pWriter);
+
         new WitchOvenRecipeBuilder(Blocks.OAK_SAPLING, ModItems.EXHALE_OF_THE_HORNED_ONE.get())
                 .unlockedBy("has_oak_sapling", has(Blocks.OAK_SAPLING))
                 .save(pWriter);

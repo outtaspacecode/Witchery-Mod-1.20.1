@@ -52,12 +52,15 @@ public class ModCreativeModeTabs {
                     output.accept(ModBlocks.WITCH_OVEN.get());
                     output.accept(ModBlocks.DISTILLERY.get());
                     output.accept(ModItems.WOOD_ASH.get());
+                    output.accept(ModItems.QUICKLIME.get());
+                    output.accept(ModItems.GYPSUM.get());
 
                     output.accept(ModItems.WORMY_APPLE.get());
                     output.accept(ModItems.BONE_NEEDLE.get());
                     output.accept(ModItems.WAYSTONE.get());
 
-
+                    output.accept(ModItems.REFINED_EVIL.get());
+                    output.accept(ModItems.DEMON_HEART.get());
                     output.accept(ModItems.CREEPER_HEART.get());
                     output.accept(ModItems.TONGUE_OF_DOG.get());
                     output.accept(ModItems.WOOL_OF_BAT.get());
