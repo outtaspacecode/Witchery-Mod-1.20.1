@@ -10,6 +10,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.outta_space.witchery.WitcheryMod;
 
+import java.awt.*;
 import java.rmi.registry.Registry;
 
 public class ModMenuTypes {
@@ -19,6 +20,9 @@ public class ModMenuTypes {
 
     public static final RegistryObject<MenuType<WitchOvenMenu>> WITCH_OVEN_MENU =
             registerMenuType(WitchOvenMenu::new, "witch_oven_menu");
+
+    public static final RegistryObject<MenuType<DistilleryMenu>> DISTILLERY_MENU =
+            registerMenuType(DistilleryMenu::new, "distillery_menu");
 
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory, String name) {

@@ -18,6 +18,7 @@ import net.outta_space.witchery.block.entity.ModBlockEntities;
 import net.outta_space.witchery.item.ModItems;
 import net.outta_space.witchery.loot.ModLootModifiers;
 import net.outta_space.witchery.recipe.ModRecipes;
+import net.outta_space.witchery.screen.DistilleryScreen;
 import net.outta_space.witchery.screen.ModMenuTypes;
 import net.outta_space.witchery.screen.WitchOvenScreen;
 import net.outta_space.witchery.sound.ModSounds;
@@ -85,6 +86,7 @@ public class WitcheryMod {
             event.enqueueWork(() -> {
 
                 MenuScreens.register(ModMenuTypes.WITCH_OVEN_MENU.get(), WitchOvenScreen::new);
+                MenuScreens.register(ModMenuTypes.DISTILLERY_MENU.get(), DistilleryScreen::new);
 
 
             });

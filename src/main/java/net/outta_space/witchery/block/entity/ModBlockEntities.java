@@ -1,6 +1,8 @@
 package net.outta_space.witchery.block.entity;
 
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -16,6 +18,11 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("witch_oven_be", () ->
                     BlockEntityType.Builder.of(WitchOvenBlockEntity::new,
                             ModBlocks.WITCH_OVEN.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<DistilleryBlockEntity>> DISTILLERY_BE =
+            BLOCK_ENTITIES.register("distillery_be", () ->
+                    BlockEntityType.Builder.of(DistilleryBlockEntity::new,
+                            ModBlocks.DISTILLERY.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
