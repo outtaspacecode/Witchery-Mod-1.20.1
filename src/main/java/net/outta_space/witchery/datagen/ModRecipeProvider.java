@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.fml.common.Mod;
 import net.outta_space.witchery.block.ModBlocks;
+import net.outta_space.witchery.datagen.custom.WitchOvenRecipeBuilder;
 import net.outta_space.witchery.item.ModItems;
 
 import java.util.List;
@@ -114,6 +115,28 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('A', Items.IRON_BARS)
                 .define('B', Items.IRON_INGOT)
                 .unlockedBy("has_iron_ingot", inventoryTrigger(ItemPredicate.Builder.item().of(Items.IRON_INGOT).build()))
+                .save(pWriter);
+
+        new WitchOvenRecipeBuilder(Blocks.OAK_SAPLING, ModItems.EXHALE_OF_THE_HORNED_ONE.get())
+                .unlockedBy("has_oak_sapling", has(Blocks.OAK_SAPLING))
+                .save(pWriter);
+        new WitchOvenRecipeBuilder(Blocks.SPRUCE_SAPLING, ModItems.HINT_OF_REBIRTH.get())
+                .unlockedBy("has_spruce_sapling", has(Blocks.SPRUCE_SAPLING))
+                .save(pWriter);
+        new WitchOvenRecipeBuilder(Blocks.BIRCH_SAPLING, ModItems.BREATH_OF_THE_GODDESS.get())
+                .unlockedBy("has_birch_sapling", has(Blocks.BIRCH_SAPLING))
+                .save(pWriter);
+        new WitchOvenRecipeBuilder(Blocks.JUNGLE_SAPLING, ModItems.FOUL_FUME.get())
+                .unlockedBy("has_jungle_sapling", has(Blocks.JUNGLE_SAPLING))
+                .save(pWriter);
+        new WitchOvenRecipeBuilder(ModBlocks.ROWAN_SAPLING.get(), ModItems.WHIFF_OF_MAGIC.get())
+                .unlockedBy("has_rowan_sapling", has(ModBlocks.ROWAN_SAPLING.get()))
+                .save(pWriter);
+        new WitchOvenRecipeBuilder(ModBlocks.ALDER_SAPLING.get(), ModItems.REEK_OF_MISFORTUNE.get())
+                .unlockedBy("has_alder_sapling", has(ModBlocks.ALDER_SAPLING.get()))
+                .save(pWriter);
+        new WitchOvenRecipeBuilder(ModBlocks.HAWTHORN_SAPLING.get(), ModItems.ODOUR_OF_PURITY.get())
+                .unlockedBy("has_hawthorn_sapling", has(ModBlocks.HAWTHORN_SAPLING.get()))
                 .save(pWriter);
     }
 }

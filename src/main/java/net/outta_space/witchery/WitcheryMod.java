@@ -17,6 +17,7 @@ import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.block.entity.ModBlockEntities;
 import net.outta_space.witchery.item.ModItems;
 import net.outta_space.witchery.loot.ModLootModifiers;
+import net.outta_space.witchery.recipe.ModRecipes;
 import net.outta_space.witchery.screen.ModMenuTypes;
 import net.outta_space.witchery.screen.WitchOvenScreen;
 import net.outta_space.witchery.sound.ModSounds;
@@ -45,6 +46,8 @@ public class WitcheryMod {
 
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+
+        ModRecipes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 

@@ -14,6 +14,9 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,10 +27,12 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.item.ModItems;
+import net.outta_space.witchery.recipe.WitchOvenRecipe;
 import net.outta_space.witchery.screen.WitchOvenMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
 import java.util.Random;
 
 public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
@@ -167,6 +172,7 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
         burnTime = pTag.getInt("burnTime");
     }
 
+
     public void tick(Level level, BlockPos pPos, BlockState pState) {
 
         if(fuelIsBurning()) {
@@ -232,20 +238,60 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private static final int VESSEL_FILL_CHANCE = 30;
-
     private void tryForBottledMagic() {
 
         if(this.itemHandler.getStackInSlot(VESSEL_SLOT).getCount() > 0) {
-            if(isVesselOutputEmptyOrRecievable()) {
+            if(isVesselOutputEmptyOrRecievable() && hasModdedRecipe()) {
                 Random rand = new Random();
                 if(rand.nextInt(100) < VESSEL_FILL_CHANCE) {
+
+                    Optional<WitchOvenRecipe> recipe = getModdedRecipe();
+                    ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
+
                     this.itemHandler.extractItem(VESSEL_SLOT, 1, false);
 
-                    this.itemHandler.setStackInSlot(VESSEL_OUTPUT_SLOT, new ItemStack(ModItems.WHIFF_OF_MAGIC.get(),
-                            this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).getCount() + 1));
+                    this.itemHandler.setStackInSlot(VESSEL_OUTPUT_SLOT, new ItemStack(resultItem.getItem(),
+                            this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).getCount() + resultItem.getCount()));
+
                 }
             }
+        } else {
+            this.itemHandler.setStackInSlot(VESSEL_OUTPUT_SLOT, null);
         }
+    }
+
+    private boolean hasModdedRecipe() {
+        Optional<WitchOvenRecipe> recipe = getModdedRecipe();
+
+
+        if (recipe.isEmpty()) {
+            return false;
+        }
+        ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
+
+
+        return canInsertAmountIntoVesselSlot(resultItem.getCount())
+                && canInsertItemIntoVesselSlot(resultItem.getItem());
+    }
+
+    private boolean canInsertItemIntoVesselSlot(Item item) {
+        return this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).is(item) ||
+                this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).isEmpty();
+    }
+
+    private boolean canInsertAmountIntoVesselSlot(int count) {
+        return this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).getCount() + count <=
+                this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).getMaxStackSize();
+    }
+
+    private Optional<WitchOvenRecipe> getModdedRecipe() {
+        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
+
+        for(int i = 0; i < this.itemHandler.getSlots(); i++) {
+            inventory.setItem(i, this.itemHandler.getStackInSlot(i));
+        }
+
+        return this.level.getRecipeManager().getRecipeFor(WitchOvenRecipe.Type.INSTANCE, inventory, level);
     }
 
     private boolean isVesselOutputEmptyOrRecievable() {
@@ -254,10 +300,13 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private void cookItem() {
+        Optional<SmeltingRecipe> recipe = getCurrentRecipe();
+        ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
+
         this.itemHandler.extractItem(INPUT_SLOT, 1, false);
 
-        this.itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(ModItems.WOOD_ASH.get(),
-                this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + 1));
+        this.itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(resultItem.getItem(),
+                this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + resultItem.getCount()));
     }
 
     private void resetProgress() {
@@ -273,12 +322,27 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private boolean hasRecipe() {
-        return canInsertAmountIntoOutputSlot(1) && canInsertItemIntoOutputSlot(ModItems.WOOD_ASH.get())
-                && hasRecipeItemInInputSlot();
+        Optional<SmeltingRecipe> recipe = getCurrentRecipe();
+
+
+        if (recipe.isEmpty()) {
+            return false;
+        }
+        ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
+
+
+        return canInsertAmountIntoOutputSlot(resultItem.getCount())
+                && canInsertItemIntoOutputSlot(resultItem.getItem());
     }
 
-    private boolean hasRecipeItemInInputSlot() {
-        return this.itemHandler.getStackInSlot(INPUT_SLOT).getItem() == ModBlocks.ROWAN_SAPLING.get().asItem();
+    private Optional<SmeltingRecipe> getCurrentRecipe() {
+        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
+
+        for(int i = 0; i < this.itemHandler.getSlots(); i++) {
+            inventory.setItem(i, this.itemHandler.getStackInSlot(i));
+        }
+
+        return this.level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
     }
 
     private boolean canInsertItemIntoOutputSlot(Item item) {
