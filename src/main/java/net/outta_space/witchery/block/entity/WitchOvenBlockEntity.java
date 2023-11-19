@@ -194,7 +194,9 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
                 if (hasProgressFinished()) {
 
                     cookItem();
-                    tryForBottledMagic();
+                    if(hasModdedRecipe()) {
+                        tryForBottledMagic();
+                    }
 
                     resetProgress();
                 }
@@ -241,7 +243,7 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
     private void tryForBottledMagic() {
 
         if(this.itemHandler.getStackInSlot(VESSEL_SLOT).getCount() > 0) {
-            if(isVesselOutputEmptyOrRecievable() && hasModdedRecipe()) {
+            if(isVesselOutputEmptyOrRecievable()) {
                 Random rand = new Random();
                 if(rand.nextInt(100) < VESSEL_FILL_CHANCE) {
 
