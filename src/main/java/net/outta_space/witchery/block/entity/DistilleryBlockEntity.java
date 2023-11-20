@@ -24,10 +24,13 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.item.ModItems;
 import net.outta_space.witchery.screen.DistilleryMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import static net.outta_space.witchery.block.custom.DistilleryBlock.VESSEL_COUNT;
 
 public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
 
@@ -174,6 +177,14 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
 
 
     public void tick(Level level, BlockPos pPos, BlockState pState) {
+
+        if(this.itemHandler.getStackInSlot(VESSEL_SLOT).getCount() >= 4) {
+            level.setBlockAndUpdate(pPos, pState.setValue(VESSEL_COUNT, 4));
+        } else if(this.itemHandler.getStackInSlot(VESSEL_SLOT).isEmpty()) {
+            level.setBlockAndUpdate(pPos, pState.setValue(VESSEL_COUNT, 0));
+        } else {
+            level.setBlockAndUpdate(pPos, pState.setValue(VESSEL_COUNT, this.itemHandler.getStackInSlot(VESSEL_SLOT).getCount()));
+        }
 
         if(hasRecipe() && clayVesselsAreInSlot() && outputSlotsAreAvailable()) {
             increaseDistillProcess();

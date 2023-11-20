@@ -1,0 +1,87 @@
+{
+  "variants": {
+    "facing=east,vessel_count=0": {
+      "model": "witchery:block/distillery",
+      "y": 90
+    },
+    "facing=east,vessel_count=1": {
+      "model": "witchery:block/distillery_1",
+      "y": 90
+    },
+    "facing=east,vessel_count=2": {
+      "model": "witchery:block/distillery_2",
+      "y": 90
+    },
+    "facing=east,vessel_count=3": {
+      "model": "witchery:block/distillery_3",
+      "y": 90
+    },
+    "facing=east,vessel_count=4": {
+      "model": "witchery:block/distillery_4",
+      "y": 90
+    },
+
+    "facing=north,vessel_count=0": {
+      "model": "witchery:block/distillery",
+      "y": 0
+    },
+    "facing=north,vessel_count=1": {
+      "model": "witchery:block/distillery_1",
+      "y": 0
+    },
+    "facing=north,vessel_count=2": {
+      "model": "witchery:block/distillery_2",
+      "y": 0
+    },
+    "facing=north,vessel_count=3": {
+      "model": "witchery:block/distillery_3",
+      "y": 0
+    },
+    "facing=north,vessel_count=4": {
+      "model": "witchery:block/distillery_4",
+      "y": 0
+    },
+
+    "facing=south,vessel_count=0": {
+      "model": "witchery:block/distillery",
+      "y": 180
+    },
+    "facing=south,vessel_count=1": {
+      "model": "witchery:block/distillery_1",
+      "y": 180
+    },
+    "facing=south,vessel_count=2": {
+      "model": "witchery:block/distillery_2",
+      "y": 180
+    },
+    "facing=south,vessel_count=3": {
+      "model": "witchery:block/distillery_3",
+      "y": 180
+    },
+    "facing=south,vessel_count=4": {
+      "model": "witchery:block/distillery_4",
+      "y": 180
+    },
+
+    "facing=west,vessel_count=0": {
+      "model": "witchery:block/distillery",
+      "y": 270
+    },
+    "facing=west,vessel_count=1": {
+      "model": "witchery:block/distillery_1",
+      "y": 270
+    },
+    "facing=west,vessel_count=2": {
+      "model": "witchery:block/distillery_2",
+      "y": 270
+    },
+    "facing=west,vessel_count=3": {
+      "model": "witchery:block/distillery_3",
+      "y": 270
+    },
+    "facing=west,vessel_count=4": {
+      "model": "witchery:block/distillery_4",
+      "y": 270
+    }
+  }
+}

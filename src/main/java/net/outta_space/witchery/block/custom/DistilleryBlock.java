@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import net.outta_space.witchery.block.entity.DistilleryBlockEntity;
@@ -23,8 +24,11 @@ import net.outta_space.witchery.block.entity.ModBlockEntities;
 import org.jetbrains.annotations.Nullable;
 
 public class DistilleryBlock extends BaseEntityBlock {
+    public static final IntegerProperty VESSEL_COUNT = IntegerProperty.create("vessel_count", 0, 4);
+
     public DistilleryBlock(Properties pProperties) {
         super(pProperties);
+        this.registerDefaultState(this.defaultBlockState().setValue(VESSEL_COUNT, 0));
     }
 
 
@@ -48,7 +52,8 @@ public class DistilleryBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING);
+        pBuilder.add(FACING)
+                .add(VESSEL_COUNT);
     }
 
 
