@@ -188,6 +188,7 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
 
         if(hasRecipe() && clayVesselsAreInSlot() && outputSlotsAreAvailable()) {
             increaseDistillProcess();
+            setChanged(level, pPos, pState);
 
             if(progress >= maxProgress) {
                 distillItems();
