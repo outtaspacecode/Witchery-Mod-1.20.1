@@ -20,7 +20,7 @@ public class DistilleryMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public DistilleryMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
+        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(5));
     }
 
 
@@ -67,6 +67,21 @@ public class DistilleryMenu extends AbstractContainerMenu {
 
         return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
     }
+
+    public int getBubbleProgress() {
+        int progress = this.data.get(2);
+        int maxProgress = this.data.get(3);
+        int progressBubbleSize = 29;
+
+        return maxProgress != 0 && progress != 0 ? progress * progressBubbleSize / maxProgress : 0;
+    }
+
+    public boolean hasNoAltar() {
+        return this.data.get(4) == 0;
+    }
+
+
+
 
 
 

@@ -36,7 +36,21 @@ public class DistilleryScreen extends AbstractContainerScreen<DistilleryMenu> {
         pGuiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
 
         renderProgressArrow(pGuiGraphics, x, y);
+        renderProgressBubbles(pGuiGraphics, x, y);
+        renderNoSymbol(pGuiGraphics, x, y);
 
+    }
+
+    private void renderNoSymbol(GuiGraphics pGuiGraphics, int x, int y) {
+        if(menu.hasNoAltar()) {
+            pGuiGraphics.blit(TEXTURE, x + 35, y + 57, 197, 0, 9, 9);
+        }
+    }
+
+    private void renderProgressBubbles(GuiGraphics pGuiGraphics, int x, int y) {
+        if(menu.isDistilling()) {
+            pGuiGraphics.blit(TEXTURE, x + 32, y + 21 + (29 - menu.getBubbleProgress()), 184, (29 - menu.getBubbleProgress()), 13, menu.getBubbleProgress());
+        }
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {

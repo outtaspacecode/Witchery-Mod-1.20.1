@@ -63,7 +63,10 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
 
     protected final ContainerData data;
     private int progress = 0;
-    private int maxProgress = 200;
+    private int maxProgress = 525;
+    private int bubbleProgress = 0;
+    private int bubbleMaxProgress = 15;
+    private boolean hasAltar = false;
 
 
     public DistilleryBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -71,24 +74,35 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
         this.data = new ContainerData() {
             @Override
             public int get(int pIndex) {
+                int temp = 0;
+                if(hasAltar)
+                    temp = 1;
                 return switch(pIndex) {
                     case 0 -> DistilleryBlockEntity.this.progress;
                     case 1 -> DistilleryBlockEntity.this.maxProgress;
+                    case 2 -> DistilleryBlockEntity.this.bubbleProgress;
+                    case 3 -> DistilleryBlockEntity.this.bubbleMaxProgress;
+                    case 4 -> temp;
                     default -> 0;
                 };
             }
 
             @Override
             public void set(int pIndex, int pValue) {
+                int temp = 0;
                 switch(pIndex) {
                     case 0 -> DistilleryBlockEntity.this.progress = pValue;
                     case 1 -> DistilleryBlockEntity.this.maxProgress = pValue;
+                    case 2 -> DistilleryBlockEntity.this.bubbleProgress = pValue;
+                    case 3 -> DistilleryBlockEntity.this.bubbleMaxProgress = pValue;
+                    case 4 -> temp = pValue;
                 }
+                DistilleryBlockEntity.this.hasAltar = temp == 1;
             }
 
             @Override
             public int getCount() {
-                return 2;
+                return 5;
             }
         };
     }
@@ -137,6 +151,9 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         pTag.put("inventory", itemHandler.serializeNBT());
+        pTag.putInt("progress", this.progress);
+        pTag.putInt("bubbleProgress", this.bubbleProgress);
+        pTag.putBoolean("hasAltar", this.hasAltar);
 
 
         super.saveAdditional(pTag);
@@ -146,16 +163,23 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
     public void load(CompoundTag pTag) {
         super.load(pTag);
         itemHandler.deserializeNBT(pTag.getCompound("inventory"));
+        this.progress = pTag.getInt("progress");
+        this.bubbleProgress = pTag.getInt("bubbleProgress");
+        this.hasAltar = pTag.getBoolean("hasAltar");
     }
+
+
+
+
+
 
     public void tick(Level level, BlockPos pPos, BlockState pState) {
 
-        if(isOutputSlotEmptyOrReceivable() && hasRecipe()) {
+        if(hasRecipe() && clayVesselsAreInSlot() && outputSlotsAreAvailable()) {
             increaseDistillProcess();
-            setChanged(level, pPos, pState);
 
-            if(hasProgressFinished()) {
-                distillItem();
+            if(progress >= maxProgress) {
+                distillItems();
                 resetProgress();
             }
         } else {
@@ -164,47 +188,65 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
 
     }
 
-    private void distillItem() {
-        this.itemHandler.extractItem(INPUT_SLOT_1, 1, false);
-
-        this.itemHandler.setStackInSlot(OUTPUT_SLOT_1, new ItemStack(ModItems.DIAMOND_VAPOR.get(),
-                this.itemHandler.getStackInSlot(OUTPUT_SLOT_1).getCount() + 1));
-    }
-
     private void resetProgress() {
-        this.progress = 0;
+        progress = 0;
+        bubbleProgress = 0;
     }
 
-    private boolean hasProgressFinished() {
-        return this.progress >= this.maxProgress;
+    private void distillItems() {
+        this.itemHandler.extractItem(INPUT_SLOT_1, 1, false);
+        this.itemHandler.extractItem(INPUT_SLOT_2, 1, false);
+
+        this.itemHandler.setStackInSlot(OUTPUT_SLOT_1, new ItemStack(ModItems.DIAMOND_VAPOR.get(), this.itemHandler.getStackInSlot(OUTPUT_SLOT_1).getCount() + 1));
+        this.itemHandler.setStackInSlot(OUTPUT_SLOT_2, new ItemStack(ModItems.DIAMOND_VAPOR.get(), this.itemHandler.getStackInSlot(OUTPUT_SLOT_2).getCount() + 1));
+        this.itemHandler.setStackInSlot(OUTPUT_SLOT_3, new ItemStack(ModItems.ODOUR_OF_PURITY.get(), this.itemHandler.getStackInSlot(OUTPUT_SLOT_3).getCount() + 1));
+        this.itemHandler.setStackInSlot(OUTPUT_SLOT_4, ItemStack.EMPTY);
+
+        this.itemHandler.extractItem(VESSEL_SLOT, 3, false);
     }
 
     private void increaseDistillProcess() {
-        this.progress++;
+        progress++;
+        bubbleProgress++;
+        if(bubbleProgress > bubbleMaxProgress)
+            bubbleProgress = 0;
+    }
+
+    private boolean outputSlotsAreAvailable() {
+        ItemStack outputSlot1 = this.itemHandler.getStackInSlot(OUTPUT_SLOT_1);
+        ItemStack outputSlot2 = this.itemHandler.getStackInSlot(OUTPUT_SLOT_2);
+        ItemStack outputSlot3 = this.itemHandler.getStackInSlot(OUTPUT_SLOT_3);
+        ItemStack outputSlot4 = this.itemHandler.getStackInSlot(OUTPUT_SLOT_4);
+
+        return ((outputSlot1.getItem() == ModItems.DIAMOND_VAPOR.get()
+                && outputSlot1.getCount() < outputSlot1.getMaxStackSize())
+                || outputSlot1.isEmpty())
+
+                && ((outputSlot2.getItem() == ModItems.DIAMOND_VAPOR.get()
+                && outputSlot2.getCount() < outputSlot2.getMaxStackSize())
+                || outputSlot2.isEmpty())
+
+                && ((outputSlot3.getItem() == ModItems.ODOUR_OF_PURITY.get()
+                && outputSlot3.getCount() < outputSlot3.getMaxStackSize())
+                || outputSlot3.isEmpty())
+
+                && ((outputSlot4.getItem() == ItemStack.EMPTY.getItem()
+                && outputSlot4.getCount() < outputSlot4.getMaxStackSize())
+                || outputSlot4.isEmpty());
+    }
+
+
+    private boolean clayVesselsAreInSlot() {
+        return this.itemHandler.getStackInSlot(VESSEL_SLOT).getItem() == ModItems.CLAY_VESSEL.get()
+                && this.itemHandler.getStackInSlot(VESSEL_SLOT).getCount() >= 3;
     }
 
     private boolean hasRecipe() {
-        return canInsertAmountIntoOutputSlot(1) && canInsertItemIntoOutputSlot(ModItems.DIAMOND_VAPOR.get())
-                && hasRecipeItemInInputSlot();
+        return (this.itemHandler.getStackInSlot(INPUT_SLOT_1).getItem() == ModItems.OIL_OF_VITRIOL.get()
+            && this.itemHandler.getStackInSlot(INPUT_SLOT_2).getItem() == Items.DIAMOND)
+                || (this.itemHandler.getStackInSlot(INPUT_SLOT_2).getItem() == ModItems.OIL_OF_VITRIOL.get()
+                && this.itemHandler.getStackInSlot(INPUT_SLOT_1).getItem() == Items.DIAMOND);
     }
 
-    private boolean hasRecipeItemInInputSlot() {
-        return this.itemHandler.getStackInSlot(INPUT_SLOT_1).getItem() == ModItems.WHIFF_OF_MAGIC.get();
-    }
-
-    private boolean canInsertItemIntoOutputSlot(Item item) {
-        return this.itemHandler.getStackInSlot(OUTPUT_SLOT_1).is(item) ||
-                this.itemHandler.getStackInSlot(OUTPUT_SLOT_1).isEmpty();
-    }
-
-    private boolean canInsertAmountIntoOutputSlot(int count) {
-        return this.itemHandler.getStackInSlot(OUTPUT_SLOT_1).getMaxStackSize() >
-                this.itemHandler.getStackInSlot(OUTPUT_SLOT_1).getCount() + count;
-    }
-
-    private boolean isOutputSlotEmptyOrReceivable() {
-        return this.itemHandler.getStackInSlot(OUTPUT_SLOT_1).isEmpty() ||
-                this.itemHandler.getStackInSlot(OUTPUT_SLOT_1).getCount() < this.itemHandler.getStackInSlot(OUTPUT_SLOT_1).getMaxStackSize();
-    }
 
 }
