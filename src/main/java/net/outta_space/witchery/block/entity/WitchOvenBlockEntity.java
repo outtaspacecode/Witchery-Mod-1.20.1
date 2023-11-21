@@ -20,6 +20,7 @@ import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -69,7 +70,7 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
     private int progress = 0;
     private int maxProgress = 200;
 
-    private int burnProgress = 0;
+    private int burnProgress = -1;
     private int burnTime = 1600;
 
 
@@ -174,119 +175,65 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
 
 
     public void tick(Level level, BlockPos pPos, BlockState pState) {
-
         if(fuelIsBurning()) {
-            if(burnProgress <= burnTime) {
-                increaseBurnProgress();
-            } else {
+            increaseBurnProgress();
+
+            if(burnProgress >= burnTime) {
                 resetBurnProgress();
             }
-        } else {
-            checkForValidFuel();
-        }
 
-        if(isOutputSlotEmptyOrReceivable() && hasRecipe()) {
-            if(fuelIsBurning()) {
+            if(hasRecipe() && hasOutputSlot()) {
 
-                increaseCraftingProcess();
-                setChanged(level, pPos, pState);
+                increaseSmeltPorgress();
 
-                if (hasProgressFinished()) {
+                if(progress >= maxProgress) {
+                    smeltItem();
 
-                    cookItem();
-                    if(hasModdedRecipe()) {
-                        tryForBottledMagic();
+                    if(hasVesselRecipe() && hasVesselOutputSlot()) {
+                        tryForVesselMagic();
                     }
 
                     resetProgress();
                 }
-            } else if(progress > 0 && !(this.itemHandler.getStackInSlot(FUEL_SLOT).getCount() > 0)) {
-                this.progress -= 5;
+            } else {
+                resetProgress();
+            }
+
+            setChanged(level, pPos, pState);
+        } else {
+            if (burnProgress == -1 && hasRecipe() && hasOutputSlot()) {
+                checkForValidFuel();
+            }
+
+            if(!fuelIsBurning()) {
+                if(progress > 0) {
+                    progress -= 5;
+                }
+
 
                 if(progress < 0) {
-                    resetProgress();
+                    progress = 0;
                 }
             }
-        } else {
-            resetProgress();
         }
 
     }
 
-    private boolean fuelIsBurning() {
-        return burnProgress > 0;
-    }
+    private boolean hasVesselOutputSlot() {
+        Optional<WitchOvenRecipe> recipe = getCurrentVesselRecipe();
 
-    private void checkForValidFuel() {
-        if(this.itemHandler.getStackInSlot(FUEL_SLOT).getCount() > 0 &&
-            hasRecipe()) {
-            burnProgress = 1;
-
-            burnTime = net.minecraftforge.common.ForgeHooks.getBurnTime(this.itemHandler.getStackInSlot(FUEL_SLOT), null);
-            if (this.itemHandler.getStackInSlot(FUEL_SLOT).getItem() == Items.LAVA_BUCKET) {
-                this.itemHandler.setStackInSlot(FUEL_SLOT, new ItemStack(Items.BUCKET, 1));
-            } else {
-                this.itemHandler.extractItem(FUEL_SLOT, 1, false);
-            }
-        }
-    }
-
-    private void resetBurnProgress() {
-        burnProgress = 0;
-    }
-
-    private void increaseBurnProgress() {
-        burnProgress++;
-    }
-
-    private static final int VESSEL_FILL_CHANCE = 30;
-    private void tryForBottledMagic() {
-
-        if(this.itemHandler.getStackInSlot(VESSEL_SLOT).getCount() > 0) {
-            if(isVesselOutputEmptyOrRecievable()) {
-                Random rand = new Random();
-                if(rand.nextInt(100) < VESSEL_FILL_CHANCE) {
-
-                    Optional<WitchOvenRecipe> recipe = getModdedRecipe();
-                    ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
-
-                    this.itemHandler.extractItem(VESSEL_SLOT, 1, false);
-
-                    this.itemHandler.setStackInSlot(VESSEL_OUTPUT_SLOT, new ItemStack(resultItem.getItem(),
-                            this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).getCount() + resultItem.getCount()));
-
-                }
-            }
-        } else {
-            this.itemHandler.setStackInSlot(VESSEL_OUTPUT_SLOT, null);
-        }
-    }
-
-    private boolean hasModdedRecipe() {
-        Optional<WitchOvenRecipe> recipe = getModdedRecipe();
-
-
-        if (recipe.isEmpty()) {
+        if(recipe.isEmpty()) {
             return false;
         }
+
         ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
 
-
-        return canInsertAmountIntoVesselSlot(resultItem.getCount())
-                && canInsertItemIntoVesselSlot(resultItem.getItem());
+        return (this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).getCount() < resultItem.getMaxStackSize()
+                && this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).getItem() == resultItem.getItem())
+                || this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).isEmpty();
     }
 
-    private boolean canInsertItemIntoVesselSlot(Item item) {
-        return this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).is(item) ||
-                this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).isEmpty();
-    }
-
-    private boolean canInsertAmountIntoVesselSlot(int count) {
-        return this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).getCount() + count <=
-                this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).getMaxStackSize();
-    }
-
-    private Optional<WitchOvenRecipe> getModdedRecipe() {
+    private Optional<WitchOvenRecipe> getCurrentVesselRecipe() {
         SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
 
         for(int i = 0; i < this.itemHandler.getSlots(); i++) {
@@ -296,12 +243,45 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
         return this.level.getRecipeManager().getRecipeFor(WitchOvenRecipe.Type.INSTANCE, inventory, level);
     }
 
-    private boolean isVesselOutputEmptyOrRecievable() {
-        return this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).isEmpty() ||
-                this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).getCount() < this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).getMaxStackSize();
+    private boolean hasVesselRecipe() {
+        Optional<WitchOvenRecipe> recipe = getVesselRecipe();
+
+        if(recipe.isEmpty()) {
+            return false;
+        }
+
+        return true;
     }
 
-    private void cookItem() {
+    private Optional<WitchOvenRecipe> getVesselRecipe() {
+        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
+
+        for(int i = 0; i < this.itemHandler.getSlots(); i++) {
+            inventory.setItem(i, this.itemHandler.getStackInSlot(i));
+        }
+
+        return this.level.getRecipeManager().getRecipeFor(WitchOvenRecipe.Type.INSTANCE, inventory, level);
+    }
+
+    private static final int VESSEL_CHANCE = 30;
+    private void tryForVesselMagic() {
+        Random rand = new Random();
+        if(rand.nextInt() < VESSEL_CHANCE) {
+            Optional<WitchOvenRecipe> recipe = getVesselRecipe();
+            ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
+
+            this.itemHandler.extractItem(VESSEL_SLOT, 1, false);
+
+            this.itemHandler.setStackInSlot(VESSEL_OUTPUT_SLOT, new ItemStack(resultItem.getItem(),
+                    this.itemHandler.getStackInSlot(VESSEL_OUTPUT_SLOT).getCount() + resultItem.getCount()));
+        }
+    }
+
+    private void resetProgress() {
+        progress = 0;
+    }
+
+    private void smeltItem() {
         Optional<SmeltingRecipe> recipe = getCurrentRecipe();
         ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
 
@@ -311,34 +291,32 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
                 this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + resultItem.getCount()));
     }
 
-    private void resetProgress() {
-        this.progress = 0;
+    private void increaseSmeltPorgress() {
+        progress++;
     }
 
-    private boolean hasProgressFinished() {
-        return this.progress >= this.maxProgress;
-    }
+    private boolean hasOutputSlot() {
+        Optional<SmeltingRecipe> recipe = getCurrentRecipe();
 
-    private void increaseCraftingProcess() {
-        this.progress++;
+        if(recipe.isEmpty()) {
+            return false;
+        }
+
+        ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
+
+        return (this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() < resultItem.getMaxStackSize()
+                && this.itemHandler.getStackInSlot(OUTPUT_SLOT).getItem() == resultItem.getItem())
+                || this.itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty();
     }
 
     private boolean hasRecipe() {
         Optional<SmeltingRecipe> recipe = getCurrentRecipe();
 
-
-        if (recipe.isEmpty()) {
-            maxProgress = 200;
+        if(recipe.isEmpty()) {
             return false;
         }
-        ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
 
-        if(resultItem.getBurnTime(RecipeType.SMELTING) > 0) {
-            maxProgress = resultItem.getBurnTime(RecipeType.SMELTING);
-        }
-
-        return canInsertAmountIntoOutputSlot(resultItem.getCount())
-                && canInsertItemIntoOutputSlot(resultItem.getItem());
+        return true;
     }
 
     private Optional<SmeltingRecipe> getCurrentRecipe() {
@@ -351,18 +329,29 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
         return this.level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
     }
 
-    private boolean canInsertItemIntoOutputSlot(Item item) {
-        return this.itemHandler.getStackInSlot(OUTPUT_SLOT).is(item) ||
-                this.itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty();
+    private void checkForValidFuel() {
+        if(!this.itemHandler.getStackInSlot(FUEL_SLOT).isEmpty()) {
+            burnTime = net.minecraftforge.common.ForgeHooks.getBurnTime(this.itemHandler.getStackInSlot(FUEL_SLOT), null);
+            burnProgress = 0;
+            if(this.itemHandler.getStackInSlot(FUEL_SLOT).getItem() == Items.LAVA_BUCKET) {
+                this.itemHandler.setStackInSlot(FUEL_SLOT, new ItemStack(Items.BUCKET, 1));
+            } else {
+                this.itemHandler.extractItem(FUEL_SLOT, 1, false);
+            }
+        }
     }
 
-    private boolean canInsertAmountIntoOutputSlot(int count) {
-        return this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + count <=
-                this.itemHandler.getStackInSlot(OUTPUT_SLOT).getMaxStackSize();
+    private void resetBurnProgress() {
+        burnProgress = -1;
     }
 
-    private boolean isOutputSlotEmptyOrReceivable() {
-        return this.itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() ||
-                this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() < this.itemHandler.getStackInSlot(OUTPUT_SLOT).getMaxStackSize();
+    private void increaseBurnProgress() {
+        burnProgress++;
     }
+
+    private boolean fuelIsBurning() {
+        return burnProgress >= 0;
+    }
+
+
 }

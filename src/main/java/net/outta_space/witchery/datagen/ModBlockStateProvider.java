@@ -32,8 +32,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
          * Basic items
          ***********************************************************************/
         carpetBlock(ModBlocks.HEART_GLYPH);
-        horizontalBlock(ModBlocks.DISTILLERY.get(),
-                new ModelFile.UncheckedModelFile(modLoc("block/distillery")));
         horizontalBlock(ModBlocks.WITCH_OVEN.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/witch_oven")));
 
