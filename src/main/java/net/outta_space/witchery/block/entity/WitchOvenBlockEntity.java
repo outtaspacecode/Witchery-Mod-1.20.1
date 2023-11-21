@@ -285,6 +285,12 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
         Optional<SmeltingRecipe> recipe = getCurrentRecipe();
         ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
 
+        if(resultItem.getBurnTime(RecipeType.SMELTING) > 0) {
+            maxProgress = resultItem.getBurnTime(RecipeType.SMELTING);
+        } else {
+            maxProgress = 200;
+        }
+
         this.itemHandler.extractItem(INPUT_SLOT, 1, false);
 
         this.itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(resultItem.getItem(),
