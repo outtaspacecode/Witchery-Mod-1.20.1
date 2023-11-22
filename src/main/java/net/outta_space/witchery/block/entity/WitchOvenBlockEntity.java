@@ -18,8 +18,12 @@ import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.FurnaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -35,6 +39,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.Random;
+import java.util.function.ToIntFunction;
+
+import static net.outta_space.witchery.block.custom.WitchOvenBlock.BURNING;
 
 public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
 
@@ -179,7 +186,7 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
             increaseBurnProgress();
 
             if(burnProgress >= burnTime) {
-                resetBurnProgress();
+                resetBurnProgress(level, pPos, pState);
             }
 
             if(hasRecipe() && hasOutputSlot()) {
@@ -202,12 +209,12 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
             setChanged(level, pPos, pState);
         } else {
             if (burnProgress == -1 && hasRecipe() && hasOutputSlot()) {
-                checkForValidFuel();
+                checkForValidFuel(level, pPos, pState);
             }
 
             if(!fuelIsBurning()) {
                 if(progress > 0) {
-                    progress -= 5;
+                    progress -= 2;
                 }
 
 
@@ -285,12 +292,6 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
         Optional<SmeltingRecipe> recipe = getCurrentRecipe();
         ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
 
-        if(resultItem.getBurnTime(RecipeType.SMELTING) > 0) {
-            maxProgress = resultItem.getBurnTime(RecipeType.SMELTING);
-        } else {
-            maxProgress = 200;
-        }
-
         this.itemHandler.extractItem(INPUT_SLOT, 1, false);
 
         this.itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(resultItem.getItem(),
@@ -322,6 +323,7 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
             return false;
         }
 
+        maxProgress = recipe.get().getCookingTime();
         return true;
     }
 
@@ -335,10 +337,11 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
         return this.level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
     }
 
-    private void checkForValidFuel() {
+    private void checkForValidFuel(Level pLevel, BlockPos pPos, BlockState pState) {
         if(!this.itemHandler.getStackInSlot(FUEL_SLOT).isEmpty()) {
             burnTime = net.minecraftforge.common.ForgeHooks.getBurnTime(this.itemHandler.getStackInSlot(FUEL_SLOT), null);
             burnProgress = 0;
+            pLevel.setBlockAndUpdate(pPos, pState.setValue(BURNING, true));
             if(this.itemHandler.getStackInSlot(FUEL_SLOT).getItem() == Items.LAVA_BUCKET) {
                 this.itemHandler.setStackInSlot(FUEL_SLOT, new ItemStack(Items.BUCKET, 1));
             } else {
@@ -347,8 +350,11 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
         }
     }
 
-    private void resetBurnProgress() {
+    private void resetBurnProgress(Level pLevel, BlockPos pPos, BlockState pState) {
         burnProgress = -1;
+        if(this.itemHandler.getStackInSlot(FUEL_SLOT).isEmpty()) {
+            pLevel.setBlockAndUpdate(pPos, pState.setValue(BURNING, false));
+        }
     }
 
     private void increaseBurnProgress() {
