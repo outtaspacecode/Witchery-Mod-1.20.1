@@ -8,6 +8,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -34,13 +35,13 @@ public class ModBlocks {
             () -> new DistilleryBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).noOcclusion()));
 
     public static final RegistryObject<Block> HEART_GLYPH = registerBlock("heart_glyph",
-            () -> new HeartGlyphBlock(BlockBehaviour.Properties.copy(Blocks.YELLOW_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission()));
+            () -> new HeartGlyphBlock(BlockBehaviour.Properties.copy(Blocks.YELLOW_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission().pushReaction(PushReaction.DESTROY)));
     public static final RegistryObject<Block> WHITE_CIRCLE_GLYPH = registerBlock("white_circle_glyph",
-            () -> new GlyphBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission()));
+            () -> new GlyphBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission().pushReaction(PushReaction.DESTROY)));
     public static final RegistryObject<Block> INFERNAL_CIRCLE_GLYPH = registerBlock("infernal_circle_glyph",
-            () -> new GlyphBlock(BlockBehaviour.Properties.copy(Blocks.RED_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission()));
+            () -> new GlyphBlock(BlockBehaviour.Properties.copy(Blocks.RED_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission().pushReaction(PushReaction.DESTROY)));
     public static final RegistryObject<Block> OTHERWHERE_CIRCLE_GLYPH = registerBlock("otherwhere_circle_glyph",
-            () -> new GlyphBlock(BlockBehaviour.Properties.copy(Blocks.PURPLE_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission()));
+            () -> new GlyphBlock(BlockBehaviour.Properties.copy(Blocks.PURPLE_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission().pushReaction(PushReaction.DESTROY)));
 
     public static final RegistryObject<Block> ALTAR_BLOCK = registerBlock("altar_block",
             () -> new AltarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).explosionResistance(1200.0f)));

@@ -39,7 +39,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.INFERNAL_CHALK);
         simpleItem(ModItems.OTHERWHERE_CHALK);
         simpleItemForBlock(ModBlocks.HEART_GLYPH);
-        simpleItemForBlock(ModBlocks.WHITE_CIRCLE_GLYPH);
+        simpleItemForBlock(ModBlocks.WHITE_CIRCLE_GLYPH, "8");
         simpleItemForBlock(ModBlocks.INFERNAL_CIRCLE_GLYPH, "7");
         simpleItemForBlock(ModBlocks.OTHERWHERE_CIRCLE_GLYPH, "5");
         handheldItem(ModItems.BROOM);
