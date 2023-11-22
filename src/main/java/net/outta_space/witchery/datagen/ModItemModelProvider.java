@@ -29,10 +29,10 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.RAW_CLAY_VESSEL);
         simpleItem(ModItems.CLAY_VESSEL);
         simpleItem(ModItems.ANOINTING_PASTE);
+        simpleItem(ModItems.MUTANDIS);
         modeledBlock(ModBlocks.WITCH_CAULDRON.get());
         modeledBlock(ModBlocks.DISTILLERY.get());
         modeledBlock(ModBlocks.WITCH_OVEN.get());
-        modeledBlock(ModBlocks.DISTILLERY.get());
         modeledBlock(ModBlocks.INFINITY_EGG.get());
         simpleItem(ModItems.GOLDEN_CHALK);
         simpleItem(ModItems.RITUAL_CHALK);

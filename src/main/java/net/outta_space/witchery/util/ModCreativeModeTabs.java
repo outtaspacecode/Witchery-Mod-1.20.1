@@ -48,6 +48,7 @@ public class ModCreativeModeTabs {
                     output.accept(ModItems.BROOM.get());
                     output.accept(ModItems.ATTUNED_STONE.get());
                     output.accept(ModItems.ANOINTING_PASTE.get());
+                    output.accept(ModItems.MUTANDIS.get());
                     output.accept(ModBlocks.WITCH_CAULDRON.get());
                     output.accept(ModBlocks.WITCH_OVEN.get());
                     output.accept(ModBlocks.DISTILLERY.get());

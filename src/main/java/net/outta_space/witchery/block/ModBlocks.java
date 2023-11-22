@@ -17,6 +17,8 @@ import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.block.custom.*;
 import net.outta_space.witchery.block.custom.cropblock.*;
 import net.outta_space.witchery.item.ModItems;
+import net.outta_space.witchery.worldgen.tree.AlderTreeGrower;
+import net.outta_space.witchery.worldgen.tree.RowanTreeGrower;
 
 import java.util.function.Supplier;
 
@@ -111,7 +113,7 @@ public class ModBlocks {
     //////////////////
 
     public static final RegistryObject<Block> ROWAN_SAPLING = registerBlock("rowan_sapling",
-            () -> new SaplingBlock(null, BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+            () -> new SaplingBlock(new RowanTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
     public static final RegistryObject<Block> ROWAN_LOG = registerBlock("rowan_log",
             () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
     public static final RegistryObject<Block> ROWAN_WOOD = registerBlock("rowan_wood",
@@ -162,7 +164,7 @@ public class ModBlocks {
     //////////////////
 
     public static final RegistryObject<Block> ALDER_SAPLING = registerBlock("alder_sapling",
-            () -> new SaplingBlock(null, BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+            () -> new SaplingBlock(new AlderTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
     public static final RegistryObject<Block> ALDER_LOG = registerBlock("alder_log",
             () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
     public static final RegistryObject<Block> ALDER_WOOD = registerBlock("alder_wood",

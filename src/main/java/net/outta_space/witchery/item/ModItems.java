@@ -12,6 +12,7 @@ import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.item.custom.AnointingPasteItem;
 import net.outta_space.witchery.item.custom.BroomItem;
 import net.outta_space.witchery.item.custom.ChalkItem;
+import net.outta_space.witchery.item.custom.MutandisItem;
 import net.outta_space.witchery.util.ModTags;
 import net.outta_space.witchery.util.ModToolTiers;
 
@@ -30,6 +31,8 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ANOINTING_PASTE = ITEMS.register("anointing_paste",
             () -> new AnointingPasteItem(new Item.Properties()));
+    public static final RegistryObject<Item> MUTANDIS = ITEMS.register("mutandis",
+            () -> new MutandisItem(new Item.Properties()));
 
     public static final RegistryObject<Item> GOLDEN_CHALK = ITEMS.register("golden_chalk",
             () -> new ChalkItem(ModBlocks.HEART_GLYPH.get(), new Item.Properties().durability(65)));
