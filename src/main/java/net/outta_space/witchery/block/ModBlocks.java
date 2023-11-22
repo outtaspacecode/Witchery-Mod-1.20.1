@@ -45,6 +45,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> ALTAR_BLOCK = registerBlock("altar_block",
             () -> new AltarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).explosionResistance(1200.0f)));
 
+    public static final RegistryObject<Block> INFINITY_EGG = registerBlock("infinity_egg",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DRAGON_EGG)));
+
     /*******************************************************************************************
      * Crop Blocks:
      *      - Belladonna

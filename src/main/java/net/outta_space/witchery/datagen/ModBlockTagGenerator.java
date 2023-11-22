@@ -8,6 +8,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeBlockTagsProvider;
 import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.block.ModBlocks;
+import net.outta_space.witchery.block.custom.cropblock.SnowBellCropBlock;
 import net.outta_space.witchery.util.ModTags;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,25 +39,33 @@ public class ModBlockTagGenerator  extends BlockTagsProvider {
                 .add(ModBlocks.ROWAN_LOG.get())
                 .add(ModBlocks.ROWAN_WOOD.get())
                 .add(ModBlocks.STRIPPED_ROWAN_LOG.get())
-                .add(ModBlocks.STRIPPED_ROWAN_WOOD.get());
-        this.tag(BlockTags.PLANKS)
-                .add(ModBlocks.ROWAN_PLANKS.get());
-
-        this.tag(BlockTags.LOGS_THAT_BURN)
+                .add(ModBlocks.STRIPPED_ROWAN_WOOD.get())
                 .add(ModBlocks.ALDER_LOG.get())
                 .add(ModBlocks.ALDER_WOOD.get())
                 .add(ModBlocks.STRIPPED_ALDER_LOG.get())
-                .add(ModBlocks.STRIPPED_ALDER_WOOD.get());
-        this.tag(BlockTags.PLANKS)
-                .add(ModBlocks.ALDER_PLANKS.get());
-
-        this.tag(BlockTags.LOGS_THAT_BURN)
+                .add(ModBlocks.STRIPPED_ALDER_WOOD.get())
                 .add(ModBlocks.HAWTHORN_LOG.get())
                 .add(ModBlocks.HAWTHORN_WOOD.get())
                 .add(ModBlocks.STRIPPED_HAWTHORN_LOG.get())
                 .add(ModBlocks.STRIPPED_HAWTHORN_WOOD.get());
+
         this.tag(BlockTags.PLANKS)
+                .add(ModBlocks.ROWAN_PLANKS.get())
+                .add(ModBlocks.ALDER_PLANKS.get())
                 .add(ModBlocks.HAWTHORN_PLANKS.get());
+
+        this.tag(BlockTags.CROPS)
+                .add(ModBlocks.BELLADONNA_CROP.get())
+                .add(ModBlocks.MANDRAKE_CROP.get())
+                .add(ModBlocks.SNOWBELL_CROP.get())
+                .add(ModBlocks.WATER_ARTICHOKE_CROP.get())
+                .add(ModBlocks.WOLFSBANE_CROP.get())
+                .add(ModBlocks.WORMWOOD_CROP.get());
+
+        this.tag(BlockTags.SAPLINGS)
+                .add(ModBlocks.ROWAN_SAPLING.get())
+                .add(ModBlocks.ALDER_SAPLING.get())
+                .add(ModBlocks.HAWTHORN_SAPLING.get());
     }
 
     @Override

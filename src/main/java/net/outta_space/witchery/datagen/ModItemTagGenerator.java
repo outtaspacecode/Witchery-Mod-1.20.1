@@ -1,4 +1,49 @@
 package net.outta_space.witchery.datagen;
 
-public class ModItemTagGenerator {
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.outta_space.witchery.WitcheryMod;
+import net.outta_space.witchery.block.ModBlocks;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.concurrent.CompletableFuture;
+
+public class ModItemTagGenerator extends ItemTagsProvider {
+
+    public ModItemTagGenerator(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pLookupProvider,
+                               CompletableFuture<TagLookup<Block>> pBlockTags, @Nullable ExistingFileHelper existingFileHelper) {
+        super(pOutput, pLookupProvider, pBlockTags, WitcheryMod.MOD_ID, existingFileHelper);
+
+}
+
+    @Override
+    protected void addTags(HolderLookup.Provider pProvider) {
+        this.tag(ItemTags.PLANKS)
+                .add(ModBlocks.ROWAN_PLANKS.get().asItem())
+                .add(ModBlocks.ALDER_PLANKS.get().asItem())
+                .add(ModBlocks.HAWTHORN_PLANKS.get().asItem());
+
+        this.tag(ItemTags.LOGS_THAT_BURN)
+                .add(ModBlocks.ROWAN_LOG.get().asItem())
+                .add(ModBlocks.ROWAN_WOOD.get().asItem())
+                .add(ModBlocks.STRIPPED_ROWAN_LOG.get().asItem())
+                .add(ModBlocks.STRIPPED_ROWAN_WOOD.get().asItem())
+                .add(ModBlocks.ALDER_LOG.get().asItem())
+                .add(ModBlocks.ALDER_WOOD.get().asItem())
+                .add(ModBlocks.STRIPPED_ALDER_LOG.get().asItem())
+                .add(ModBlocks.STRIPPED_ALDER_WOOD.get().asItem())
+                .add(ModBlocks.HAWTHORN_LOG.get().asItem())
+                .add(ModBlocks.HAWTHORN_WOOD.get().asItem())
+                .add(ModBlocks.STRIPPED_HAWTHORN_LOG.get().asItem())
+                .add(ModBlocks.STRIPPED_HAWTHORN_WOOD.get().asItem());
+
+        this.tag(ItemTags.SAPLINGS)
+                .add(ModBlocks.ROWAN_SAPLING.get().asItem())
+                .add(ModBlocks.ALDER_SAPLING.get().asItem())
+                .add(ModBlocks.HAWTHORN_SAPLING.get().asItem());
+    }
 }

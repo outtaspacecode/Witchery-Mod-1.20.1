@@ -33,6 +33,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         modeledBlock(ModBlocks.DISTILLERY.get());
         modeledBlock(ModBlocks.WITCH_OVEN.get());
         modeledBlock(ModBlocks.DISTILLERY.get());
+        modeledBlock(ModBlocks.INFINITY_EGG.get());
         simpleItem(ModItems.GOLDEN_CHALK);
         simpleItem(ModItems.RITUAL_CHALK);
         simpleItem(ModItems.INFERNAL_CHALK);

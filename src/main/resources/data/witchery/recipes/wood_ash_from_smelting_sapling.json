@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "wood_ash",
+  "ingredient": {
+    "tag": "minecraft:saplings"
+  },
+  "result": "witchery:wood_ash"
+}

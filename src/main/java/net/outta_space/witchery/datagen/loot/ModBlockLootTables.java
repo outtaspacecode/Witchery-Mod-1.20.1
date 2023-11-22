@@ -31,6 +31,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropOther(ModBlocks.INFERNAL_CIRCLE_GLYPH.get(), Items.AIR);
         this.dropOther(ModBlocks.OTHERWHERE_CIRCLE_GLYPH.get(), Items.AIR);
         this.dropSelf(ModBlocks.ALTAR_BLOCK.get());
+        this.dropSelf(ModBlocks.INFINITY_EGG.get());
 
         /***********************************************************************************
          * Crop block loot tables
