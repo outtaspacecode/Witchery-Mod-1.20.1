@@ -18,6 +18,7 @@ import net.outta_space.witchery.block.custom.*;
 import net.outta_space.witchery.block.custom.cropblock.*;
 import net.outta_space.witchery.item.ModItems;
 import net.outta_space.witchery.worldgen.tree.AlderTreeGrower;
+import net.outta_space.witchery.worldgen.tree.HawthornTreeGrower;
 import net.outta_space.witchery.worldgen.tree.RowanTreeGrower;
 
 import java.util.function.Supplier;
@@ -214,7 +215,7 @@ public class ModBlocks {
     /////////////////////
 
     public static final RegistryObject<Block> HAWTHORN_SAPLING = registerBlock("hawthorn_sapling",
-            () -> new SaplingBlock(null, BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+            () -> new SaplingBlock(new HawthornTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
     public static final RegistryObject<Block> HAWTHORN_LOG = registerBlock("hawthorn_log",
             () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
     public static final RegistryObject<Block> HAWTHORN_WOOD = registerBlock("hawthorn_wood",

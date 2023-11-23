@@ -150,5 +150,24 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         new WitchOvenRecipeBuilder(ModBlocks.HAWTHORN_SAPLING.get(), ModItems.ODOUR_OF_PURITY.get())
                 .unlockedBy("has_hawthorn_sapling", has(ModBlocks.HAWTHORN_SAPLING.get()))
                 .save(pWriter);
+
+
+
+        // To be removed when witch cauldron is implemented
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.MUTANDIS.get(), 4)
+                .requires(ModItems.MANDRAKE_ROOT.get())
+                .requires(ModItems.EXHALE_OF_THE_HORNED_ONE.get())
+                .requires(Items.EGG)
+                .unlockedBy("has_exhale_of_the_horned_one", inventoryTrigger(ItemPredicate.Builder.item()
+                        .of(ModItems.EXHALE_OF_THE_HORNED_ONE.get()).build()))
+                .save(pWriter);
+
+        // To be removed when witch cauldron is implemented
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.MUTANDIS_EXTREMIS.get())
+                .requires(ModItems.MUTANDIS.get())
+                .requires(Items.NETHER_WART)
+                .unlockedBy("has_mutandis", inventoryTrigger(ItemPredicate.Builder.item()
+                        .of(ModItems.MUTANDIS.get()).build()))
+                .save(pWriter);
     }
 }

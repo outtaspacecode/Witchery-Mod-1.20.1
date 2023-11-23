@@ -9,10 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.block.ModBlocks;
-import net.outta_space.witchery.item.custom.AnointingPasteItem;
-import net.outta_space.witchery.item.custom.BroomItem;
-import net.outta_space.witchery.item.custom.ChalkItem;
-import net.outta_space.witchery.item.custom.MutandisItem;
+import net.outta_space.witchery.item.custom.*;
 import net.outta_space.witchery.util.ModTags;
 import net.outta_space.witchery.util.ModToolTiers;
 
@@ -33,6 +30,8 @@ public class ModItems {
             () -> new AnointingPasteItem(new Item.Properties()));
     public static final RegistryObject<Item> MUTANDIS = ITEMS.register("mutandis",
             () -> new MutandisItem(new Item.Properties()));
+    public static final RegistryObject<Item> MUTANDIS_EXTREMIS = ITEMS.register("mutandis_extremis",
+            () -> new MutandisExtremisItem(new Item.Properties()));
 
     public static final RegistryObject<Item> GOLDEN_CHALK = ITEMS.register("golden_chalk",
             () -> new ChalkItem(ModBlocks.HEART_GLYPH.get(), new Item.Properties().durability(65)));

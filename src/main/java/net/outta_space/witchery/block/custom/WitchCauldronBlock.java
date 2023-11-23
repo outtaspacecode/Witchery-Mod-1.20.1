@@ -69,9 +69,10 @@ public class WitchCauldronBlock extends Block {
                 //pPlayer.sendSystemMessage(Component.literal("Emptied cauldron to " + (pState.getValue(FILL_LEVEL) - 1)));
                 return InteractionResult.SUCCESS;
             }
-            return InteractionResult.FAIL;
         }
-
+        if(!(itemstack.is(Items.WATER_BUCKET) && pState.getValue(FILL_LEVEL) < FULL)) {
+            return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        }
         return InteractionResult.CONSUME;
     }
 
