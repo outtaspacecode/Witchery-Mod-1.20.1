@@ -19,7 +19,7 @@
       "item": "minecraft:stone_bricks"
     },
     "E": {
-      "item": "witchery:rowan_log"
+      "tag": "witchery:rowan_logs"
     }
   },
   "pattern": [

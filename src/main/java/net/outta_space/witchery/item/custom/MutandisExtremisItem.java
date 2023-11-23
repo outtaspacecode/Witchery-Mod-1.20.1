@@ -26,11 +26,11 @@ public class MutandisExtremisItem extends Item {
         Player pPlayer = pContext.getPlayer();
         BlockPos pPos = pContext.getClickedPos();
         BlockState pBlock = pContext.getLevel().getBlockState(pPos);
-        List<Block> convertiblePlants = List.of(ModBlocks.ROWAN_SAPLING.get(), Blocks.BIRCH_SAPLING, Blocks.OAK_SAPLING, Blocks.JUNGLE_SAPLING, Blocks.SPRUCE_SAPLING, ModBlocks.HAWTHORN_SAPLING.get(), ModBlocks.ALDER_LEAVES.get());
+        List<Block> convertiblePlants = List.of(ModBlocks.ROWAN_SAPLING.get(), Blocks.BIRCH_SAPLING, Blocks.OAK_SAPLING, Blocks.JUNGLE_SAPLING, Blocks.SPRUCE_SAPLING, ModBlocks.HAWTHORN_SAPLING.get(), ModBlocks.ALDER_SAPLING.get());
 
         if(!pLevel.isClientSide()) {
 
-            if(pBlock.getBlock() instanceof BushBlock) {
+            if(pBlock.getBlock() instanceof BushBlock || pBlock.getBlock() instanceof VineBlock) {
                 pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
                         SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 0.5f, -1f, 0);
                 Random rand = new Random();

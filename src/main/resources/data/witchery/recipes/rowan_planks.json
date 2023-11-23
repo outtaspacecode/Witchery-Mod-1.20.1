@@ -1,0 +1,13 @@
+{
+  "type": "crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "witchery:rowan_logs"
+    }
+  ],
+  "result": {
+    "item": "witchery:rowan_planks",
+    "count": 4
+  }
+}

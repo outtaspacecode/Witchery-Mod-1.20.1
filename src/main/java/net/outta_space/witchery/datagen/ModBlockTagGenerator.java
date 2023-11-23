@@ -66,6 +66,43 @@ public class ModBlockTagGenerator  extends BlockTagsProvider {
                 .add(ModBlocks.ROWAN_SAPLING.get())
                 .add(ModBlocks.ALDER_SAPLING.get())
                 .add(ModBlocks.HAWTHORN_SAPLING.get());
+
+        this.tag(ModTags.Blocks.ROWAN_LOGS)
+                .add(ModBlocks.ROWAN_LOG.get())
+                .add(ModBlocks.ROWAN_WOOD.get())
+                .add(ModBlocks.STRIPPED_ROWAN_LOG.get())
+                .add(ModBlocks.STRIPPED_ROWAN_WOOD.get());
+
+        this.tag(ModTags.Blocks.ALDER_LOGS)
+                .add(ModBlocks.ALDER_LOG.get())
+                .add(ModBlocks.ALDER_WOOD.get())
+                .add(ModBlocks.STRIPPED_ALDER_LOG.get())
+                .add(ModBlocks.STRIPPED_ALDER_WOOD.get());
+
+        this.tag(ModTags.Blocks.HAWTHORN_LOGS)
+                .add(ModBlocks.HAWTHORN_LOG.get())
+                .add(ModBlocks.HAWTHORN_WOOD.get())
+                .add(ModBlocks.STRIPPED_HAWTHORN_LOG.get())
+                .add(ModBlocks.STRIPPED_HAWTHORN_WOOD.get());
+
+        this.tag(BlockTags.LOGS)
+                .add(ModBlocks.ROWAN_LOG.get())
+                .add(ModBlocks.ROWAN_WOOD.get())
+                .add(ModBlocks.STRIPPED_ROWAN_LOG.get())
+                .add(ModBlocks.STRIPPED_ROWAN_WOOD.get())
+                .add(ModBlocks.ALDER_LOG.get())
+                .add(ModBlocks.ALDER_WOOD.get())
+                .add(ModBlocks.STRIPPED_ALDER_LOG.get())
+                .add(ModBlocks.STRIPPED_ALDER_WOOD.get())
+                .add(ModBlocks.HAWTHORN_LOG.get())
+                .add(ModBlocks.HAWTHORN_WOOD.get())
+                .add(ModBlocks.STRIPPED_HAWTHORN_LOG.get())
+                .add(ModBlocks.STRIPPED_HAWTHORN_WOOD.get());
+
+        this.tag(BlockTags.LEAVES)
+                .add(ModBlocks.ROWAN_LEAVES.get())
+                .add(ModBlocks.ALDER_LEAVES.get())
+                .add(ModBlocks.HAWTHORN_LEAVES.get());
     }
 
     @Override

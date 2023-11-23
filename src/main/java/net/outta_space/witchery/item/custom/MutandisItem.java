@@ -12,6 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.outta_space.witchery.block.ModBlocks;
 
@@ -35,7 +36,7 @@ public class MutandisItem extends Item {
 
         if(!pLevel.isClientSide()) {
 
-            if(pBlock.getBlock() instanceof BushBlock) {
+            if(pBlock.getBlock() instanceof BushBlock || pBlock.getBlock() instanceof VineBlock) {
                 pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
                         SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 0.5f, -1f, 0);
                 Random rand = new Random();
