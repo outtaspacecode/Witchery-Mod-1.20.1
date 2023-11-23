@@ -98,7 +98,6 @@ public class ModBlockLootTables extends BlockLootSubProvider {
          * Tree and wood block loot tables
          ************************************************************************************/
 
-        final float[] saplingChance = new float[]{0.05F, 0.0325F, 0.053333336F, 0.1F};
         ///////////
         // ROWAN //
         ///////////
@@ -109,7 +108,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.STRIPPED_ROWAN_WOOD.get());
         this.dropSelf(ModBlocks.ROWAN_PLANKS.get());
         this.add(ModBlocks.ROWAN_LEAVES.get(), block ->
-                createLeavesDrops(block, ModBlocks.ROWAN_SAPLING.get(), saplingChance));
+                createLeavesDrops(block, ModBlocks.ROWAN_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
         ///////////
         // ALDER //
@@ -121,7 +120,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.STRIPPED_ALDER_WOOD.get());
         this.dropSelf(ModBlocks.ALDER_PLANKS.get());
         this.add(ModBlocks.ALDER_LEAVES.get(), block ->
-                createLeavesDrops(block, ModBlocks.ALDER_SAPLING.get(), saplingChance));
+                createLeavesDrops(block, ModBlocks.ALDER_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
         //////////////
         // HAWTHORN //
@@ -133,7 +132,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.STRIPPED_HAWTHORN_WOOD.get());
         this.dropSelf(ModBlocks.HAWTHORN_PLANKS.get());
         this.add(ModBlocks.HAWTHORN_LEAVES.get(), block ->
-                createLeavesDrops(block, ModBlocks.HAWTHORN_SAPLING.get(), saplingChance));
+                createLeavesDrops(block, ModBlocks.HAWTHORN_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
         /***********************************************************************************
          * End of tree and wood block loot tables
