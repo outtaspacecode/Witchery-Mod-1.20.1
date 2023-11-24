@@ -2,6 +2,7 @@ package net.outta_space.witchery.block.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
@@ -211,15 +212,24 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
 
     private void distillItems() {
         Optional<DistilleryRecipe> recipe = getCurrentRecipe();
-        ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
+        NonNullList<ItemStack> resultItemList = recipe.get().getResultItemList();
 
         this.itemHandler.extractItem(INPUT_SLOT_1, 1, false);
         this.itemHandler.extractItem(INPUT_SLOT_2, 1, false);
 
-        this.itemHandler.setStackInSlot(OUTPUT_SLOT_1, new ItemStack(resultItem.getItem(), this.itemHandler.getStackInSlot(OUTPUT_SLOT_1).getCount() + resultItem.getCount()));
-        this.itemHandler.setStackInSlot(OUTPUT_SLOT_2, new ItemStack(ModItems.DIAMOND_VAPOR.get(), this.itemHandler.getStackInSlot(OUTPUT_SLOT_2).getCount() + 1));
-        this.itemHandler.setStackInSlot(OUTPUT_SLOT_3, new ItemStack(ModItems.ODOUR_OF_PURITY.get(), this.itemHandler.getStackInSlot(OUTPUT_SLOT_3).getCount() + 1));
-        this.itemHandler.setStackInSlot(OUTPUT_SLOT_4, ItemStack.EMPTY);
+        this.itemHandler.setStackInSlot(OUTPUT_SLOT_1, new ItemStack(resultItemList.get(0).getItem(), this.itemHandler.getStackInSlot(OUTPUT_SLOT_1).getCount() + resultItemList.get(0).getCount()));
+
+        if(resultItemList.size() > 1) {
+            this.itemHandler.setStackInSlot(OUTPUT_SLOT_2, new ItemStack(resultItemList.get(1).getItem(), this.itemHandler.getStackInSlot(OUTPUT_SLOT_2).getCount() + resultItemList.get(1).getCount()));
+        }
+
+        if(resultItemList.size() > 2) {
+            this.itemHandler.setStackInSlot(OUTPUT_SLOT_3, new ItemStack(resultItemList.get(2).getItem(), this.itemHandler.getStackInSlot(OUTPUT_SLOT_3).getCount() + resultItemList.get(2).getCount()));
+        }
+
+        if(resultItemList.size() > 3) {
+            this.itemHandler.setStackInSlot(OUTPUT_SLOT_4, new ItemStack(resultItemList.get(3).getItem(), this.itemHandler.getStackInSlot(OUTPUT_SLOT_4).getCount() + resultItemList.get(3).getCount()));
+        }
 
         this.itemHandler.extractItem(VESSEL_SLOT, recipe.get().getVesselCount(), false);
     }
@@ -233,26 +243,56 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
 
     private boolean outputSlotsAreAvailable() {
         Optional<DistilleryRecipe> recipe = getCurrentRecipe();
-        ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
+        NonNullList<ItemStack> resultItemList = recipe.get().getResultItemList();
 
         ItemStack outputSlot1 = this.itemHandler.getStackInSlot(OUTPUT_SLOT_1);
         ItemStack outputSlot2 = this.itemHandler.getStackInSlot(OUTPUT_SLOT_2);
         ItemStack outputSlot3 = this.itemHandler.getStackInSlot(OUTPUT_SLOT_3);
         ItemStack outputSlot4 = this.itemHandler.getStackInSlot(OUTPUT_SLOT_4);
 
-        return ((outputSlot1.getItem() == resultItem.getItem()
+        if(resultItemList.size() == 1) {
+            return ((outputSlot1.getItem() == resultItemList.get(0).getItem()
+                    && outputSlot1.getCount() < outputSlot1.getMaxStackSize())
+                    || outputSlot1.isEmpty());
+        }
+
+        if(resultItemList.size() == 2) {
+            return ((outputSlot1.getItem() == resultItemList.get(0).getItem()
+                    && outputSlot1.getCount() < outputSlot1.getMaxStackSize())
+                    || outputSlot1.isEmpty())
+
+                    && ((outputSlot2.getItem() == resultItemList.get(1).getItem()
+                    && outputSlot2.getCount() < outputSlot2.getMaxStackSize())
+                    || outputSlot2.isEmpty());
+        }
+
+        if(resultItemList.size() == 3) {
+            return ((outputSlot1.getItem() == resultItemList.get(0).getItem()
+                    && outputSlot1.getCount() < outputSlot1.getMaxStackSize())
+                    || outputSlot1.isEmpty())
+
+                    && ((outputSlot2.getItem() == resultItemList.get(1).getItem()
+                    && outputSlot2.getCount() < outputSlot2.getMaxStackSize())
+                    || outputSlot2.isEmpty())
+
+                    && ((outputSlot3.getItem() == resultItemList.get(2).getItem()
+                    && outputSlot3.getCount() < outputSlot3.getMaxStackSize())
+                    || outputSlot3.isEmpty());
+        }
+
+        return ((outputSlot1.getItem() == resultItemList.get(0).getItem()
                 && outputSlot1.getCount() < outputSlot1.getMaxStackSize())
                 || outputSlot1.isEmpty())
 
-                && ((outputSlot2.getItem() == ModItems.DIAMOND_VAPOR.get()
+                && ((outputSlot2.getItem() == resultItemList.get(1).getItem()
                 && outputSlot2.getCount() < outputSlot2.getMaxStackSize())
                 || outputSlot2.isEmpty())
 
-                && ((outputSlot3.getItem() == ModItems.ODOUR_OF_PURITY.get()
+                && ((outputSlot3.getItem() == resultItemList.get(2).getItem()
                 && outputSlot3.getCount() < outputSlot3.getMaxStackSize())
                 || outputSlot3.isEmpty())
 
-                && ((outputSlot4.getItem() == ItemStack.EMPTY.getItem()
+                && ((outputSlot4.getItem() == resultItemList.get(3).getItem()
                 && outputSlot4.getCount() < outputSlot4.getMaxStackSize())
                 || outputSlot4.isEmpty());
     }

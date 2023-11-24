@@ -1,0 +1,30 @@
+{
+  "type": "witchery:distillery",
+  "ingredients": [
+    {
+      "item": "witchery:breath_of_the_goddess"
+    },
+    {
+      "item": "minecraft:lapis_lazuli"
+    }
+  ],
+  "outputs": [
+    {
+      "item": "witchery:tear_of_the_goddess",
+      "count": 1
+    },
+    {
+      "item": "witchery:whiff_of_magic",
+      "count": 1
+    },
+    {
+      "item": "minecraft:slime_ball",
+      "count": 1
+    },
+    {
+      "item": "witchery:foul_fume",
+      "count": 1
+    }
+  ],
+  "vesselCount": 3
+}

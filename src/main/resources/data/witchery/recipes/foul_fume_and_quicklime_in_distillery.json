@@ -1,0 +1,26 @@
+{
+  "type": "witchery:distillery",
+  "ingredients": [
+    {
+      "item": "witchery:foul_fume"
+    },
+    {
+      "item": "witchery:quicklime"
+    }
+  ],
+  "outputs": [
+    {
+      "item": "witchery:gypsum",
+      "count": 1
+    },
+    {
+      "item": "witchery:oil_of_vitriol",
+      "count": 1
+    },
+    {
+      "item": "minecraft:slime_ball",
+      "count": 1
+    }
+  ],
+  "vesselCount": 1
+}

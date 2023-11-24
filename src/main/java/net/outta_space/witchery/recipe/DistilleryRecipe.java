@@ -21,13 +21,13 @@ import java.util.Objects;
 public class DistilleryRecipe implements Recipe<SimpleContainer> {
 
     private final NonNullList<Ingredient> inputItems;
-    private final ItemStack output;
+    private final NonNullList<ItemStack> outputs;
     private final ResourceLocation id;
     private final int vesselCount;
 
-    public DistilleryRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> inputItems, int vesselCount) {
+    public DistilleryRecipe(ResourceLocation id, NonNullList<ItemStack> outputs, NonNullList<Ingredient> inputItems, int vesselCount) {
         this.inputItems = inputItems;
-        this.output = output;
+        this.outputs = outputs;
         this.id = id;
         this.vesselCount = vesselCount;
     }
@@ -62,7 +62,7 @@ public class DistilleryRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
-        return output.copy();
+        return outputs.get(0).copy();
     }
 
     @Override
@@ -72,7 +72,11 @@ public class DistilleryRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
-        return output.copy();
+        return outputs.get(0).copy();
+    }
+
+    public NonNullList<ItemStack> getResultItemList() {
+        return this.outputs;
     }
 
     public int getVesselCount() { return vesselCount; }
@@ -111,7 +115,6 @@ public class DistilleryRecipe implements Recipe<SimpleContainer> {
 
         @Override
         public DistilleryRecipe fromJson(ResourceLocation id, JsonObject json) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 
             JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
             NonNullList<Ingredient> inputs = NonNullList.withSize(ingredients.size(), Ingredient.EMPTY);
@@ -120,9 +123,16 @@ public class DistilleryRecipe implements Recipe<SimpleContainer> {
                 inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
             }
 
+            JsonArray outputItems = GsonHelper.getAsJsonArray(json, "outputs");
+            NonNullList<ItemStack> outputs = NonNullList.withSize(outputItems.size(), ItemStack.EMPTY);
+
+            for(int i = 0; i < outputs.size(); i++) {
+                outputs.set(i, ShapedRecipe.itemStackFromJson(outputItems.get(i).getAsJsonObject()));
+            }
+
             int vesselCount = GsonHelper.getAsInt(json, "vesselCount", 0);
 
-            return new DistilleryRecipe(id, output, inputs, vesselCount);
+            return new DistilleryRecipe(id, outputs, inputs, vesselCount);
         }
 
         @Override
@@ -133,10 +143,14 @@ public class DistilleryRecipe implements Recipe<SimpleContainer> {
                 inputs.set(i, Ingredient.fromNetwork(buf));
             }
 
-            ItemStack output = buf.readItem();
+            NonNullList<ItemStack> outputs = NonNullList.withSize(buf.readInt(), ItemStack.EMPTY);
+
+            for(int i = 0; i < outputs.size(); i++) {
+                outputs.set(i, buf.readItem());
+            }
 
             int vesselCount = buf.readInt();
-            return new DistilleryRecipe(id, output, inputs, vesselCount);
+            return new DistilleryRecipe(id, outputs, inputs, vesselCount);
         }
 
 
@@ -148,7 +162,11 @@ public class DistilleryRecipe implements Recipe<SimpleContainer> {
                 ing.toNetwork(buf);
             }
 
-            buf.writeItemStack(recipe.getResultItem(null), false);
+            buf.writeInt(recipe.getResultItemList().size());
+
+            for(int i = 0; i < recipe.getResultItemList().size(); i++) {
+                buf.writeItemStack(recipe.getResultItemList().get(i), false);
+            }
 
             buf.writeInt(recipe.vesselCount);
         }

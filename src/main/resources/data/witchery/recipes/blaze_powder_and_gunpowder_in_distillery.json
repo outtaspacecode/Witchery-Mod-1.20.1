@@ -1,0 +1,26 @@
+{
+  "type": "witchery:distillery",
+  "ingredients": [
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    }
+  ],
+  "outputs": [
+    {
+      "item": "minecraft:glowstone_dust",
+      "count": 1
+    },
+    {
+      "item": "minecraft:glowstone_dust",
+      "count": 1
+    },
+    {
+      "item": "witchery:reek_of_misfortune",
+      "count": 1
+    }
+  ],
+  "vesselCount": 1
+}

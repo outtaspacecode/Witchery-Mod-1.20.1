@@ -1,0 +1,26 @@
+{
+  "type": "witchery:distillery",
+  "ingredients": [
+    {
+      "item": "witchery:diamond_vapor"
+    },
+    {
+      "item": "witchery:demon_heart"
+    }
+  ],
+  "outputs": [
+    {
+      "item": "witchery:demonic_blood",
+      "count": 2
+    },
+    {
+      "item": "witchery:demonic_blood",
+      "count": 2
+    },
+    {
+      "item": "witchery:refined_evil",
+      "count": 1
+    }
+  ],
+  "vesselCount": 4
+}

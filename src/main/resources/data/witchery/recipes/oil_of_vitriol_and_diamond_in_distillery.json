@@ -8,8 +8,19 @@
       "item": "minecraft:diamond"
     }
   ],
-  "output": {
-    "item": "witchery:diamond_vapor"
-  },
+  "outputs": [
+    {
+      "item": "witchery:diamond_vapor",
+      "count": 1
+    },
+    {
+      "item": "witchery:diamond_vapor",
+      "count": 1
+    },
+    {
+      "item": "witchery:odour_of_purity",
+      "count": 1
+    }
+  ],
   "vesselCount": 3
 }

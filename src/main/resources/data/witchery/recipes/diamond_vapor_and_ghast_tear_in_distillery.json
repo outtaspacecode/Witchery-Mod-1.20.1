@@ -1,0 +1,30 @@
+{
+  "type": "witchery:distillery",
+  "ingredients": [
+    {
+      "item": "witchery:diamond_vapor"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    }
+  ],
+  "outputs": [
+    {
+      "item": "witchery:odour_of_purity",
+      "count": 1
+    },
+    {
+      "item": "witchery:whiff_of_magic",
+      "count": 1
+    },
+    {
+      "item": "witchery:foul_fume",
+      "count": 1
+    },
+    {
+      "item": "witchery:refined_evil",
+      "count": 1
+    }
+  ],
+  "vesselCount": 3
+}

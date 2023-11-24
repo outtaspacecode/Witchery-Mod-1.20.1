@@ -1,0 +1,26 @@
+{
+  "type": "witchery:distillery",
+  "ingredients": [
+    {
+      "item": "witchery:demon_heart"
+    },
+    {
+      "item": "minecraft:netherrack"
+    }
+  ],
+  "outputs": [
+    {
+      "item": "witchery:demonic_blood",
+      "count": 1
+    },
+    {
+      "item": "witchery:demonic_blood",
+      "count": 1
+    },
+    {
+      "item": "minecraft:soul_sand",
+      "count": 1
+    }
+  ],
+  "vesselCount": 2
+}
