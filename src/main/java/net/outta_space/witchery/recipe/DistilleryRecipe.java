@@ -38,10 +38,18 @@ public class DistilleryRecipe implements Recipe<SimpleContainer> {
             return false;
         }
 
-        if(inputItems.get(1).isEmpty()) {
-            return inputItems.get(0).test(pContainer.getItem(1))
-                || inputItems.get(0).test(pContainer.getItem(2));
+
+        if(inputItems.size() == 1) {
+            return ((inputItems.get(0).test(pContainer.getItem(1))
+                    && pContainer.getItem(2).isEmpty())
+
+                || (inputItems.get(0).test(pContainer.getItem(2))
+                    && pContainer.getItem(1).isEmpty()))
+
+                    && vesselCount <= pContainer.getItem(0).getCount();
         }
+
+
 
         return ((inputItems.get(0).test(pContainer.getItem(1))
                 && inputItems.get(1).test(pContainer.getItem(2)))
@@ -106,7 +114,7 @@ public class DistilleryRecipe implements Recipe<SimpleContainer> {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 
             JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.withSize(2, Ingredient.EMPTY);
+            NonNullList<Ingredient> inputs = NonNullList.withSize(ingredients.size(), Ingredient.EMPTY);
 
             for(int i = 0; i < inputs.size(); i++) {
                 inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
