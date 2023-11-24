@@ -1,0 +1,15 @@
+{
+  "type": "witchery:distillery",
+  "ingredients": [
+    {
+      "item": "witchery:oil_of_vitriol"
+    },
+    {
+      "item": "minecraft:diamond"
+    }
+  ],
+  "output": {
+    "item": "witchery:diamond_vapor"
+  },
+  "vesselCount": 3
+}

@@ -26,9 +26,12 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.item.ModItems;
+import net.outta_space.witchery.recipe.DistilleryRecipe;
 import net.outta_space.witchery.screen.DistilleryMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 import static net.outta_space.witchery.block.custom.DistilleryBlock.VESSEL_COUNT;
 
@@ -186,7 +189,7 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
             level.setBlockAndUpdate(pPos, pState.setValue(VESSEL_COUNT, this.itemHandler.getStackInSlot(VESSEL_SLOT).getCount()));
         }
 
-        if(hasRecipe() && clayVesselsAreInSlot() && outputSlotsAreAvailable()) {
+        if(hasRecipe() && outputSlotsAreAvailable()) {
             increaseDistillProcess();
 
             if(progress >= maxProgress) {
@@ -207,15 +210,18 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private void distillItems() {
+        Optional<DistilleryRecipe> recipe = getCurrentRecipe();
+        ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
+
         this.itemHandler.extractItem(INPUT_SLOT_1, 1, false);
         this.itemHandler.extractItem(INPUT_SLOT_2, 1, false);
 
-        this.itemHandler.setStackInSlot(OUTPUT_SLOT_1, new ItemStack(ModItems.DIAMOND_VAPOR.get(), this.itemHandler.getStackInSlot(OUTPUT_SLOT_1).getCount() + 1));
+        this.itemHandler.setStackInSlot(OUTPUT_SLOT_1, new ItemStack(resultItem.getItem(), this.itemHandler.getStackInSlot(OUTPUT_SLOT_1).getCount() + resultItem.getCount()));
         this.itemHandler.setStackInSlot(OUTPUT_SLOT_2, new ItemStack(ModItems.DIAMOND_VAPOR.get(), this.itemHandler.getStackInSlot(OUTPUT_SLOT_2).getCount() + 1));
         this.itemHandler.setStackInSlot(OUTPUT_SLOT_3, new ItemStack(ModItems.ODOUR_OF_PURITY.get(), this.itemHandler.getStackInSlot(OUTPUT_SLOT_3).getCount() + 1));
         this.itemHandler.setStackInSlot(OUTPUT_SLOT_4, ItemStack.EMPTY);
 
-        this.itemHandler.extractItem(VESSEL_SLOT, 3, false);
+        this.itemHandler.extractItem(VESSEL_SLOT, recipe.get().getVesselCount(), false);
     }
 
     private void increaseDistillProcess() {
@@ -226,12 +232,15 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private boolean outputSlotsAreAvailable() {
+        Optional<DistilleryRecipe> recipe = getCurrentRecipe();
+        ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
+
         ItemStack outputSlot1 = this.itemHandler.getStackInSlot(OUTPUT_SLOT_1);
         ItemStack outputSlot2 = this.itemHandler.getStackInSlot(OUTPUT_SLOT_2);
         ItemStack outputSlot3 = this.itemHandler.getStackInSlot(OUTPUT_SLOT_3);
         ItemStack outputSlot4 = this.itemHandler.getStackInSlot(OUTPUT_SLOT_4);
 
-        return ((outputSlot1.getItem() == ModItems.DIAMOND_VAPOR.get()
+        return ((outputSlot1.getItem() == resultItem.getItem()
                 && outputSlot1.getCount() < outputSlot1.getMaxStackSize())
                 || outputSlot1.isEmpty())
 
@@ -248,17 +257,28 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
                 || outputSlot4.isEmpty());
     }
 
+    private Optional<DistilleryRecipe> getCurrentRecipe() {
+        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
+        for(int i = 0; i < this.itemHandler.getSlots(); i++) {
+            inventory.setItem(i, this.itemHandler.getStackInSlot(i));
+        }
 
-    private boolean clayVesselsAreInSlot() {
-        return this.itemHandler.getStackInSlot(VESSEL_SLOT).getItem() == ModItems.CLAY_VESSEL.get()
-                && this.itemHandler.getStackInSlot(VESSEL_SLOT).getCount() >= 3;
+        return this.level.getRecipeManager().getRecipeFor(DistilleryRecipe.Type.INSTANCE, inventory, level);
     }
 
     private boolean hasRecipe() {
-        return (this.itemHandler.getStackInSlot(INPUT_SLOT_1).getItem() == ModItems.OIL_OF_VITRIOL.get()
-            && this.itemHandler.getStackInSlot(INPUT_SLOT_2).getItem() == Items.DIAMOND)
-                || (this.itemHandler.getStackInSlot(INPUT_SLOT_2).getItem() == ModItems.OIL_OF_VITRIOL.get()
-                && this.itemHandler.getStackInSlot(INPUT_SLOT_1).getItem() == Items.DIAMOND);
+        Optional<DistilleryRecipe> recipe = getCurrentRecipe();
+
+        if(recipe.isEmpty()) {
+            return false;
+        }
+
+        return true;
+
+//        return (this.itemHandler.getStackInSlot(INPUT_SLOT_1).getItem() == ModItems.OIL_OF_VITRIOL.get()
+//            && this.itemHandler.getStackInSlot(INPUT_SLOT_2).getItem() == Items.DIAMOND)
+//                || (this.itemHandler.getStackInSlot(INPUT_SLOT_2).getItem() == ModItems.OIL_OF_VITRIOL.get()
+//                && this.itemHandler.getStackInSlot(INPUT_SLOT_1).getItem() == Items.DIAMOND);
     }
 
 
