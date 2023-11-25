@@ -1,7 +1,9 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "minecraft:block/orientable",
   "textures": {
-    "end": "minecraft:block/red_wool",
-    "side": "witchery:block/altar_joined"
+    "top": "minecraft:block/red_wool",
+    "side": "witchery:block/altar_joined",
+    "front": "witchery:block/altar_joined",
+    "bottom": "witchery:block/altar_top"
   }
 }

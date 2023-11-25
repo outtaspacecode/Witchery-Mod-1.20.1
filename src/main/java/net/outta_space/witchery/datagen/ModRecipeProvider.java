@@ -151,6 +151,13 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_hawthorn_sapling", has(ModBlocks.HAWTHORN_SAPLING.get()))
                 .save(pWriter);
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.TAGLOCK_KIT.get())
+                .requires(Items.GLASS_BOTTLE)
+                .requires(ModItems.BONE_NEEDLE.get())
+                .unlockedBy("has_glass_bottle", inventoryTrigger(ItemPredicate.Builder.item()
+                        .of(Items.GLASS_BOTTLE).build()))
+                .save(pWriter);
+
 
 
         // To be removed when witch cauldron is implemented

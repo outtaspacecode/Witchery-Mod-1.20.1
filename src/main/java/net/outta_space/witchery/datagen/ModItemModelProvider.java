@@ -49,6 +49,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.GYPSUM);
         simpleItem(ModItems.DEMON_HEART);
         simpleItem(ModItems.REFINED_EVIL);
+        simpleItem(ModItems.TAGLOCK_KIT);
 
         simpleItem(ModItems.WORMY_APPLE);
         simpleItem(ModItems.BONE_NEEDLE);
