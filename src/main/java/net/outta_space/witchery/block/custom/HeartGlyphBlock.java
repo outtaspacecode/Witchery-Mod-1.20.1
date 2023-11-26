@@ -19,7 +19,7 @@ public class HeartGlyphBlock extends GlyphBlock {
 
             if(!pLevel.isClientSide()) {
 
-                pPlayer.displayClientMessage(Component.literal("§cUnknown rite."), true);
+                pPlayer.sendSystemMessage(Component.literal("§cUnknown rite."));
                 return InteractionResult.SUCCESS;
 
             }

@@ -342,8 +342,9 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
             burnTime = net.minecraftforge.common.ForgeHooks.getBurnTime(this.itemHandler.getStackInSlot(FUEL_SLOT), null);
             burnProgress = 0;
             pLevel.setBlockAndUpdate(pPos, pState.setValue(BURNING, true));
-            if(this.itemHandler.getStackInSlot(FUEL_SLOT).getItem() == Items.LAVA_BUCKET) {
-                this.itemHandler.setStackInSlot(FUEL_SLOT, new ItemStack(Items.BUCKET, 1));
+            if(this.itemHandler.getStackInSlot(FUEL_SLOT).getItem().hasCraftingRemainingItem()) {
+                this.itemHandler.setStackInSlot(FUEL_SLOT,
+                        new ItemStack(itemHandler.getStackInSlot(FUEL_SLOT).getItem().getCraftingRemainingItem(), 1));
             } else {
                 this.itemHandler.extractItem(FUEL_SLOT, 1, false);
             }

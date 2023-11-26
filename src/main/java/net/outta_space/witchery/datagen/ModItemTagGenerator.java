@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.block.ModBlocks;
+import net.outta_space.witchery.item.ModItems;
 import net.outta_space.witchery.util.ModTags;
 import org.jetbrains.annotations.Nullable;
 
@@ -84,6 +85,13 @@ public class ModItemTagGenerator extends ItemTagsProvider {
                 .add(ModBlocks.ROWAN_LEAVES.get().asItem())
                 .add(ModBlocks.ALDER_LEAVES.get().asItem())
                 .add(ModBlocks.HAWTHORN_LEAVES.get().asItem());
+
+        this.tag(ItemTags.VILLAGER_PLANTABLE_SEEDS)
+                .add(ModItems.BELLADONNA_SEEDS.get())
+                .add(ModItems.MANDRAKE_SEEDS.get())
+                .add(ModItems.SNOWBELL_SEEDS.get())
+                .add(ModItems.WOLFSBANE_SEEDS.get())
+                .add(ModItems.WORMWOOD_SEEDS.get());
 
     }
 }

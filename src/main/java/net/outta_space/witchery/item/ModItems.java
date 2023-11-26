@@ -68,7 +68,7 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> TAGLOCK_KIT = ITEMS.register("taglock_kit",
-            () -> new TagLockKitItem(new Item.Properties()));
+            () -> new TagLockKitItem(new Item.Properties().stacksTo(16)));
 
 
 
