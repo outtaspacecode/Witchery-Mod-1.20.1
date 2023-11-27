@@ -4,12 +4,17 @@ package net.outta_space.witchery.compat;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.outta_space.witchery.WitcheryMod;
+import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.recipe.DistilleryRecipe;
 import net.outta_space.witchery.recipe.WitchOvenRecipe;
 import net.outta_space.witchery.screen.DistilleryScreen;
@@ -53,5 +58,11 @@ public class JEIWitcheryPlugin implements IModPlugin {
                 DistilleryCategory.DISTILLERY_TYPE);
         registration.addRecipeClickArea(WitchOvenScreen.class, 80, 21, 22, 15,
                 WitchOvenCategory.WITCH_OVEN_TYPE);
+    }
+
+    @Override
+    public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.DISTILLERY.get().asItem()), DistilleryCategory.DISTILLERY_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.WITCH_OVEN.get().asItem()), WitchOvenCategory.WITCH_OVEN_TYPE);
     }
 }

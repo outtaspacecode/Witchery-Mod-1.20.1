@@ -73,6 +73,7 @@ public class WitchOvenCategory implements IRecipeCategory<WitchOvenRecipe> {
         builder.addSlot(RecipeIngredientRole.INPUT, 3, 3).addIngredients(ingredients.get(0));
 
         builder.addSlot(RecipeIngredientRole.INPUT, 30, 39).addItemStack(new ItemStack(ModItems.CLAY_VESSEL.get(), 1));
+        builder.addSlot(RecipeIngredientRole.INPUT, 3, 39).addIngredients(Ingredient.EMPTY);
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 65, 39).addItemStack(recipe.getResultItem(null));
         builder.addSlot(RecipeIngredientRole.OUTPUT, 65, 7).addItemStack(smeltingRecipe.get().getResultItem(null));
