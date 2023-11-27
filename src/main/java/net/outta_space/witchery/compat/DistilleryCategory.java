@@ -61,6 +61,8 @@ public class DistilleryCategory implements IRecipeCategory<DistilleryRecipe> {
         builder.addSlot(RecipeIngredientRole.INPUT, 16, 3).addIngredients(ingredients.get(0));
         if(ingredients.size() > 1) {
             builder.addSlot(RecipeIngredientRole.INPUT, 16, 21).addIngredients(ingredients.get(1));
+        } else {
+            builder.addSlot(RecipeIngredientRole.INPUT, 16, 21).addIngredients(Ingredient.EMPTY);
         }
 
         builder.addSlot(RecipeIngredientRole.INPUT, 16, 41).addItemStack(new ItemStack(ModItems.CLAY_VESSEL.get(), recipe.getVesselCount()));
@@ -69,12 +71,18 @@ public class DistilleryCategory implements IRecipeCategory<DistilleryRecipe> {
         builder.addSlot(RecipeIngredientRole.OUTPUT, 78, 3).addItemStack(outputs.get(0));
         if(outputs.size() > 1) {
             builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 3).addItemStack(outputs.get(1));
+        } else {
+            builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 3).addItemStack(ItemStack.EMPTY);
         }
         if(outputs.size() > 2) {
             builder.addSlot(RecipeIngredientRole.OUTPUT, 78, 21).addItemStack(outputs.get(2));
+        } else {
+            builder.addSlot(RecipeIngredientRole.OUTPUT, 78, 21).addItemStack(ItemStack.EMPTY);
         }
         if(outputs.size() > 3) {
             builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 21).addItemStack(outputs.get(3));
+        } else {
+            builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 21).addItemStack(ItemStack.EMPTY);
         }
     }
 }
