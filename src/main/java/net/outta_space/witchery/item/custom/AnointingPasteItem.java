@@ -1,6 +1,7 @@
 package net.outta_space.witchery.item.custom;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -16,6 +17,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.event.sound.SoundEvent;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.item.ModItems;
+
+import java.util.Random;
 
 public class AnointingPasteItem extends Item {
     public AnointingPasteItem(Properties pProperties) {
@@ -46,6 +49,14 @@ public class AnointingPasteItem extends Item {
             }
 
             return InteractionResult.FAIL;
+        }
+
+        Level pLevel = pContext.getLevel();
+        BlockPos pPos = pContext.getClickedPos();
+
+        Random rand = new Random();
+        for(int i = 0; i < 3; i++) {
+            pLevel.addParticle(ParticleTypes.EXPLOSION, pPos.getX() + rand.nextDouble(), pPos.getY() + rand.nextDouble(), pPos.getZ() + rand.nextDouble(), 0, 0, 0);
         }
 
         return InteractionResult.CONSUME;

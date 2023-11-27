@@ -43,6 +43,7 @@ import java.util.Random;
 public class WitchCauldronBlock extends BaseEntityBlock {
     public static final IntegerProperty FILL_LEVEL = IntegerProperty.create("fill_level", 0, 3);
     public static final BooleanProperty IS_BOILING = BooleanProperty.create("is_boiling");
+    public static final BooleanProperty IS_COOKING = BooleanProperty.create("is_cooking");
 
 
     private static final VoxelShape OUTSIDE = box(1.0D, 0.0D, 1.0D, 15.0D, 13.0D, 15.0D);
@@ -58,6 +59,7 @@ public class WitchCauldronBlock extends BaseEntityBlock {
         super(pProperties);
         this.registerDefaultState(this.defaultBlockState().setValue(FILL_LEVEL, 0));
         this.registerDefaultState(this.defaultBlockState().setValue(IS_BOILING, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(IS_COOKING, false));
     }
 
     @Override
@@ -79,9 +81,17 @@ public class WitchCauldronBlock extends BaseEntityBlock {
                 pLevel.playLocalSound(d0, d1, d2, SoundEvents.LAVA_AMBIENT, SoundSource.BLOCKS, 0.5F, 1.6F, false);
             }
 
-            pLevel.addParticle(ParticleTypes.BUBBLE_POP, (double)pPos.getX() + (pRandom.nextDouble() * (12.0D / 16.0D) + 0.05D),
-                    (double)pPos.getY() + (11.0D / 16.0D) + 0.05D, (double)pPos.getZ() + (pRandom.nextDouble() * (12.0D / 16.0D) + 0.05D), 0.0D, 0.0D, 0.0D);
+            pLevel.addParticle(ParticleTypes.BUBBLE_POP, (double)pPos.getX() + (pRandom.nextDouble() * (10.0D / 16.0D) + 0.15D),
+                    (double)pPos.getY() + (11.0D / 16.0D) + 0.05D, (double)pPos.getZ() + (pRandom.nextDouble() * (10.0D / 16.0D) + 0.15D), 0.0D, 0.0D, 0.0D);
 
+        }
+
+        if(pState.getValue(IS_COOKING)) {
+            pLevel.addParticle(ParticleTypes.FIREWORK, (double)pPos.getX() + 0.5D, (double)pPos.getY() + (11.0D / 16.0D) + 0.05D,
+                    (double)pPos.getZ() + 0.5D, (0.5D - pRandom.nextDouble()) * 0.25, 0.25D, (0.5D - pRandom.nextDouble()) * 0.25);
+            if(pRandom.nextDouble() < 0.75D) {
+                pLevel.playLocalSound(pPos.getX() + 0.5D, pPos.getY(), pPos.getZ() + 0.5D, SoundEvents.FIREWORK_ROCKET_LAUNCH, SoundSource.BLOCKS, 0.5f, 0.6f + (float)pRandom.nextDouble(), false);
+            }
         }
     }
 
@@ -115,7 +125,8 @@ public class WitchCauldronBlock extends BaseEntityBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(FILL_LEVEL)
-                .add(IS_BOILING);
+                .add(IS_BOILING)
+                .add(IS_COOKING);
     }
 
     @Nullable
