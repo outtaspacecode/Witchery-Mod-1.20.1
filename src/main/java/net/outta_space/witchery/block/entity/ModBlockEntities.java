@@ -29,6 +29,11 @@ public class ModBlockEntities {
                     BlockEntityType.Builder.of(HeartGlyphBlockEntity::new,
                             ModBlocks.HEART_GLYPH.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<WitchCauldronBlockEntity>> WITCH_CAULDRON_BE =
+            BLOCK_ENTITIES.register("witch_cauldron_be", () ->
+                    BlockEntityType.Builder.of(WitchCauldronBlockEntity::new,
+                            ModBlocks.WITCH_CAULDRON.get()).build(null));
+
 
 
     public static void register(IEventBus eventBus) {

@@ -1,10 +1,14 @@
 package net.outta_space.witchery.block.custom;
 
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -13,8 +17,11 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.CauldronBlock;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -25,17 +32,18 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.outta_space.witchery.block.ModBlocks;
+import net.outta_space.witchery.block.entity.ModBlockEntities;
+import net.outta_space.witchery.block.entity.WitchCauldronBlockEntity;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Random;
 
 
-public class WitchCauldronBlock extends Block {
+public class WitchCauldronBlock extends BaseEntityBlock {
     public static final IntegerProperty FILL_LEVEL = IntegerProperty.create("fill_level", 0, 3);
     public static final BooleanProperty IS_BOILING = BooleanProperty.create("is_boiling");
-    public WitchCauldronBlock(Properties pProperties) {
-        super(pProperties);
-        this.registerDefaultState(this.defaultBlockState().setValue(FILL_LEVEL, 0));
-        this.registerDefaultState(this.defaultBlockState().setValue(IS_BOILING, false));
-    }
+
 
     private static final VoxelShape OUTSIDE = box(1.0D, 0.0D, 1.0D, 15.0D, 13.0D, 15.0D);
     private static final VoxelShape INSIDE = box(3.0D, 4.0D, 3.0D, 13.0D, 13.0D, 13.0D);
@@ -45,9 +53,36 @@ public class WitchCauldronBlock extends Block {
 
     //protected double FILL_LEVEL = 0.0D;
     protected static final int FULL = 3;
+
+    public WitchCauldronBlock(Properties pProperties) {
+        super(pProperties);
+        this.registerDefaultState(this.defaultBlockState().setValue(FILL_LEVEL, 0));
+        this.registerDefaultState(this.defaultBlockState().setValue(IS_BOILING, false));
+    }
+
     @Override
     public @NotNull VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPE;
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState pState) {
+        return RenderShape.MODEL;
+    }
+
+    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
+        if (pState.getValue(IS_BOILING)) {
+            double d0 = (double)pPos.getX() + 0.5D;
+            double d1 = (double)pPos.getY();
+            double d2 = (double)pPos.getZ() + 0.5D;
+            if (pRandom.nextDouble() < 0.06D) {
+                pLevel.playLocalSound(d0, d1, d2, SoundEvents.LAVA_AMBIENT, SoundSource.BLOCKS, 0.5F, 1.6F, false);
+            }
+
+            pLevel.addParticle(ParticleTypes.BUBBLE_POP, (double)pPos.getX() + (pRandom.nextDouble() * (12.0D / 16.0D) + 0.05D),
+                    (double)pPos.getY() + (11.0D / 16.0D) + 0.05D, (double)pPos.getZ() + (pRandom.nextDouble() * (12.0D / 16.0D) + 0.05D), 0.0D, 0.0D, 0.0D);
+
+        }
     }
 
     @Override
@@ -81,5 +116,22 @@ public class WitchCauldronBlock extends Block {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(FILL_LEVEL)
                 .add(IS_BOILING);
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new WitchCauldronBlockEntity(pPos, pState);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        if(pLevel.isClientSide()) {
+            return null;
+        }
+
+        return createTickerHelper(pBlockEntityType, ModBlockEntities.WITCH_CAULDRON_BE.get(),
+                (pLevel1, pPos, pState1, pBlockEntity) -> pBlockEntity.tick(pLevel1, pPos, pState1));
     }
 }

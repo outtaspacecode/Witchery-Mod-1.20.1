@@ -1,9 +1,11 @@
 package net.outta_space.witchery.block.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -52,6 +54,10 @@ public class HeartGlyphBlockEntity extends BlockEntity {
             }
             pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
                     SoundEvents.LAVA_EXTINGUISH , SoundSource.BLOCKS, 1f, 1, 1);
+            Player player = pLevel.getNearestPlayer(pPos.getX(), pPos.getY(), pPos.getZ(), 20, false);
+            if(player != null) {
+                player.sendSystemMessage(Component.literal("§cUnknown rite."));
+            }
             itemList.clear();
         }
 
