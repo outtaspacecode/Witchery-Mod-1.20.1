@@ -24,6 +24,13 @@ public class ModBlockEntities {
                     BlockEntityType.Builder.of(DistilleryBlockEntity::new,
                             ModBlocks.DISTILLERY.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<HeartGlyphBlockEntity>> HEART_GLYPH_BE =
+            BLOCK_ENTITIES.register("heart_glyph_be", () ->
+                    BlockEntityType.Builder.of(HeartGlyphBlockEntity::new,
+                            ModBlocks.HEART_GLYPH.get()).build(null));
+
+
+
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }
