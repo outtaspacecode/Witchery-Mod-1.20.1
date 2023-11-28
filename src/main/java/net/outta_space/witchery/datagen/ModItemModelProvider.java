@@ -34,6 +34,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         modeledBlock(ModBlocks.WITCH_CAULDRON.get());
         modeledBlock(ModBlocks.DISTILLERY.get());
         modeledBlock(ModBlocks.WITCH_OVEN.get());
+        modeledBlock(ModBlocks.FUME_FUNNEL.get());
         modeledBlock(ModBlocks.INFINITY_EGG.get());
         simpleItem(ModItems.GOLDEN_CHALK);
         simpleItem(ModItems.RITUAL_CHALK);

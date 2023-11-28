@@ -1,5 +1,6 @@
 package net.outta_space.witchery.block.custom;
 
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -11,6 +12,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -23,10 +25,15 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import net.outta_space.witchery.block.entity.ModBlockEntities;
 import net.outta_space.witchery.block.entity.WitchOvenBlockEntity;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Function;
 
 public class WitchOvenBlock extends BaseEntityBlock {
     public WitchOvenBlock(Properties pProperties) {
@@ -38,6 +45,12 @@ public class WitchOvenBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty BURNING = BooleanProperty.create("burning");
 
+    private static final VoxelShape BODY = box(0.0D, 0.0D, 0.0D, 16.0D, 11.0D, 16.0D);
+    private static final VoxelShape PIPE_WEST = box(10.0D, 11.0D, 5.0D, 16.0D, 16.0D, 11.0D);
+    private static final VoxelShape PIPE_NORTH = box(5.0D, 11.0D, 10.0D, 11.0D, 16.0D, 16.0D);
+    private static final VoxelShape PIPE_EAST = box(0.0D, 11.0D, 5.0D, 6.0D, 16.0D, 11.0D);
+    private static final VoxelShape PIPE_SOUTH = box(5.0D, 11.0D, 0.0D, 11.0D, 16.0D, 6.0D);
+
     public BlockState rotate(BlockState pState, Rotation pRot) {
         return pState.setValue(FACING, pRot.rotate(pState.getValue(FACING)));
     }
@@ -46,6 +59,19 @@ public class WitchOvenBlock extends BaseEntityBlock {
         return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
     }
 
+    @Override
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        if(pState.getValue(FACING) == Direction.WEST) {
+            return Shapes.or(BODY, PIPE_WEST);
+        }
+        if(pState.getValue(FACING) == Direction.NORTH) {
+            return Shapes.or(BODY, PIPE_NORTH);
+        }
+        if(pState.getValue(FACING) == Direction.EAST) {
+            return Shapes.or(BODY, PIPE_EAST);
+        }
+        return Shapes.or(BODY, PIPE_SOUTH);
+    }
 
     @Nullable
     @Override
