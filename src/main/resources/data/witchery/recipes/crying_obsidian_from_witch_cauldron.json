@@ -1,0 +1,18 @@
+{
+  "type": "witchery:witch_cauldron",
+  "ingredients": [
+    {
+      "item": "witchery:tear_of_the_goddess"
+    },
+    {
+      "item": "witchery:demonic_blood"
+    },
+    {
+      "item": "minecraft:obsidian"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "minecraft:crying_obsidian"
+  }
+}
