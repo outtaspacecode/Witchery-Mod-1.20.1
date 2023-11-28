@@ -1,8 +1,12 @@
 package net.outta_space.witchery.block.entity;
 
+import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
@@ -19,6 +23,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.items.ItemStackHandler;
+import net.outta_space.witchery.recipe.WitchCauldronRecipe;
 import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,11 +32,11 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static net.minecraft.world.phys.shapes.Shapes.box;
-import static net.outta_space.witchery.block.custom.WitchCauldronBlock.FILL_LEVEL;
-import static net.outta_space.witchery.block.custom.WitchCauldronBlock.IS_BOILING;
+import static net.outta_space.witchery.block.custom.WitchCauldronBlock.*;
 
 public class WitchCauldronBlockEntity extends BlockEntity {
     public WitchCauldronBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -72,6 +77,7 @@ public class WitchCauldronBlockEntity extends BlockEntity {
     }
 
     private int warmUp = 60;
+    private int cookTimer = 160;
     private final List<Block> heatSources = List.of(Blocks.LAVA, Blocks.FIRE, Blocks.CAMPFIRE, Blocks.SOUL_CAMPFIRE, Blocks.MAGMA_BLOCK);
     private List<ItemStack> cookingItems = new ArrayList<>();
 
@@ -111,15 +117,58 @@ public class WitchCauldronBlockEntity extends BlockEntity {
                 itemHandler.setStackInSlot(i, ItemStack.EMPTY);
             }
 
-//            for(int i = 0; i < 5; i++) {
-//                if(itemHandler.getStackInSlot(i) != ItemStack.EMPTY) {
-//                    System.out.println(itemHandler.getStackInSlot(i).getItem());
-//                }
-//            }
+
+            if(hasRecipe()) {
+                if(cookTimer > 0) {
+                    pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_COOKING, true));
+                    cookTimer--;
+                } else {
+                    pLevel.setBlockAndUpdate(pPos, pState.getBlock().defaultBlockState());
+                    cookItem();
+                    resetCookTimer();
+                }
+            }
 
         }
+        setChanged(level, pPos, pState);
 
+    }
 
+    private void cookItem() {
+        Optional<WitchCauldronRecipe> recipe = getCurrentRecipe();
+        ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
+
+        for(int i = 0; i < itemHandler.getSlots(); i++) {
+            itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+        }
+        cookingItems.clear();
+
+        level.playSeededSound(null, this.worldPosition.getX() + 0.5D, this.worldPosition.getY(), this.worldPosition.getZ() + 0.5D, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 0.5F, 0, 8);
+        level.addFreshEntity(new ItemEntity(level, this.worldPosition.getX() + 0.5D, this.worldPosition.getY() + 1.0D, this.worldPosition.getZ() + 0.5D, resultItem));
+    }
+
+    private void resetCookTimer() {
+        cookTimer = 160;
+    }
+
+    private boolean hasRecipe() {
+        Optional<WitchCauldronRecipe> recipe = getCurrentRecipe();
+
+        if(recipe.isEmpty()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private Optional<WitchCauldronRecipe> getCurrentRecipe() {
+        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
+
+        for(int i = 0; i < this.itemHandler.getSlots(); i++) {
+            inventory.setItem(i, this.itemHandler.getStackInSlot(i));
+        }
+
+        return this.level.getRecipeManager().getRecipeFor(WitchCauldronRecipe.Type.INSTANCE, inventory, level);
     }
 
     private void resetWarmUp() {

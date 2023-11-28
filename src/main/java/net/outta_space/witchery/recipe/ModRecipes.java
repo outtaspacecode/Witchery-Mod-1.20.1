@@ -18,6 +18,9 @@ public class ModRecipes {
     public static final RegistryObject<RecipeSerializer<DistilleryRecipe>> DISTILLERY_SERIALIZER =
             SERIALIZER.register("distillery", () -> DistilleryRecipe.Serializer.INSTANCE);
 
+    public static final RegistryObject<RecipeSerializer<WitchCauldronRecipe>> WITCH_CAULDRON_SERIALIZER =
+            SERIALIZER.register("witch_cauldron", () -> WitchCauldronRecipe.Serializer.INSTANCE);
+
 
     public static void register(IEventBus eventBus) {
         SERIALIZER.register(eventBus);
