@@ -1,0 +1,18 @@
+{
+  "type": "witchery:witch_cauldron",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    {
+      "item": "witchery:ritual_chalk"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "witchery:infernal_chalk"
+  }
+}

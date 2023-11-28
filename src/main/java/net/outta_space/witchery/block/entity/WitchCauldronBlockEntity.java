@@ -100,21 +100,23 @@ public class WitchCauldronBlockEntity extends BlockEntity {
         }
 
 
-        if(pState.getValue(IS_BOILING) && cookingItems.size() < 5) {
-            AABB aabb = new AABB(pPos).inflate(-0.0625, 0.25, -0.0625);
+        if(pState.getValue(IS_BOILING)) {
+            if(cookingItems.size() < 5) {
+                AABB aabb = new AABB(pPos).contract(0.0625, 0.0625, 0.0625);
 
-            List<ItemEntity> itemEntities = pLevel.getEntitiesOfClass(ItemEntity.class, aabb);
+                List<ItemEntity> itemEntities = pLevel.getEntitiesOfClass(ItemEntity.class, aabb);
 
-            for(int i = 0; i < itemEntities.size(); i++) {
-                cookingItems.add(i, itemEntities.get(i).getItem());
-                itemEntities.get(i).kill();
-            }
+                for (int i = 0; i < itemEntities.size(); i++) {
+                    cookingItems.add(i, itemEntities.get(i).getItem());
+                    itemEntities.get(i).kill();
+                }
 
-            for(int i = 0; i < cookingItems.size(); i++) {
-                itemHandler.setStackInSlot(i, cookingItems.get(i));
-            }
-            for(int i = cookingItems.size(); i < 5; i++) {
-                itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+                for (int i = 0; i < cookingItems.size(); i++) {
+                    itemHandler.setStackInSlot(i, cookingItems.get(i));
+                }
+                for (int i = cookingItems.size(); i < 5; i++) {
+                    itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+                }
             }
 
 

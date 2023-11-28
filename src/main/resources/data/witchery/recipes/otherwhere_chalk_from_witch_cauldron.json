@@ -1,0 +1,21 @@
+{
+  "type": "witchery:witch_cauldron",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "witchery:tear_of_the_goddess"
+    },
+    {
+      "item": "minecraft:ender_pearl"
+    },
+    {
+      "item": "witchery:ritual_chalk"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "witchery:otherwhere_chalk"
+  }
+}
