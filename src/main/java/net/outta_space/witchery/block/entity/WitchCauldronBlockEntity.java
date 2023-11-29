@@ -24,6 +24,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.items.ItemStackHandler;
 import net.outta_space.witchery.recipe.WitchCauldronRecipe;
+import net.outta_space.witchery.sound.ModSounds;
 import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.NotNull;
 
@@ -109,6 +110,7 @@ public class WitchCauldronBlockEntity extends BlockEntity {
                 for (int i = 0; i < itemEntities.size(); i++) {
                     cookingItems.add(i, itemEntities.get(i).getItem());
                     itemEntities.get(i).kill();
+                    pLevel.playSeededSound(null, pPos.getX() + 0.5D, pPos.getY(), pPos.getZ() + 0.5D, ModSounds.SPLASH.get(), SoundSource.BLOCKS, 0.5F, 1.6F, 1);
                 }
 
                 for (int i = 0; i < cookingItems.size(); i++) {

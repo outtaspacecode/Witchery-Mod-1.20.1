@@ -36,6 +36,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.block.entity.ModBlockEntities;
 import net.outta_space.witchery.block.entity.WitchCauldronBlockEntity;
+import net.outta_space.witchery.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -80,8 +81,8 @@ public class WitchCauldronBlock extends BaseEntityBlock {
             double d0 = (double)pPos.getX() + 0.5D;
             double d1 = (double)pPos.getY();
             double d2 = (double)pPos.getZ() + 0.5D;
-            if (pRandom.nextDouble() < 0.06D) {
-                pLevel.playLocalSound(d0, d1, d2, SoundEvents.LAVA_AMBIENT, SoundSource.BLOCKS, 0.5F, 1.6F, false);
+            if (pRandom.nextDouble() < 0.5D) {
+                pLevel.playLocalSound(d0, d1, d2, ModSounds.BLOP.get(), SoundSource.BLOCKS, 0.5F, 1.6F, false);
             }
 
             pLevel.addParticle(ParticleTypes.BUBBLE_POP, (double)pPos.getX() + (pRandom.nextDouble() * (10.0D / 16.0D) + 0.15D),

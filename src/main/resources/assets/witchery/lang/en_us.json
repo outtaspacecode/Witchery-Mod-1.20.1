@@ -103,5 +103,9 @@
   "item.witchery.wolfsbane_seeds": "Wolfsbane Seeds",
   "item.witchery.wolfsbane": "Wolfsbane",
   "item.witchery.wormwood_seeds": "Wormwood Seeds",
-  "item.witchery.wormwood": "Wormwood"
+  "item.witchery.wormwood": "Wormwood",
+
+  "sounds.witchery.draw_with_chalk": "Chalk scribbles",
+  "sounds.witchery.blop": "Witch cauldron bubbles",
+  "sounds.witchery.splash": "Item splashes into witch cauldron"
 }

@@ -4,5 +4,17 @@
     "sounds": [
       "witchery:draw_with_chalk"
     ]
+  },
+  "blop": {
+    "subtitle": "sounds.witchery.blop",
+    "sounds": [
+      "witchery:blop"
+    ]
+  },
+  "splash": {
+    "subtitle": "sounds.witchery.splash",
+    "sounds": [
+      "witchery:splash"
+    ]
   }
 }

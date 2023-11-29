@@ -22,6 +22,9 @@ public class ModSounds {
 
 
     public static final RegistryObject<SoundEvent> DRAW_WITH_CHALK = registerSoundEvent("draw_with_chalk");
+    public static final RegistryObject<SoundEvent> SPLASH = registerSoundEvent("splash");
+    public static final RegistryObject<SoundEvent> BLOP = registerSoundEvent("blop");
+
 
 
 
