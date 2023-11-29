@@ -1,11 +1,15 @@
 package net.outta_space.witchery.item.custom;
 
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BushBlock;
@@ -14,6 +18,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.block.custom.FilteredFumeFunnelBlock;
 import net.outta_space.witchery.block.custom.FumeFunnelBlock;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class FumeFilterItem extends Item {
     public FumeFilterItem(Properties pProperties) {
@@ -41,5 +48,17 @@ public class FumeFilterItem extends Item {
         }
 
         return InteractionResult.CONSUME;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+        if(Screen.hasShiftDown()) {
+            pTooltip.add(Component.literal("Use on fume funnel to increase its productivity"));
+        } else {
+            pTooltip.add(Component.literal("§7Press <SHIFT> for more info"));
+        }
+
+
+        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }
 }

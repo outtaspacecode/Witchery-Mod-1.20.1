@@ -1,7 +1,9 @@
 package net.outta_space.witchery.block.custom;
 
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -9,6 +11,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -31,6 +34,8 @@ import net.outta_space.witchery.block.entity.ModBlockEntities;
 import net.outta_space.witchery.item.ModItems;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class FilteredFumeFunnelBlock extends BaseEntityBlock {
 
@@ -74,23 +79,23 @@ public class FilteredFumeFunnelBlock extends BaseEntityBlock {
         return DEFAULT;
     }
 
-    @Override
+        @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if(!pLevel.isClientSide()) {
-            if(pPlayer.getItemInHand(pHand) == ItemStack.EMPTY && pPlayer.isCrouching()) {
-                pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
-                        SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 0.5f, 1f, 0);
-                pLevel.setBlockAndUpdate(pPos, ModBlocks.FUME_FUNNEL.get().defaultBlockState().setValue(FumeFunnelBlock.FACING, pState.getValue(FilteredFumeFunnelBlock.FACING))
-                        .setValue(FumeFunnelBlock.IS_PIPE, pState.getValue(FilteredFumeFunnelBlock.IS_PIPE)));
-                if(!pPlayer.isCreative()) {
-                    pLevel.addFreshEntity(new ItemEntity(pLevel, pPos.getX() + 0.5D, pPos.getY() + 1.0D, pPos.getZ() + 0.5D, new ItemStack(ModItems.FUME_FILTER.get(), 1)));
-                }
-                return InteractionResult.SUCCESS;
+            pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
+                    SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 0.5f, 1f, 0);
+            pLevel.setBlockAndUpdate(pPos, ModBlocks.FUME_FUNNEL.get().defaultBlockState().setValue(FumeFunnelBlock.FACING, pState.getValue(FilteredFumeFunnelBlock.FACING))
+                    .setValue(FumeFunnelBlock.IS_PIPE, pState.getValue(FilteredFumeFunnelBlock.IS_PIPE)));
+            if(!pPlayer.isCreative()) {
+                pLevel.addFreshEntity(new ItemEntity(pLevel, pPos.getX() + 0.5D, pPos.getY() + 1.0D, pPos.getZ() + 0.5D, new ItemStack(ModItems.FUME_FILTER.get(), 1)));
             }
-            return InteractionResult.FAIL;
+            return InteractionResult.SUCCESS;
         }
 
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        if(pPlayer.isCrouching()) {
+            return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        }
+        return InteractionResult.CONSUME;
     }
 
     @Nullable
@@ -108,6 +113,18 @@ public class FilteredFumeFunnelBlock extends BaseEntityBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(FACING)
                 .add(IS_PIPE);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+        if(Screen.hasShiftDown()) {
+            pTooltip.add(Component.literal("Place to the side or above Witch Oven to increase productivity by 20% per funnel - Right click to remove filter"));
+        } else {
+            pTooltip.add(Component.literal("§7Press <SHIFT> for more info"));
+        }
+
+
+        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }
 
     @Override

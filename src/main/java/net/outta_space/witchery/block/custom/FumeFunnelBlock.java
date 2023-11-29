@@ -1,7 +1,11 @@
 package net.outta_space.witchery.block.custom;
 
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -23,6 +27,8 @@ import net.outta_space.witchery.block.entity.ModBlockEntities;
 import net.outta_space.witchery.block.entity.WitchOvenBlockEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class FumeFunnelBlock extends BaseEntityBlock {
 
@@ -75,6 +81,18 @@ public class FumeFunnelBlock extends BaseEntityBlock {
         }
 
         return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite()).setValue(IS_PIPE, is_pipe);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+        if(Screen.hasShiftDown()) {
+            pTooltip.add(Component.literal("Place to the side or above Witch Oven to increase productivity by 10% per funnel - Can be further augmented with fume filter"));
+        } else {
+            pTooltip.add(Component.literal("§7Press <SHIFT> for more info"));
+        }
+
+
+        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }
 
     @Override
