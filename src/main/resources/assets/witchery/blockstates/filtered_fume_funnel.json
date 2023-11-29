@@ -1,33 +1,66 @@
 {
   "variants": {
-    "facing=east,is_pipe=false": {
+    "facing=east,is_pipe=0": {
       "model": "witchery:block/filtered_fume_funnel",
       "y": 90
     },
-    "facing=east,is_pipe=true": {
+    "facing=east,is_pipe=1": {
       "model": "witchery:block/filtered_fume_funnel_pipe",
       "y": 90
     },
-    "facing=north,is_pipe=false": {
+    "facing=east,is_pipe=2": {
+      "model": "witchery:block/filtered_fume_funnel_left",
+      "y": 90
+    },
+    "facing=east,is_pipe=3": {
+      "model": "witchery:block/filtered_fume_funnel_right",
+      "y": 90
+    },
+
+    "facing=north,is_pipe=0": {
       "model": "witchery:block/filtered_fume_funnel"
     },
-    "facing=north,is_pipe=true": {
+    "facing=north,is_pipe=1": {
       "model": "witchery:block/filtered_fume_funnel_pipe"
     },
-    "facing=south,is_pipe=false": {
+    "facing=north,is_pipe=2": {
+      "model": "witchery:block/filtered_fume_funnel_left"
+    },
+    "facing=north,is_pipe=3": {
+      "model": "witchery:block/filtered_fume_funnel_right"
+    },
+
+    "facing=south,is_pipe=0": {
       "model": "witchery:block/filtered_fume_funnel",
       "y": 180
     },
-    "facing=south,is_pipe=true": {
+    "facing=south,is_pipe=1": {
       "model": "witchery:block/filtered_fume_funnel_pipe",
       "y": 180
     },
-    "facing=west,is_pipe=false": {
+    "facing=south,is_pipe=2": {
+      "model": "witchery:block/filtered_fume_funnel_left",
+      "y": 180
+    },
+    "facing=south,is_pipe=3": {
+      "model": "witchery:block/filtered_fume_funnel_right",
+      "y": 180
+    },
+
+    "facing=west,is_pipe=0": {
       "model": "witchery:block/filtered_fume_funnel",
       "y": 270
     },
-    "facing=west,is_pipe=true": {
+    "facing=west,is_pipe=1": {
       "model": "witchery:block/filtered_fume_funnel_pipe",
+      "y": 270
+    },
+    "facing=west,is_pipe=2": {
+      "model": "witchery:block/filtered_fume_funnel_left",
+      "y": 270
+    },
+    "facing=west,is_pipe=3": {
+      "model": "witchery:block/filtered_fume_funnel_right",
       "y": 270
     }
   }
