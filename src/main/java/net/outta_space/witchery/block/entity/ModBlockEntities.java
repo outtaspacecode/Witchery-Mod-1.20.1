@@ -39,6 +39,11 @@ public class ModBlockEntities {
                     BlockEntityType.Builder.of(FumeFunnelBlockEntity::new,
                         ModBlocks.FUME_FUNNEL.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<FilteredFumeFunnelBlockEntity>> FILTERED_FUME_FUNNEL_BE =
+            BLOCK_ENTITIES.register("filtered_fume_funnel_be", () ->
+                    BlockEntityType.Builder.of(FilteredFumeFunnelBlockEntity::new,
+                            ModBlocks.FILTERED_FUME_FUNNEL.get()).build(null));
+
 
 
     public static void register(IEventBus eventBus) {

@@ -25,8 +25,9 @@ public class ModBlockTagGenerator  extends BlockTagsProvider {
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(ModBlocks.WITCH_CAULDRON.get())
-                .add(ModBlocks.FUME_FUNNEL.get())
                 .add(ModBlocks.WITCH_OVEN.get())
+                .add(ModBlocks.FUME_FUNNEL.get())
+                .add(ModBlocks.FILTERED_FUME_FUNNEL.get())
                 .add(ModBlocks.DISTILLERY.get())
                 .add(ModBlocks.ALTAR_BLOCK.get());
 

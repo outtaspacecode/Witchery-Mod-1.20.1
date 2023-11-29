@@ -33,6 +33,8 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.outta_space.witchery.block.ModBlocks;
+import net.outta_space.witchery.block.custom.FumeFunnelBlock;
+import net.outta_space.witchery.block.custom.WitchOvenBlock;
 import net.outta_space.witchery.item.ModItems;
 import net.outta_space.witchery.recipe.WitchOvenRecipe;
 import net.outta_space.witchery.screen.WitchOvenMenu;
@@ -44,6 +46,7 @@ import java.util.Random;
 import java.util.function.ToIntFunction;
 
 import static net.outta_space.witchery.block.custom.WitchOvenBlock.BURNING;
+import static net.outta_space.witchery.block.custom.WitchOvenBlock.FACING;
 
 public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
 
@@ -52,6 +55,7 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
     private static final int FUEL_SLOT = 2;
     private static final int VESSEL_SLOT = 3;
     private static final int VESSEL_OUTPUT_SLOT = 4;
+    private int VESSEL_CHANCE = 30;
 
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(5) {
@@ -199,6 +203,7 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
                     smeltItem();
 
                     if(hasVesselRecipe() && hasVesselOutputSlot()) {
+                        setVesselChance(level, pPos, pState);
                         tryForVesselMagic();
                     }
 
@@ -227,6 +232,75 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
         }
 
     }
+
+    private void setVesselChance(Level level, BlockPos pPos, BlockState pState) {
+        VESSEL_CHANCE = 30;
+        if(level.getBlockState(pPos.above()).is(ModBlocks.FUME_FUNNEL.get())) {
+            if(level.getBlockState(pPos.above()).getValue(FumeFunnelBlock.FACING)
+                == pState.getValue(WitchOvenBlock.FACING)) {
+                    VESSEL_CHANCE += 10;
+            }
+        } else if(level.getBlockState(pPos.above()).is(ModBlocks.FILTERED_FUME_FUNNEL.get())) {
+            if(level.getBlockState(pPos.above()).getValue(FumeFunnelBlock.FACING)
+                == pState.getValue(WitchOvenBlock.FACING)) {
+                VESSEL_CHANCE += 20;
+            }
+        }
+
+        if(pState.getValue(WitchOvenBlock.FACING) == Direction.NORTH
+            || pState.getValue(WitchOvenBlock.FACING) == Direction.SOUTH) {
+            if(level.getBlockState(pPos.east()).is(ModBlocks.FUME_FUNNEL.get())) {
+                    if(level.getBlockState(pPos.east()).getValue(FumeFunnelBlock.FACING)
+                    == pState.getValue(WitchOvenBlock.FACING)) {
+                    VESSEL_CHANCE += 10;
+                }
+            } else if(level.getBlockState(pPos.east()).is(ModBlocks.FILTERED_FUME_FUNNEL.get())) {
+                    if(level.getBlockState(pPos.east()).getValue(FumeFunnelBlock.FACING)
+                    == pState.getValue(WitchOvenBlock.FACING)) {
+                    VESSEL_CHANCE += 20;
+                }
+            }
+
+            if(level.getBlockState(pPos.west()).is(ModBlocks.FUME_FUNNEL.get())) {
+                if(level.getBlockState(pPos.west()).getValue(FumeFunnelBlock.FACING)
+                    == pState.getValue(WitchOvenBlock.FACING)) {
+                    VESSEL_CHANCE += 10;
+                }
+            } else if(level.getBlockState(pPos.west()).is(ModBlocks.FILTERED_FUME_FUNNEL.get())) {
+                if(level.getBlockState(pPos.west()).getValue(FumeFunnelBlock.FACING)
+                    == pState.getValue(WitchOvenBlock.FACING)) {
+                    VESSEL_CHANCE += 20;
+                }
+            }
+        }
+        if(pState.getValue(WitchOvenBlock.FACING) == Direction.EAST
+            || pState.getValue(WitchOvenBlock.FACING) == Direction.WEST) {
+            if(level.getBlockState(pPos.north()).is(ModBlocks.FUME_FUNNEL.get())) {
+                if(level.getBlockState(pPos.north()).getValue(FumeFunnelBlock.FACING)
+                    == pState.getValue(WitchOvenBlock.FACING)) {
+                    VESSEL_CHANCE += 10;
+                }
+            } else if(level.getBlockState(pPos.north()).is(ModBlocks.FILTERED_FUME_FUNNEL.get())) {
+                if(level.getBlockState(pPos.north()).getValue(FumeFunnelBlock.FACING)
+                    == pState.getValue(WitchOvenBlock.FACING)) {
+                    VESSEL_CHANCE += 20;
+                }
+            }
+
+            if(level.getBlockState(pPos.south()).is(ModBlocks.FUME_FUNNEL.get())) {
+                if(level.getBlockState(pPos.south()).getValue(FumeFunnelBlock.FACING)
+                    == pState.getValue(WitchOvenBlock.FACING)) {
+                    VESSEL_CHANCE += 10;
+                }
+            } else if(level.getBlockState(pPos.south()).is(ModBlocks.FILTERED_FUME_FUNNEL.get())) {
+                if(level.getBlockState(pPos.south()).getValue(FumeFunnelBlock.FACING)
+                    == pState.getValue(WitchOvenBlock.FACING)) {
+                    VESSEL_CHANCE += 20;
+                }
+            }
+        }
+    }
+
 
     private boolean hasVesselOutputSlot() {
         Optional<WitchOvenRecipe> recipe = getCurrentVesselRecipe();
@@ -271,11 +345,10 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
 
         return this.level.getRecipeManager().getRecipeFor(WitchOvenRecipe.Type.INSTANCE, inventory, level);
     }
-
-    private static final int VESSEL_CHANCE = 30;
     private void tryForVesselMagic() {
         Random rand = new Random();
-        if(rand.nextInt() < VESSEL_CHANCE) {
+        System.out.println("Vessel chance: " + VESSEL_CHANCE + "%");
+        if(rand.nextInt(100) < VESSEL_CHANCE) {
             Optional<WitchOvenRecipe> recipe = getVesselRecipe();
             ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());
 

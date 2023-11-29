@@ -53,6 +53,7 @@ public class ModCreativeModeTabs {
                     output.accept(ModBlocks.WITCH_CAULDRON.get());
                     output.accept(ModBlocks.WITCH_OVEN.get());
                     output.accept(ModBlocks.FUME_FUNNEL.get());
+                    output.accept(ModBlocks.FILTERED_FUME_FUNNEL.get());
                     output.accept(ModBlocks.DISTILLERY.get());
                     output.accept(ModItems.WOOD_ASH.get());
                     output.accept(ModItems.QUICKLIME.get());

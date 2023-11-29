@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,is_pipe=false": {
+      "model": "witchery:block/filtered_fume_funnel",
+      "y": 90
+    },
+    "facing=east,is_pipe=true": {
+      "model": "witchery:block/filtered_fume_funnel_pipe",
+      "y": 90
+    },
+    "facing=north,is_pipe=false": {
+      "model": "witchery:block/filtered_fume_funnel"
+    },
+    "facing=north,is_pipe=true": {
+      "model": "witchery:block/filtered_fume_funnel_pipe"
+    },
+    "facing=south,is_pipe=false": {
+      "model": "witchery:block/filtered_fume_funnel",
+      "y": 180
+    },
+    "facing=south,is_pipe=true": {
+      "model": "witchery:block/filtered_fume_funnel_pipe",
+      "y": 180
+    },
+    "facing=west,is_pipe=false": {
+      "model": "witchery:block/filtered_fume_funnel",
+      "y": 270
+    },
+    "facing=west,is_pipe=true": {
+      "model": "witchery:block/filtered_fume_funnel_pipe",
+      "y": 270
+    }
+  }
+}

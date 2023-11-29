@@ -36,6 +36,8 @@ public class ModBlocks {
             () -> new WitchOvenBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).noOcclusion().lightLevel(state -> state.getValue(WitchOvenBlock.BURNING) ? 13 : 0)));
     public static final RegistryObject<Block> FUME_FUNNEL = registerBlock("fume_funnel",
             () -> new FumeFunnelBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).noOcclusion()));
+    public static final RegistryObject<Block> FILTERED_FUME_FUNNEL = registerBlock("filtered_fume_funnel",
+            () -> new FilteredFumeFunnelBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).noOcclusion()));
     public static final RegistryObject<Block> DISTILLERY = registerBlock("distillery",
             () -> new DistilleryBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).noOcclusion()));
 
