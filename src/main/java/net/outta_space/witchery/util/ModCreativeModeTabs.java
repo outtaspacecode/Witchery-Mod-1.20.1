@@ -47,6 +47,8 @@ public class ModCreativeModeTabs {
                     output.accept(ModItems.OTHERWHERE_CHALK.get());
                     output.accept(ModItems.BROOM.get());
                     output.accept(ModItems.ATTUNED_STONE.get());
+                    output.accept(ModItems.CHARGED_ATTUNED_STONE.get());
+                    output.accept(ModItems.FUME_FILTER.get());
                     output.accept(ModItems.ANOINTING_PASTE.get());
                     output.accept(ModItems.MUTANDIS.get());
                     output.accept(ModItems.MUTANDIS_EXTREMIS.get());

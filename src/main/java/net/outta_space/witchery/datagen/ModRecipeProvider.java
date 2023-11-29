@@ -158,23 +158,34 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                         .of(Items.GLASS_BOTTLE).build()))
                 .save(pWriter);
 
-
-
-        // To be removed when witch cauldron is implemented
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.MUTANDIS.get(), 4)
-                .requires(ModItems.MANDRAKE_ROOT.get())
-                .requires(ModItems.EXHALE_OF_THE_HORNED_ONE.get())
-                .requires(Items.EGG)
-                .unlockedBy("has_exhale_of_the_horned_one", inventoryTrigger(ItemPredicate.Builder.item()
-                        .of(ModItems.EXHALE_OF_THE_HORNED_ONE.get()).build()))
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.FUME_FUNNEL.get())
+                .pattern("ABA")
+                .pattern("ACA")
+                .pattern("DED")
+                .define('A', Items.BUCKET)
+                .define('B', Items.LAVA_BUCKET)
+                .define('C', Items.GLOWSTONE)
+                .define('D', Items.IRON_BLOCK)
+                .define('E', Items.IRON_BARS)
+                .unlockedBy("has_glowstone", inventoryTrigger(ItemPredicate.Builder.item().of(Items.GLOWSTONE).build()))
                 .save(pWriter);
 
-        // To be removed when witch cauldron is implemented
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.MUTANDIS_EXTREMIS.get())
-                .requires(ModItems.MUTANDIS.get())
-                .requires(Items.NETHER_WART)
-                .unlockedBy("has_mutandis", inventoryTrigger(ItemPredicate.Builder.item()
-                        .of(ModItems.MUTANDIS.get()).build()))
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.FUME_FILTER.get())
+                .pattern("AAA")
+                .pattern("BCB")
+                .pattern("AAA")
+                .define('A', Items.GLASS)
+                .define('B', Items.IRON_INGOT)
+                .define('C', ModItems.CHARGED_ATTUNED_STONE.get())
+                .unlockedBy("has_charged_attuned_stone", inventoryTrigger(ItemPredicate.Builder.item().of(ModItems.CHARGED_ATTUNED_STONE.get()).build()))
+                .save(pWriter);
+
+
+        // temporary until circle rituals are working
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.CHARGED_ATTUNED_STONE.get())
+                .requires(ModItems.ATTUNED_STONE.get())
+                .unlockedBy("has_attuned_stone", inventoryTrigger(ItemPredicate.Builder.item()
+                        .of(ModItems.ATTUNED_STONE.get()).build()))
                 .save(pWriter);
     }
 }

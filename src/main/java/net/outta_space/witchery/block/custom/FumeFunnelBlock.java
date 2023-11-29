@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.block.entity.FumeFunnelBlockEntity;
 import net.outta_space.witchery.block.entity.ModBlockEntities;
 import net.outta_space.witchery.block.entity.WitchOvenBlockEntity;
@@ -67,7 +68,9 @@ public class FumeFunnelBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
+        boolean is_pipe = pContext.getLevel().getBlockState(pContext.getClickedPos().below()).is(ModBlocks.WITCH_OVEN.get());
+
+        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite()).setValue(IS_PIPE, is_pipe);
     }
 
     @Override

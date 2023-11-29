@@ -347,7 +347,7 @@ public class WitchOvenBlockEntity extends BlockEntity implements MenuProvider {
     }
     private void tryForVesselMagic() {
         Random rand = new Random();
-        System.out.println("Vessel chance: " + VESSEL_CHANCE + "%");
+//        System.out.println("Vessel chance: " + VESSEL_CHANCE + "%");
         if(rand.nextInt(100) < VESSEL_CHANCE) {
             Optional<WitchOvenRecipe> recipe = getVesselRecipe();
             ItemStack resultItem = recipe.get().getResultItem(getLevel().registryAccess());

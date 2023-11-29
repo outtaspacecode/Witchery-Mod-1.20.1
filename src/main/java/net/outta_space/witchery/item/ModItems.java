@@ -48,6 +48,11 @@ public class ModItems {
 
     public static final RegistryObject<Item> ATTUNED_STONE = ITEMS.register("attuned_stone",
             () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CHARGED_ATTUNED_STONE = ITEMS.register("charged_attuned_stone",
+            () -> new ChargedAttunedStoneItem(new Item.Properties()));
+
+    public static final RegistryObject<Item> FUME_FILTER = ITEMS.register("fume_filter",
+            () -> new FumeFilterItem(new Item.Properties()));
 
     public static final RegistryObject<Item> WORMY_APPLE = ITEMS.register("wormy_apple",
             () -> new Item(new Item.Properties()));
