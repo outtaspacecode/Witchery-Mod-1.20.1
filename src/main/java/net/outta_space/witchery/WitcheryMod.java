@@ -3,6 +3,7 @@ package net.outta_space.witchery;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -57,7 +58,15 @@ public class WitcheryMod {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            ComposterBlock.COMPOSTABLES.put(ModItems.BELLADONNA_SEEDS.get(), 0.3f);
+            ComposterBlock.COMPOSTABLES.put(ModItems.MANDRAKE_SEEDS.get(), 0.3f);
+            ComposterBlock.COMPOSTABLES.put(ModItems.SNOWBELL_SEEDS.get(), 0.3f);
+            ComposterBlock.COMPOSTABLES.put(ModItems.WOLFSBANE_SEEDS.get(), 0.3f);
+            ComposterBlock.COMPOSTABLES.put(ModItems.WORMWOOD_SEEDS.get(), 0.3f);
 
+            ComposterBlock.COMPOSTABLES.put(ModItems.WOOD_ASH.get(), 0.85f);
+        });
     }
 
     // Add the example block item to the building blocks tab
