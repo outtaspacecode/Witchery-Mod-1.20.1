@@ -131,7 +131,8 @@ public class WitchCauldronBlock extends BaseEntityBlock {
                 return InteractionResult.SUCCESS;
             }
         }
-        if(!(itemstack.is(Items.WATER_BUCKET) && pState.getValue(FILL_LEVEL) < FULL)) {
+        if(!(itemstack.is(Items.WATER_BUCKET) && pState.getValue(FILL_LEVEL) < FULL)
+            && !itemstack.is(Items.BUCKET)) {
             return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
         }
         return InteractionResult.CONSUME;
