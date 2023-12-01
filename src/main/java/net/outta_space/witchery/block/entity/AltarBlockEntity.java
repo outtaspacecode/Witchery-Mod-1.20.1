@@ -33,17 +33,17 @@ public class AltarBlockEntity extends BlockEntity {
         if(core != null) {
             if(display) {
                 if(isCore(pPos)) {
-                    System.out.println("We are the core");
+//                    System.out.println("We are the core");
 
                     AABB aabb = new AABB(pPos).move(0.5, 0, 0.5).inflate(14.0D);
                     surroundingBlocks = pLevel.getBlockStates(aabb).toList();
 
                 } else {
-                    System.out.println("We are not the core");
+//                    System.out.println("We are not the core");
                 }
-                System.out.println("pPos: " + pPos.toString());
+//                System.out.println("pPos: " + pPos.toString());
 
-                System.out.println("Core pos: " + core.toString());
+//                System.out.println("Core pos: " + core.toString());
                 display = false;
             }
         } else {
