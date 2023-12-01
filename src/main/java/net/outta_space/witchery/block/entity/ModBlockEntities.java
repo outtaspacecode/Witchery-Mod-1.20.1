@@ -44,7 +44,10 @@ public class ModBlockEntities {
                     BlockEntityType.Builder.of(FilteredFumeFunnelBlockEntity::new,
                             ModBlocks.FILTERED_FUME_FUNNEL.get()).build(null));
 
-
+    public static final RegistryObject<BlockEntityType<AltarBlockEntity>> ALTAR_BE =
+            BLOCK_ENTITIES.register("altar_be", () ->
+                    BlockEntityType.Builder.of(AltarBlockEntity::new,
+                            ModBlocks.ALTAR_BLOCK.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
