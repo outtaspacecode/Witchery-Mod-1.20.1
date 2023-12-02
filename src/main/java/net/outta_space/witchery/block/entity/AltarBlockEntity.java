@@ -81,6 +81,10 @@ public class AltarBlockEntity extends BlockEntity {
     public BlockPos getCore() {
         return core;
     }
+
+    public void suckPower(int amount) {
+        this.currentAltarPower -= amount;
+    }
     public void setAugmentItems(int index, Block block) {
         augmentItems.set(index, block);
     }

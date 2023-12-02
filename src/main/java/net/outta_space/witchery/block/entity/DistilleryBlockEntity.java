@@ -77,6 +77,7 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
     private int bubbleMaxProgress = 15;
     private boolean hasAltar = false;
     private BlockPos corePos = null;
+    private static final int COST = 20;
 
 
     public DistilleryBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -193,20 +194,29 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
             level.setBlockAndUpdate(pPos, pState.setValue(VESSEL_COUNT, this.itemHandler.getStackInSlot(VESSEL_SLOT).getCount()));
         }
 
-        AABB aabb = new AABB(pPos).move(0.5, 0, 0.5).inflate(14.0D);
-        List<BlockState> surroundingBlocks = level.getBlockStates(aabb).toList();
-
-        for(BlockState block : surroundingBlocks) {
-            if(block.is(ModBlocks.ALTAR_BLOCK.get())) {
-                hasAltar = true;
-                break;
-            } else {
-                hasAltar = false;
+        hasAltar = false;
+        for(int x = -14; x < 14; x++) {
+            for(int z = -14; z < 14; z++) {
+                for(int y = -3; y < 3; y++) {
+                    BlockPos checkPos = new BlockPos(pPos.getX() + x, pPos.getY() + y, pPos.getZ() + z);
+                    if(level.getBlockState(checkPos).is(ModBlocks.ALTAR_BLOCK.get())) {
+                        AltarBlockEntity abe = (AltarBlockEntity)level.getBlockEntity(checkPos);
+                        if(abe.getCore() != null) {
+                            hasAltar = true;
+                            corePos = abe.getCore();
+                            break;
+                        }
+                        if(hasAltar) { break; }
+                    }
+                    if(hasAltar) { break; }
+                }
             }
         }
 
-        if(hasAltar) {
-            if (hasRecipe() && outputSlotsAreAvailable()) {
+
+
+        if (hasRecipe() && outputSlotsAreAvailable()) {
+            if(hasAltar && altarHasEnoughPower()) {
                 increaseDistillProcess();
 
                 if (progress >= maxProgress) {
@@ -216,10 +226,19 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
 
                 setChanged(level, pPos, pState);
             } else {
-                resetProgress();
+                bubbleProgress = 0;
             }
+        } else {
+            resetProgress();
         }
 
+    }
+
+    private boolean altarHasEnoughPower() {
+        assert level != null;
+        AltarBlockEntity abe = (AltarBlockEntity)level.getBlockEntity(corePos);
+        assert abe != null;
+        return (abe.getCurrentAltarPower() > COST);
     }
 
     private void resetProgress() {
@@ -254,8 +273,11 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
     private void increaseDistillProcess() {
         progress++;
         bubbleProgress++;
-        if(bubbleProgress > bubbleMaxProgress)
+        if(bubbleProgress > bubbleMaxProgress) {
+            AltarBlockEntity abe = (AltarBlockEntity)level.getBlockEntity(corePos);
+            abe.suckPower(COST);
             bubbleProgress = 0;
+        }
     }
 
     private boolean outputSlotsAreAvailable() {
