@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.common.data.ForgeBlockTagsProvider;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.block.custom.AltarBlock;
 
@@ -29,6 +30,8 @@ public class AltarBlockEntity extends BlockEntity {
 
     private int currentAltarPower;
     private int baseAltarPower;
+    private int absorptionMultipler;
+    private Double range;
 
     public AltarBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.ALTAR_BE.get(), pPos, pBlockState);
@@ -38,6 +41,24 @@ public class AltarBlockEntity extends BlockEntity {
         }
         resetAltarPower();
         resetBaseAltarPower();
+        absorptionMultipler = 1;
+        resetRange();
+    }
+
+    private void resetRange() {
+        range = 14.0D;
+    }
+
+    public int getBaseAltarPower() {
+        return baseAltarPower;
+    }
+
+    public int getCurrentAltarPower() {
+        return currentAltarPower;
+    }
+
+    public int getAbsorptionMultipler() {
+        return  absorptionMultipler;
     }
 
     private void resetBaseAltarPower() {
@@ -57,6 +78,9 @@ public class AltarBlockEntity extends BlockEntity {
     public void setCore(BlockPos pPos) {
         core = pPos;
     }
+    public BlockPos getCore() {
+        return core;
+    }
     public void setAugmentItems(int index, Block block) {
         augmentItems.set(index, block);
     }
@@ -71,6 +95,9 @@ public class AltarBlockEntity extends BlockEntity {
             pTag.putIntArray("core", new int[]{});
             pTag.putBoolean("valid", false);
         }
+        pTag.putInt("basePower", baseAltarPower);
+        pTag.putInt("currentPower", currentAltarPower);
+        pTag.putInt("multiplier", absorptionMultipler);
     }
 
 
@@ -80,6 +107,9 @@ public class AltarBlockEntity extends BlockEntity {
         if(pTag.getBoolean("valid")) {
             core = new BlockPos(pTag.getIntArray("core")[0], pTag.getIntArray("core")[1], pTag.getIntArray("core")[2]);
         }
+        baseAltarPower = pTag.getInt("basePower");
+        currentAltarPower = pTag.getInt("currentPower");
+        absorptionMultipler = pTag.getInt("multiplier");
     }
 
     private boolean display = true;
@@ -92,12 +122,16 @@ public class AltarBlockEntity extends BlockEntity {
             if(isCore(pPos)) {
 
                 if(cooldown == 100) {
-                    AABB aabb = new AABB(pPos).move(0.5, 0, 0.5).inflate(14.0D);
+                    AABB aabb = new AABB(pPos).move(0.5, 0, 0.5).inflate(range);
                     surroundingBlocks = pLevel.getBlockStates(aabb).toList();
 
                     setAltarPower();
 
-//                    System.out.println(augmentItems.toString());
+                }
+
+                if(cooldown % 20 == 0 && cooldown != 0) {
+                    setMultipliers();
+                    incrementAltarPower();
                 }
 
                 if(cooldown > 0) {
@@ -105,18 +139,50 @@ public class AltarBlockEntity extends BlockEntity {
                 } else {
                     resetCooldown();
                 }
-
-            } else {
-//                    System.out.println("We are not the core");
             }
-
-//            }
         } else {
             surroundingBlocks = null;
             resetAugmentItems();
             resetCooldown();
             resetAltarPower();
+            resetBaseAltarPower();
+            resetRange();
         }
+    }
+
+    private void incrementAltarPower() {
+        currentAltarPower += (10 * absorptionMultipler);
+        if(currentAltarPower > baseAltarPower) {
+            currentAltarPower = baseAltarPower;
+        }
+    }
+
+    private void setMultipliers() {
+        int altarMultiplier = 0;
+        absorptionMultipler = 1;
+
+        if(augmentItems.contains(Blocks.WITHER_SKELETON_SKULL)) {
+            altarMultiplier += 2;
+            absorptionMultipler += 2;
+        } else if(augmentItems.contains(Blocks.SKELETON_SKULL)) {
+            altarMultiplier += 1;
+            absorptionMultipler += 1;
+        }
+
+        if(augmentItems.contains(Blocks.TORCH)) {
+            absorptionMultipler += 1;
+        }
+
+        if(augmentItems.contains(ModBlocks.INFINITY_EGG.get())) {
+            altarMultiplier = 50;
+            absorptionMultipler = 50;
+        }
+
+        if(altarMultiplier == 0) {
+            altarMultiplier = 1;
+        }
+
+        baseAltarPower *= altarMultiplier;
     }
 
     private void resetAltarPower() {
@@ -124,12 +190,15 @@ public class AltarBlockEntity extends BlockEntity {
     }
 
     private void setAltarPower() {
-        List<Block> acceptedBlockTypes = List.of(Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.MYCELIUM, Blocks.FARMLAND, Blocks.GRASS, Blocks.TALL_GRASS, Blocks.DRAGON_EGG, ModBlocks.INFINITY_EGG.get());
+        List<Block> acceptedBlockTypes = List.of(Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.MYCELIUM, Blocks.FARMLAND, Blocks.GRASS, Blocks.TALL_GRASS, Blocks.DRAGON_EGG, ModBlocks.INFINITY_EGG.get(),
+                Blocks.WATER, Blocks.RED_MUSHROOM, Blocks.BROWN_MUSHROOM, Blocks.MUSHROOM_STEM, Blocks.BROWN_MUSHROOM_BLOCK, Blocks.RED_MUSHROOM_BLOCK, Blocks.VINE, Blocks.SUGAR_CANE, Blocks.CACTUS,
+                Blocks.PUMPKIN, Blocks.MELON);
 
         List<Block> visitedLogBlocks = new ArrayList<>();
         List<Block> visitedLeafBlocks = new ArrayList<>();
         List<Block> visitedFlowerBlocks = new ArrayList<>();
         List<Block> visitedCropBlocks = new ArrayList<>();
+        List<Block> visitedSaplingBlocks = new ArrayList<>();
         Map<Block, Integer> map = new HashMap<>();
 
         for(BlockState pState : surroundingBlocks) {
@@ -169,6 +238,15 @@ public class AltarBlockEntity extends BlockEntity {
                 }
             }
 
+            if(pState.is(BlockTags.SAPLINGS)) {
+                if(!visitedSaplingBlocks.contains(pState.getBlock())) {
+                    visitedSaplingBlocks.add(pState.getBlock());
+                    map.put(pState.getBlock(), 1);
+                } else {
+                    map.put(pState.getBlock(), map.get(pState.getBlock()) + 1);
+                }
+            }
+
 
             for(Block blocks : acceptedBlockTypes) {
                 if(pState.is(blocks)) {
@@ -181,7 +259,7 @@ public class AltarBlockEntity extends BlockEntity {
             }
         }
 
-        System.out.println(map.toString());
+//        System.out.println(map.toString());
 
         resetBaseAltarPower();
         for(Block visitedBlock : visitedLogBlocks) {
@@ -200,6 +278,10 @@ public class AltarBlockEntity extends BlockEntity {
             baseAltarPower += Math.min(map.get(visitedBlock), 20) * 4;
         }
 
+        for(Block visitedBlock : visitedSaplingBlocks) {
+            baseAltarPower += Math.min(map.get(visitedBlock), 20) * 4;
+        }
+
 
         if(map.containsKey(Blocks.GRASS_BLOCK)) {
             baseAltarPower += Math.min(map.get(Blocks.GRASS_BLOCK), 80) * 2;
@@ -213,6 +295,9 @@ public class AltarBlockEntity extends BlockEntity {
         if(map.containsKey(Blocks.FARMLAND)) {
             baseAltarPower += Math.min(map.get(Blocks.FARMLAND), 100);
         }
+        if(map.containsKey(Blocks.WATER)) {
+            baseAltarPower += Math.min(map.get(Blocks.WATER), 50);
+        }
         if(map.containsKey(Blocks.GRASS)) {
             baseAltarPower += Math.min(map.get(Blocks.GRASS), 20);
         }
@@ -225,8 +310,37 @@ public class AltarBlockEntity extends BlockEntity {
         if(map.containsKey(ModBlocks.INFINITY_EGG.get())) {
             baseAltarPower += Math.min(map.get(ModBlocks.INFINITY_EGG.get()), 1) * 1000;
         }
+        if(map.containsKey(Blocks.RED_MUSHROOM)) {
+            baseAltarPower += Math.min(map.get(Blocks.RED_MUSHROOM), 20) * 3;
+        }
+        if(map.containsKey(Blocks.BROWN_MUSHROOM)) {
+            baseAltarPower += Math.min(map.get(Blocks.BROWN_MUSHROOM), 20) * 3;
+        }
+        if(map.containsKey(Blocks.RED_MUSHROOM_BLOCK)) {
+            baseAltarPower += Math.min(map.get(Blocks.RED_MUSHROOM_BLOCK), 20) * 3;
+        }
+        if(map.containsKey(Blocks.BROWN_MUSHROOM_BLOCK)) {
+            baseAltarPower += Math.min(map.get(Blocks.BROWN_MUSHROOM_BLOCK), 20) * 3;
+        }
+        if(map.containsKey(Blocks.MUSHROOM_STEM)) {
+            baseAltarPower += Math.min(map.get(Blocks.MUSHROOM_STEM), 20) * 3;
+        }
+        if(map.containsKey(Blocks.VINE)) {
+            baseAltarPower += Math.min(map.get(Blocks.VINE), 50) * 2;
+        }
+        if(map.containsKey(Blocks.SUGAR_CANE)) {
+            baseAltarPower += Math.min(map.get(Blocks.SUGAR_CANE), 50) * 3;
+        }
+        if(map.containsKey(Blocks.CACTUS)) {
+            baseAltarPower += Math.min(map.get(Blocks.CACTUS), 50) * 3;
+        }
+        if(map.containsKey(Blocks.PUMPKIN)) {
+            baseAltarPower += Math.min(map.get(Blocks.PUMPKIN), 20) * 4;
+        }
+        if(map.containsKey(Blocks.MELON)) {
+            baseAltarPower += Math.min(map.get(Blocks.MELON), 20) * 4;
+        }
 
-        System.out.println("Base power: " + baseAltarPower);
     }
 
     private boolean isCore(BlockPos pPos) {

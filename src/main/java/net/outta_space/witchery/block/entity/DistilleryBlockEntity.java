@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -32,6 +33,7 @@ import net.outta_space.witchery.screen.DistilleryMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 
 import static net.outta_space.witchery.block.custom.DistilleryBlock.VESSEL_COUNT;
@@ -74,6 +76,7 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
     private int bubbleProgress = 0;
     private int bubbleMaxProgress = 15;
     private boolean hasAltar = false;
+    private BlockPos corePos = null;
 
 
     public DistilleryBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -190,17 +193,31 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
             level.setBlockAndUpdate(pPos, pState.setValue(VESSEL_COUNT, this.itemHandler.getStackInSlot(VESSEL_SLOT).getCount()));
         }
 
-        if(hasRecipe() && outputSlotsAreAvailable()) {
-            increaseDistillProcess();
+        AABB aabb = new AABB(pPos).move(0.5, 0, 0.5).inflate(14.0D);
+        List<BlockState> surroundingBlocks = level.getBlockStates(aabb).toList();
 
-            if(progress >= maxProgress) {
-                distillItems();
+        for(BlockState block : surroundingBlocks) {
+            if(block.is(ModBlocks.ALTAR_BLOCK.get())) {
+                hasAltar = true;
+                break;
+            } else {
+                hasAltar = false;
+            }
+        }
+
+        if(hasAltar) {
+            if (hasRecipe() && outputSlotsAreAvailable()) {
+                increaseDistillProcess();
+
+                if (progress >= maxProgress) {
+                    distillItems();
+                    resetProgress();
+                }
+
+                setChanged(level, pPos, pState);
+            } else {
                 resetProgress();
             }
-
-            setChanged(level, pPos, pState);
-        } else {
-            resetProgress();
         }
 
     }
