@@ -35,9 +35,11 @@ import static java.util.Collections.sort;
 
 public class AltarBlock extends BaseEntityBlock {
     public static final BooleanProperty IS_MULTIBLOCK = BooleanProperty.create("is_multiblock");
+    public static final IntegerProperty INDEX = IntegerProperty.create("index", 0, 5);
     public AltarBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.defaultBlockState().setValue(IS_MULTIBLOCK, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(INDEX, 0));
     }
 
     @Override
@@ -59,7 +61,8 @@ public class AltarBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(IS_MULTIBLOCK);
+        pBuilder.add(IS_MULTIBLOCK)
+                .add(INDEX);
     }
 
     private void updateMultiblock(Level pLevel, BlockPos pPos, BlockPos exclude) {
@@ -104,16 +107,16 @@ public class AltarBlock extends BaseEntityBlock {
                         || ((zCoords[0] + 2 == zCoords[5]) && (xCoords[0] + 1 == xCoords[5]));
 
                 if(valid) {
-                    for (BlockPos blockPos : visited) {
-                        pLevel.setBlockAndUpdate(blockPos, ModBlocks.ALTAR_BLOCK.get().defaultBlockState().setValue(IS_MULTIBLOCK, true));
-                        AltarBlockEntity coreBlock = (AltarBlockEntity) pLevel.getBlockEntity(blockPos);
+                    for (int i = 0; i < visited.size(); i++) {
+                        pLevel.setBlockAndUpdate(visited.get(i), ModBlocks.ALTAR_BLOCK.get().defaultBlockState().setValue(IS_MULTIBLOCK, true).setValue(INDEX, i));
+                        AltarBlockEntity coreBlock = (AltarBlockEntity) pLevel.getBlockEntity(visited.get(i));
                         assert coreBlock != null;
                         coreBlock.setCore(new BlockPos(xCoords[3], visited.get(0).getY(), zCoords[3]));
                     }
 //                    core = new BlockPos(xCoords[3], visited.get(0).getY(), zCoords[3]);
                 } else {
                     for (BlockPos blockPos : visited) {
-                        pLevel.setBlockAndUpdate(blockPos, ModBlocks.ALTAR_BLOCK.get().defaultBlockState().setValue(IS_MULTIBLOCK, false));
+                        pLevel.setBlockAndUpdate(blockPos, ModBlocks.ALTAR_BLOCK.get().defaultBlockState().setValue(IS_MULTIBLOCK, false).setValue(INDEX, 0));
                         AltarBlockEntity coreBlock = (AltarBlockEntity) pLevel.getBlockEntity(blockPos);
                         assert coreBlock != null;
                         coreBlock.setCore(null);
@@ -123,7 +126,7 @@ public class AltarBlock extends BaseEntityBlock {
 
             } else {
                 for (BlockPos blockPos : visited) {
-                    pLevel.setBlockAndUpdate(blockPos, ModBlocks.ALTAR_BLOCK.get().defaultBlockState().setValue(IS_MULTIBLOCK, false));
+                    pLevel.setBlockAndUpdate(blockPos, ModBlocks.ALTAR_BLOCK.get().defaultBlockState().setValue(IS_MULTIBLOCK, false).setValue(INDEX, 0));
                     AltarBlockEntity coreBlock = (AltarBlockEntity) pLevel.getBlockEntity(blockPos);
                     assert coreBlock != null;
                     coreBlock.setCore(null);
