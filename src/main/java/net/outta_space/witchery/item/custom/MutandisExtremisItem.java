@@ -26,7 +26,8 @@ public class MutandisExtremisItem extends Item {
         Player pPlayer = pContext.getPlayer();
         BlockPos pPos = pContext.getClickedPos();
         BlockState pBlock = pContext.getLevel().getBlockState(pPos);
-        List<Block> convertiblePlants = List.of(ModBlocks.ROWAN_SAPLING.get(), Blocks.BIRCH_SAPLING, Blocks.OAK_SAPLING, Blocks.JUNGLE_SAPLING, Blocks.SPRUCE_SAPLING, ModBlocks.HAWTHORN_SAPLING.get(), ModBlocks.ALDER_SAPLING.get());
+        List<Block> convertiblePlants = List.of(ModBlocks.ROWAN_SAPLING.get(), Blocks.BIRCH_SAPLING, Blocks.OAK_SAPLING, Blocks.JUNGLE_SAPLING, Blocks.SPRUCE_SAPLING, ModBlocks.HAWTHORN_SAPLING.get(), ModBlocks.ALDER_SAPLING.get(),
+                ModBlocks.SPANISH_MOSS.get());
 
         if(!pLevel.isClientSide()) {
 

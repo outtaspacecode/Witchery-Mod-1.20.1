@@ -4,12 +4,15 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.fml.common.Mod;
 import net.outta_space.witchery.block.ModBlocks;
@@ -178,6 +181,28 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('B', Items.IRON_INGOT)
                 .define('C', ModItems.CHARGED_ATTUNED_STONE.get())
                 .unlockedBy("has_charged_attuned_stone", inventoryTrigger(ItemPredicate.Builder.item().of(ModItems.CHARGED_ATTUNED_STONE.get()).build()))
+                .save(pWriter);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.POPPET.get())
+                .pattern("ABA")
+                .pattern("CBD")
+                .pattern("A A")
+                .define('A', ItemTags.WOOL)
+                .define('B', ModBlocks.SPANISH_MOSS.get())
+                .define('C', ModItems.BONE_NEEDLE.get())
+                .define('D', Tags.Items.STRING)
+                .unlockedBy("has_spanish_moss", inventoryTrigger(ItemPredicate.Builder.item().of(ModBlocks.SPANISH_MOSS.get()).build()))
+                .save(pWriter);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.DEATH_PROTECTION_POPPET.get())
+                .pattern("ABC")
+                .pattern("BDB")
+                .pattern(" B ")
+                .define('A', ModItems.DROP_OF_LUCK.get())
+                .define('B', Items.GOLD_NUGGET)
+                .define('C', ModItems.DIAMOND_VAPOR.get())
+                .define('D', ModItems.POPPET.get())
+                .unlockedBy("has_poppet", inventoryTrigger(ItemPredicate.Builder.item().of(ModItems.POPPET.get()).build()))
                 .save(pWriter);
 
 

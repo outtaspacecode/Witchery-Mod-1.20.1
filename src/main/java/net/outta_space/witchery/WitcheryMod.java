@@ -16,6 +16,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.block.entity.ModBlockEntities;
+import net.outta_space.witchery.item.ModItemProperties;
 import net.outta_space.witchery.item.ModItems;
 import net.outta_space.witchery.loot.ModLootModifiers;
 import net.outta_space.witchery.recipe.ModRecipes;
@@ -93,6 +94,8 @@ public class WitcheryMod {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             event.enqueueWork(() -> {
+
+                ModItemProperties.addCustomItemProperties();
 
                 MenuScreens.register(ModMenuTypes.WITCH_OVEN_MENU.get(), WitchOvenScreen::new);
                 MenuScreens.register(ModMenuTypes.DISTILLERY_MENU.get(), DistilleryScreen::new);

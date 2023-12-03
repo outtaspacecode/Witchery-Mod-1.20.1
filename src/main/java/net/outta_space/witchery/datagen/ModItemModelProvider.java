@@ -28,6 +28,10 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.WOOD_ASH);
         simpleItem(ModItems.RAW_CLAY_VESSEL);
         simpleItem(ModItems.CLAY_VESSEL);
+        simpleItem(ModItems.ENT_TWIG);
+        simpleItem(ModItems.MUTATING_SPRIG);
+        simpleItem(ModItems.POPPET);
+        simpleItem(ModItems.DEATH_PROTECTION_POPPET);
         simpleItem(ModItems.ANOINTING_PASTE);
         simpleItem(ModItems.MUTANDIS);
         simpleItem(ModItems.MUTANDIS_EXTREMIS);
@@ -53,7 +57,6 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.GYPSUM);
         simpleItem(ModItems.DEMON_HEART);
         simpleItem(ModItems.REFINED_EVIL);
-        simpleItem(ModItems.TAGLOCK_KIT);
 
         simpleItem(ModItems.WORMY_APPLE);
         simpleItem(ModItems.BONE_NEEDLE);

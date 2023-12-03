@@ -26,6 +26,10 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CLAY_VESSEL = ITEMS.register("clay_vessel",
             () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> ENT_TWIG = ITEMS.register("ent_twig",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MUTATING_SPRIG = ITEMS.register("mutating_sprig",
+            () -> new MutatingSprigItem(new Item.Properties().durability(15)));
     public static final RegistryObject<Item> ANOINTING_PASTE = ITEMS.register("anointing_paste",
             () -> new AnointingPasteItem(new Item.Properties()));
     public static final RegistryObject<Item> MUTANDIS = ITEMS.register("mutandis",
@@ -42,6 +46,10 @@ public class ModItems {
     public static final RegistryObject<Item> OTHERWHERE_CHALK = ITEMS.register("otherwhere_chalk",
             () -> new ChalkItem(ModBlocks.OTHERWHERE_CIRCLE_GLYPH.get(), new Item.Properties().durability(65)));
 
+    public static final RegistryObject<Item> POPPET = ITEMS.register("poppet",
+            () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> DEATH_PROTECTION_POPPET = ITEMS.register("death_protection_poppet",
+            () -> new DeathProtectionPoppetItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> BROOM = ITEMS.register("broom",
             () -> new BroomItem(ModToolTiers.BROOM, 1,1, ModTags.Blocks.MINEABLE_WITH_BROOM, new Item.Properties().stacksTo(1)));

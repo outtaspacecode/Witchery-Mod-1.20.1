@@ -33,7 +33,8 @@ public class MutandisItem extends Item {
         BlockState pBlock = pContext.getLevel().getBlockState(pPos);
         List<Block> convertiblePlants = List.of(Blocks.JUNGLE_SAPLING, Blocks.ACACIA_SAPLING, Blocks.BIRCH_SAPLING, Blocks.DARK_OAK_SAPLING, Blocks.OAK_SAPLING, Blocks.SPRUCE_SAPLING,
                 Blocks.CHERRY_SAPLING, Blocks.VINE, ModBlocks.ROWAN_SAPLING.get(), ModBlocks.ALDER_SAPLING.get(), ModBlocks.HAWTHORN_SAPLING.get(), Blocks.DANDELION, Blocks.POPPY,
-                Blocks.BLUE_ORCHID, Blocks.ALLIUM, Blocks.AZURE_BLUET, Blocks.OXEYE_DAISY, Blocks.PINK_TULIP, Blocks.CORNFLOWER, Blocks.LILY_OF_THE_VALLEY, Blocks.LILY_PAD, Blocks.SWEET_BERRY_BUSH);
+                Blocks.BLUE_ORCHID, Blocks.ALLIUM, Blocks.AZURE_BLUET, Blocks.OXEYE_DAISY, Blocks.PINK_TULIP, Blocks.CORNFLOWER, Blocks.LILY_OF_THE_VALLEY, Blocks.LILY_PAD, Blocks.SWEET_BERRY_BUSH,
+                ModBlocks.SPANISH_MOSS.get());
 
         if(!pLevel.isClientSide()) {
 

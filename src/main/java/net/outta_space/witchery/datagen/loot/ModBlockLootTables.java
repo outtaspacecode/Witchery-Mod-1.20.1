@@ -87,6 +87,8 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.add(ModBlocks.WORMWOOD_CROP.get(), this.createCropDrops(ModBlocks.WORMWOOD_CROP.get(),
                 ModItems.WORMWOOD.get(), ModItems.WORMWOOD_SEEDS.get(), lootitemcondition$builder6));
 
+        this.add(ModBlocks.SPANISH_MOSS.get(), createShearsOnlyDrop(ModBlocks.SPANISH_MOSS.get()));
+
 
 
 

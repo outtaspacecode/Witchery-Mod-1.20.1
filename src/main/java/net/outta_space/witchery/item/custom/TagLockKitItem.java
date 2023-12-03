@@ -1,10 +1,18 @@
 package net.outta_space.witchery.item.custom;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BedItem;
 import net.minecraft.world.item.Item;
@@ -14,6 +22,8 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.entity.BedBlockEntity;
+import net.minecraftforge.event.level.NoteBlockEvent;
+import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
@@ -22,53 +32,32 @@ import java.util.UUID;
 
 public class TagLockKitItem extends Item {
 
-    private Player boundPlayer = null;
-    private String playerName = null;
-
-    private UUID playerUUID = null;
-
-
     public TagLockKitItem(Properties pProperties) {
         super(pProperties);
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext pContext) {
+    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
 
-        Level pLevel = pContext.getLevel();
-        Player pPlayer = pContext.getPlayer();
-        BlockPos pPos = pContext.getClickedPos();
+        if(pPlayer.isCrouching() && !pPlayer.getItemInHand(pUsedHand).hasTag()) {
+            CompoundTag tag = new CompoundTag();
+            tag.putString("bound_player", pPlayer.getName().getString());
+            tag.putUUID("player_uuid", pPlayer.getUUID());
 
-
-        if(!pLevel.isClientSide()) {
-            if (pLevel.getBlockState(pPos).getBlock() instanceof BedBlock) {
-                pPlayer.sendSystemMessage(Component.literal("Players on server:"));
-                for (Player p : pLevel.players()) {
-
-                    pPlayer.sendSystemMessage(Component.literal(p.getName().getString()));
-//                    if () {
-
-                        playerUUID = p.getUUID();
-//                    }
-
-                }
-                return InteractionResult.SUCCESS;
-            }
+            pPlayer.getItemInHand(pUsedHand).setTag(tag);
+            DamageSources source = new DamageSources(pLevel.registryAccess());
+            pPlayer.hurt(source.playerAttack(pPlayer), 1);
+            pLevel.playSeededSound(null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.5f, 1f, 5);
         }
 
-        return InteractionResult.CONSUME;
-
-
-
-//        return super.useOn(pContext);
+        return super.use(pLevel, pPlayer, pUsedHand);
     }
-
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
 
-        if(playerUUID != null) {
-            pTooltipComponents.add(Component.literal("Bound to " + pLevel.getPlayerByUUID(playerUUID).getName().getString()));
+        if(pStack.hasTag()) {
+            pTooltipComponents.add(Component.literal("Bound to " + pStack.getTag().getString("bound_player")));
         } else {
             pTooltipComponents.add(Component.literal("No player currently bound"));
         }

@@ -41,6 +41,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> DISTILLERY = registerBlock("distillery",
             () -> new DistilleryBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).noOcclusion()));
 
+    public static final RegistryObject<Block> SPANISH_MOSS = registerBlock("spanish_moss",
+            () -> new VineBlock(BlockBehaviour.Properties.copy(Blocks.VINE).noOcclusion()));
+
     public static final RegistryObject<Block> HEART_GLYPH = registerBlock("heart_glyph",
             () -> new HeartGlyphBlock(BlockBehaviour.Properties.copy(Blocks.YELLOW_CARPET).strength(2f).sound(SoundType.STONE).noOcclusion().noCollission().pushReaction(PushReaction.DESTROY)));
     public static final RegistryObject<Block> WHITE_CIRCLE_GLYPH = registerBlock("white_circle_glyph",
