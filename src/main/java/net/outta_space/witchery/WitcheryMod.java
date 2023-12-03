@@ -20,6 +20,7 @@ import net.outta_space.witchery.item.ModItemProperties;
 import net.outta_space.witchery.item.ModItems;
 import net.outta_space.witchery.loot.ModLootModifiers;
 import net.outta_space.witchery.recipe.ModRecipes;
+import net.outta_space.witchery.screen.AltarScreen;
 import net.outta_space.witchery.screen.DistilleryScreen;
 import net.outta_space.witchery.screen.ModMenuTypes;
 import net.outta_space.witchery.screen.WitchOvenScreen;
@@ -99,6 +100,7 @@ public class WitcheryMod {
 
                 MenuScreens.register(ModMenuTypes.WITCH_OVEN_MENU.get(), WitchOvenScreen::new);
                 MenuScreens.register(ModMenuTypes.DISTILLERY_MENU.get(), DistilleryScreen::new);
+                MenuScreens.register(ModMenuTypes.ALTAR_MENU.get(), AltarScreen::new);
 
 
             });

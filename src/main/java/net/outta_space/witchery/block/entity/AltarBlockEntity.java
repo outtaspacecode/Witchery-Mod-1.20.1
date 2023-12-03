@@ -2,7 +2,13 @@ package net.outta_space.witchery.block.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -12,6 +18,9 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.data.ForgeBlockTagsProvider;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.block.custom.AltarBlock;
+import net.outta_space.witchery.screen.AltarMenu;
+import org.checkerframework.checker.units.qual.C;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +30,7 @@ import java.util.Map;
 import static net.outta_space.witchery.block.custom.AltarBlock.INDEX;
 import static net.outta_space.witchery.block.custom.AltarBlock.IS_MULTIBLOCK;
 
-public class AltarBlockEntity extends BlockEntity {
+public class AltarBlockEntity extends BlockEntity implements MenuProvider {
 
     private BlockPos core = null;
     private final List<Block> augmentItems = new ArrayList<>(6);
@@ -32,10 +41,11 @@ public class AltarBlockEntity extends BlockEntity {
     private int baseAltarPower;
     private int absorptionMultipler;
     private Double range;
+    protected final ContainerData data;
 
     public AltarBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.ALTAR_BE.get(), pPos, pBlockState);
-        cooldown = 100;
+        cooldown = 20;
         for(int i = 0; i < 6; i++) {
             this.augmentItems.add(null);
         }
@@ -43,6 +53,32 @@ public class AltarBlockEntity extends BlockEntity {
         resetBaseAltarPower();
         absorptionMultipler = 1;
         resetRange();
+
+        this.data = new ContainerData() {
+            @Override
+            public int get(int pIndex) {
+                return switch (pIndex) {
+                    case 0 -> AltarBlockEntity.this.getCurrentAltarPower();
+                    case 1 -> AltarBlockEntity.this.getBaseAltarPower();
+                    case 2 -> AltarBlockEntity.this.getAbsorptionMultipler();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int pIndex, int pValue) {
+                switch(pIndex) {
+                    case 0 -> AltarBlockEntity.this.currentAltarPower = pValue;
+                    case 1 -> AltarBlockEntity.this.baseAltarPower = pValue;
+                    case 2 -> AltarBlockEntity.this.absorptionMultipler = pValue;
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 3;
+            }
+        };
     }
 
     private void resetRange() {
@@ -72,7 +108,7 @@ public class AltarBlockEntity extends BlockEntity {
     }
 
     private void resetCooldown() {
-        this.cooldown = 100;
+        this.cooldown = 20;
     }
 
     public void setCore(BlockPos pPos) {
@@ -110,6 +146,8 @@ public class AltarBlockEntity extends BlockEntity {
         super.load(pTag);
         if(pTag.getBoolean("valid")) {
             core = new BlockPos(pTag.getIntArray("core")[0], pTag.getIntArray("core")[1], pTag.getIntArray("core")[2]);
+        } else {
+            core = null;
         }
         baseAltarPower = pTag.getInt("basePower");
         currentAltarPower = pTag.getInt("currentPower");
@@ -125,17 +163,14 @@ public class AltarBlockEntity extends BlockEntity {
 
             if(isCore(pPos)) {
 
-                if(cooldown == 100) {
+                if(cooldown == 20) {
                     AABB aabb = new AABB(pPos).move(0.5, 0, 0.5).inflate(range);
                     surroundingBlocks = pLevel.getBlockStates(aabb).toList();
 
                     setAltarPower();
-
-                }
-
-                if(cooldown % 20 == 0 && cooldown != 0) {
                     setMultipliers();
                     incrementAltarPower();
+
                 }
 
                 if(cooldown > 0) {
@@ -351,4 +386,14 @@ public class AltarBlockEntity extends BlockEntity {
         return pPos.getX() == core.getX() && pPos.getY() == core.getY() && pPos.getZ() == core.getZ();
     }
 
+    @Override
+    public Component getDisplayName() {
+        return Component.literal("Altar");
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
+        return new AltarMenu(pContainerId, pPlayerInventory, this, this.data);
+    }
 }
