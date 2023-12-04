@@ -60,7 +60,6 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         simpleItem(ModItems.WORMY_APPLE);
         simpleItem(ModItems.BONE_NEEDLE);
-        simpleItem(ModItems.WAYSTONE);
         simpleItem(ModItems.ICY_NEEDLE);
 
         /**********************************************************************

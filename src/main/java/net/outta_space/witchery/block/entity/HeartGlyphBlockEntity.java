@@ -6,6 +6,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -15,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.block.custom.HeartGlyphBlock;
+import net.outta_space.witchery.item.ModItems;
 import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
@@ -55,7 +57,11 @@ public class HeartGlyphBlockEntity extends BlockEntity {
                 cooldown--;
             }
         } else if(!itemList.isEmpty()) {
+
             for(ItemStack item : itemList) {
+                if(item.is(ModItems.CHARGED_ATTUNED_STONE.get())) {
+                    item = new ItemStack(ModItems.ATTUNED_STONE.get(), 1);
+                }
                 pLevel.addFreshEntity(new ItemEntity(pLevel, pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5, item));
             }
 

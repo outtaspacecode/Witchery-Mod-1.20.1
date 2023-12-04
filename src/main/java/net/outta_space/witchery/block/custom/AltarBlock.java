@@ -163,6 +163,7 @@ public class AltarBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
 
+        updateMultiblock(pLevel, pPos, null);
         BlockPos core = ((AltarBlockEntity) pLevel.getBlockEntity(pPos)).getCore();
 
         if (!pLevel.isClientSide()) {

@@ -197,7 +197,7 @@ public class AltarBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private void setMultipliers() {
-        int altarMultiplier = 0;
+        int altarMultiplier = 1;
         absorptionMultipler = 1;
 
         if(augmentItems.contains(Blocks.WITHER_SKELETON_SKULL)) {
@@ -215,10 +215,6 @@ public class AltarBlockEntity extends BlockEntity implements MenuProvider {
         if(augmentItems.contains(ModBlocks.INFINITY_EGG.get())) {
             altarMultiplier = 50;
             absorptionMultipler = 50;
-        }
-
-        if(altarMultiplier == 0) {
-            altarMultiplier = 1;
         }
 
         baseAltarPower *= altarMultiplier;

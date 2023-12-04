@@ -9,6 +9,9 @@ public class ModItemProperties {
     public static void addCustomItemProperties() {
         ItemProperties.register(ModItems.TAGLOCK_KIT.get(), new ResourceLocation(WitcheryMod.MOD_ID, "full"),
                 ((pStack, pLevel, pEntity, pSeed) -> pStack.hasTag() ? 1f : 0f));
+
+        ItemProperties.register(ModItems.WAYSTONE.get(), new ResourceLocation(WitcheryMod.MOD_ID, "bound"),
+                ((pStack, pLevel, pEntity, pSeed) -> pStack.hasTag() ? 1f : 0f));
     }
 
 }

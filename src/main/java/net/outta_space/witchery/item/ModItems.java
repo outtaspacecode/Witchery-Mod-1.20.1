@@ -67,7 +67,7 @@ public class ModItems {
     public static final RegistryObject<Item> BONE_NEEDLE = ITEMS.register("bone_needle",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> WAYSTONE = ITEMS.register("waystone",
-            () -> new Item(new Item.Properties()));
+            () -> new WaystoneItem(new Item.Properties()));
     public static final RegistryObject<Item> ICY_NEEDLE = ITEMS.register("icy_needle",
             () -> new Item(new Item.Properties()));
 
