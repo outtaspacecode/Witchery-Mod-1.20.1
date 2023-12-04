@@ -77,7 +77,7 @@ public class DistilleryBlockEntity extends BlockEntity implements MenuProvider {
     private int bubbleMaxProgress = 15;
     private boolean hasAltar = false;
     private BlockPos corePos = null;
-    private static final int COST = 20;
+    private static final int COST = 35;
 
 
     public DistilleryBlockEntity(BlockPos pPos, BlockState pBlockState) {
