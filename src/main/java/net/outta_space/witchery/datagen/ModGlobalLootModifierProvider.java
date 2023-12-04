@@ -8,9 +8,9 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.common.loot.LootTableIdCondition;
+import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.item.ModItems;
 import net.outta_space.witchery.loot.AddItemModifier;
-import net.outta_space.witchery.WitcheryMod;
 
 public class ModGlobalLootModifierProvider extends GlobalLootModifierProvider {
     public ModGlobalLootModifierProvider(PackOutput output) {

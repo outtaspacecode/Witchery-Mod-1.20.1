@@ -11,7 +11,6 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.block.entity.DistilleryBlockEntity;
-import org.jetbrains.annotations.Nullable;
 
 public class DistilleryMenu extends AbstractContainerMenu {
 

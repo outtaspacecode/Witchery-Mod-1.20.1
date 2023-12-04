@@ -15,11 +15,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.common.data.ForgeBlockTagsProvider;
 import net.outta_space.witchery.block.ModBlocks;
-import net.outta_space.witchery.block.custom.AltarBlock;
 import net.outta_space.witchery.screen.AltarMenu;
-import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -28,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 
 import static net.outta_space.witchery.block.custom.AltarBlock.INDEX;
-import static net.outta_space.witchery.block.custom.AltarBlock.IS_MULTIBLOCK;
 
 public class AltarBlockEntity extends BlockEntity implements MenuProvider {
 

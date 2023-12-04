@@ -16,14 +16,11 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
-import net.minecraft.world.level.Level;
 import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.item.ModItems;
-import net.outta_space.witchery.recipe.DistilleryRecipe;
 import net.outta_space.witchery.recipe.WitchOvenRecipe;
 
-import java.util.List;
 import java.util.Optional;
 
 public class WitchOvenCategory implements IRecipeCategory<WitchOvenRecipe> {

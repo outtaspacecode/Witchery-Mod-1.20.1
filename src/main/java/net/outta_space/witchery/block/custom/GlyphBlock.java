@@ -11,8 +11,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.outta_space.witchery.block.ModBlocks;
 
-import java.util.Random;
-
 public class GlyphBlock extends CarpetBlock {
     public static final IntegerProperty STYLE = IntegerProperty.create("style", 0, 11);
     public GlyphBlock(Properties p_152915_) {

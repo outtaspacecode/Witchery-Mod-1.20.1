@@ -7,12 +7,10 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.block.entity.WitchOvenBlockEntity;
-import org.jetbrains.annotations.Nullable;
 
 public class WitchOvenMenu extends AbstractContainerMenu {
 

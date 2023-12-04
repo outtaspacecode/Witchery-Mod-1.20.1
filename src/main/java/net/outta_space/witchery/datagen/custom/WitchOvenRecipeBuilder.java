@@ -19,8 +19,6 @@ import net.outta_space.witchery.WitcheryMod;
 import net.outta_space.witchery.recipe.WitchOvenRecipe;
 import org.jetbrains.annotations.Nullable;
 
-import javax.xml.transform.Result;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 public class WitchOvenRecipeBuilder implements RecipeBuilder {

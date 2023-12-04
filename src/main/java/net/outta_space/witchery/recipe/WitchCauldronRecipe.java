@@ -14,9 +14,6 @@ import net.minecraft.world.level.Level;
 import net.outta_space.witchery.WitcheryMod;
 import org.jetbrains.annotations.Nullable;
 
-import java.awt.*;
-import java.util.List;
-
 public class WitchCauldronRecipe implements Recipe<SimpleContainer> {
     private final NonNullList<Ingredient> inputItems;
     private final ItemStack output;

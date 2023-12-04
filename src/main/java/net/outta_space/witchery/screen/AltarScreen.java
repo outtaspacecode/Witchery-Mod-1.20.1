@@ -1,16 +1,13 @@
 package net.outta_space.witchery.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.client.event.ScreenEvent;
 import net.outta_space.witchery.WitcheryMod;
-import org.intellij.lang.annotations.JdkConstants;
 
 public class AltarScreen extends AbstractContainerScreen<AltarMenu> {
 

@@ -1,7 +1,5 @@
 package net.outta_space.witchery.worldgen;
 
-import com.mojang.datafixers.kinds.Const;
-import io.netty.util.Constant;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;

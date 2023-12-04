@@ -5,9 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fml.common.Mod;
 import net.outta_space.witchery.block.ModBlocks;
-import net.outta_space.witchery.block.custom.FilteredFumeFunnelBlock;
 import net.outta_space.witchery.block.custom.WitchOvenBlock;
 
 import static net.outta_space.witchery.block.custom.FilteredFumeFunnelBlock.FACING;
