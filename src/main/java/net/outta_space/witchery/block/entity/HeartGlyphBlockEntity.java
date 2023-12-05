@@ -53,6 +53,13 @@ public class HeartGlyphBlockEntity extends BlockEntity {
             List<ItemEntity> itemEntities = pLevel.getEntitiesOfClass(ItemEntity.class, aabb);
 
             if(hasRecipe(itemEntities)) {
+                aabb = getAABBSize(itemEntities, pPos);
+                itemEntities = pLevel.getEntitiesOfClass(ItemEntity.class, aabb);
+                if(!hasRecipe(itemEntities)) {
+                    pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_ACTIVE, false));
+                    return;
+                }
+
                 if (cooldown <= 0) {
 
                 if (!itemEntities.isEmpty()) {
@@ -134,6 +141,21 @@ public class HeartGlyphBlockEntity extends BlockEntity {
 
     }
 
+    private AABB getAABBSize(List<ItemEntity> itemEntities, BlockPos pPos) {
+        int circleSize = 3;
+        Optional<RiteRecipe> recipe = getCurrentRecipe(itemEntities);
+        int[] circles = recipe.get().getCircles();
+
+        if(circles[2] > 0) {
+            circleSize = 7;
+        } else if(circles[1] > 0) {
+            circleSize = 5;
+        }
+
+        return new AABB(pPos).move(0.5, 0, 0.5).inflate(circleSize, 0, circleSize);
+    }
+
+
     private void performRitual(Level pLevel, BlockPos pPos, BlockState pState) {
         Optional<RiteRecipe> recipe = getCurrentRecipe(List.of());
         ItemStack resultItem = recipe.get().getResultItem(pLevel.registryAccess());
@@ -156,11 +178,8 @@ public class HeartGlyphBlockEntity extends BlockEntity {
     private boolean hasRecipe(List<ItemEntity> itemEntities) {
         Optional<RiteRecipe> recipe = getCurrentRecipe(itemEntities);
 
-        if(recipe.isEmpty()) {
-            return false;
-        }
+        return recipe.map(riteRecipe -> riteRecipe.matchesCircles(smallCircle, mediumCircle, largeCircle)).orElse(false);
 
-        return true;
     }
 
     private Optional<RiteRecipe> getCurrentRecipe(List<ItemEntity> itemEntities) {
