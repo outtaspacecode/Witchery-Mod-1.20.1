@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -13,9 +14,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.item.ModItems;
+import net.outta_space.witchery.recipe.RiteRecipe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static net.outta_space.witchery.block.custom.HeartGlyphBlock.IS_ACTIVE;
 
@@ -34,11 +37,15 @@ public class HeartGlyphBlockEntity extends BlockEntity {
     public void tick(Level pLevel, BlockPos pPos, BlockState pState) {
 
         if(pState.getValue(IS_ACTIVE)) {
-            if (cooldown <= 0) {
 
-                AABB aabb = new AABB(pPos).move(0.5, 0, 0.5).inflate(3, 0, 3);
-                List<ItemEntity> itemEntities = pLevel.getEntitiesOfClass(ItemEntity.class, aabb);
-                if(!itemEntities.isEmpty()) {
+
+            AABB aabb = new AABB(pPos).move(0.5, 0, 0.5).inflate(3, 0, 3);
+            List<ItemEntity> itemEntities = pLevel.getEntitiesOfClass(ItemEntity.class, aabb);
+
+            if(hasRecipe(itemEntities)) {
+                if (cooldown <= 0) {
+
+                if (!itemEntities.isEmpty()) {
                     itemList.add(itemEntities.get(0).getItem());
                     itemEntities.get(0).kill();
                     pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
@@ -48,9 +55,18 @@ public class HeartGlyphBlockEntity extends BlockEntity {
                 }
 
                 resetCooldown();
+                } else {
+                    cooldown--;
+                }
             } else {
-                cooldown--;
+                Player player = pLevel.getNearestPlayer(pPos.getX(), pPos.getY(), pPos.getZ(), 20, false);
+                if(player != null) {
+                    player.sendSystemMessage(Component.literal("§cUnknown rite."));
+                }
+                pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_ACTIVE, false));
+                resetCooldown();
             }
+
         } else if(!itemList.isEmpty()) {
 
             for(ItemStack item : itemList) {
@@ -101,6 +117,30 @@ public class HeartGlyphBlockEntity extends BlockEntity {
             itemList.clear();
         }
 
+    }
+
+    private boolean hasRecipe(List<ItemEntity> itemEntities) {
+        Optional<RiteRecipe> recipe = getCurrentRecipe(itemEntities);
+
+        if(recipe.isEmpty()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private Optional<RiteRecipe> getCurrentRecipe(List<ItemEntity> itemEntities) {
+        SimpleContainer inventory = new SimpleContainer(itemEntities.size() + itemList.size());
+
+        for(int i = 0; i < itemEntities.size(); i++) {
+            inventory.setItem(i, itemEntities.get(i).getItem());
+        }
+
+        for(int i = 0; i < itemList.size(); i++) {
+            inventory.setItem(i + itemEntities.size(), itemList.get(i));
+        }
+
+        return this.level.getRecipeManager().getRecipeFor(RiteRecipe.Type.INSTANCE, inventory, level);
     }
 
     private void checkForCircles(Level pLevel, BlockPos pPos) {

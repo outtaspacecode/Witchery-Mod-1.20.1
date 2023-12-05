@@ -1,0 +1,18 @@
+{
+  "type": "witchery:rite",
+  "ingredients": [
+    {
+      "item": "witchery:waystone"
+    },
+    {
+      "item": "witchery:ender_dew"
+    },
+    {
+      "item": "minecraft:glowstone_dust"
+    }
+  ],
+  "rite_key": {
+    "count": 1,
+    "item": "witchery:waystone"
+  }
+}
