@@ -15,6 +15,7 @@ import net.minecraft.world.phys.AABB;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.item.ModItems;
 import net.outta_space.witchery.recipe.RiteRecipe;
+import net.outta_space.witchery.rite.BindWaystoneRite;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +39,17 @@ public class HeartGlyphBlockEntity extends BlockEntity {
 
         if(pState.getValue(IS_ACTIVE)) {
 
+            checkForCircles(pLevel, pPos);
+            int circleSize;
+            if(largeCircle > 0) {
+                circleSize = 7;
+            } else if (mediumCircle > 0) {
+                circleSize = 5;
+            } else {
+                circleSize = 3;
+            }
 
-            AABB aabb = new AABB(pPos).move(0.5, 0, 0.5).inflate(3, 0, 3);
+            AABB aabb = new AABB(pPos).move(0.5, 0, 0.5).inflate(circleSize, 0, circleSize);
             List<ItemEntity> itemEntities = pLevel.getEntitiesOfClass(ItemEntity.class, aabb);
 
             if(hasRecipe(itemEntities)) {
@@ -51,6 +61,7 @@ public class HeartGlyphBlockEntity extends BlockEntity {
                     pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
                             SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1, 0, 6);
                 } else {
+                    performRitual(pLevel, pPos, pState);
                     pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_ACTIVE, false));
                 }
 
@@ -58,65 +69,88 @@ public class HeartGlyphBlockEntity extends BlockEntity {
                 } else {
                     cooldown--;
                 }
+            } else if(itemEntities.isEmpty() && itemList.isEmpty()) {
+                pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_ACTIVE, false));
             } else {
                 Player player = pLevel.getNearestPlayer(pPos.getX(), pPos.getY(), pPos.getZ(), 20, false);
                 if(player != null) {
                     player.sendSystemMessage(Component.literal("§cUnknown rite."));
                 }
+                level.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(), SoundEvents.NOTE_BLOCK_SNARE, SoundSource.BLOCKS, 0.5f, 0, 0);
                 pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_ACTIVE, false));
+                returnItems(pLevel, pPos);
                 resetCooldown();
             }
 
-        } else if(!itemList.isEmpty()) {
+//        } else if(!itemList.isEmpty()) {
+//
+//            for(ItemStack item : itemList) {
+//                if(item.is(ModItems.CHARGED_ATTUNED_STONE.get())) {
+//                    item = new ItemStack(ModItems.ATTUNED_STONE.get(), 1);
+//                }
+//                pLevel.addFreshEntity(new ItemEntity(pLevel, pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5, item));
+//            }
+//
+//            checkForCircles(pLevel, pPos);
+//
+//            pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
+//                    SoundEvents.LAVA_EXTINGUISH , SoundSource.BLOCKS, 1f, 1, 1);
+//            Player player = pLevel.getNearestPlayer(pPos.getX(), pPos.getY(), pPos.getZ(), 20, false);
+//            if(player != null) {
+//                player.sendSystemMessage(Component.literal("§cUnknown rite."));
+//
+//                if(smallCircle == 1) {
+//                    player.sendSystemMessage(Component.literal("We have a small white circle"));
+//                } else if(smallCircle == 2) {
+//                    player.sendSystemMessage(Component.literal("We have a small red circle"));
+//                } else if(smallCircle == 3) {
+//                    player.sendSystemMessage(Component.literal("We have a small purple circle"));
+//                } else {
+//                    player.sendSystemMessage(Component.literal("No small circle to be found"));
+//                }
+//
+//                if(mediumCircle == 1) {
+//                    player.sendSystemMessage(Component.literal("We have a medium white circle"));
+//                } else if(mediumCircle == 2) {
+//                    player.sendSystemMessage(Component.literal("We have a medium red circle"));
+//                } else if(mediumCircle == 3) {
+//                    player.sendSystemMessage(Component.literal("We have a medium purple circle"));
+//                } else {
+//                    player.sendSystemMessage(Component.literal("No medium circle to be found"));
+//                }
+//
+//                if(largeCircle == 1) {
+//                    player.sendSystemMessage(Component.literal("We have a large white circle"));
+//                } else if(largeCircle == 2) {
+//                    player.sendSystemMessage(Component.literal("We have a large red circle"));
+//                } else if(largeCircle == 3) {
+//                    player.sendSystemMessage(Component.literal("We have a large purple circle"));
+//                } else {
+//                    player.sendSystemMessage(Component.literal("No large circle to be found"));
+//                }
+//            }
 
-            for(ItemStack item : itemList) {
-                if(item.is(ModItems.CHARGED_ATTUNED_STONE.get())) {
-                    item = new ItemStack(ModItems.ATTUNED_STONE.get(), 1);
-                }
+        }
+
+    }
+
+    private void performRitual(Level pLevel, BlockPos pPos, BlockState pState) {
+        Optional<RiteRecipe> recipe = getCurrentRecipe(List.of());
+        ItemStack resultItem = recipe.get().getResultItem(pLevel.registryAccess());
+
+        itemList.clear();
+        if(resultItem.is(ModItems.WAYSTONE.get())) {
+            BindWaystoneRite.perform(pLevel, pPos);
+        }
+    }
+
+    private void returnItems(Level pLevel, BlockPos pPos) {
+        if(!itemList.isEmpty()) {
+            for (ItemStack item : itemList) {
                 pLevel.addFreshEntity(new ItemEntity(pLevel, pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5, item));
-            }
-
-            checkForCircles(pLevel, pPos);
-
-            pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
-                    SoundEvents.LAVA_EXTINGUISH , SoundSource.BLOCKS, 1f, 1, 1);
-            Player player = pLevel.getNearestPlayer(pPos.getX(), pPos.getY(), pPos.getZ(), 20, false);
-            if(player != null) {
-                player.sendSystemMessage(Component.literal("§cUnknown rite."));
-
-                if(smallCircle == 1) {
-                    player.sendSystemMessage(Component.literal("We have a small white circle"));
-                } else if(smallCircle == 2) {
-                    player.sendSystemMessage(Component.literal("We have a small red circle"));
-                } else if(smallCircle == 3) {
-                    player.sendSystemMessage(Component.literal("We have a small purple circle"));
-                } else {
-                    player.sendSystemMessage(Component.literal("No small circle to be found"));
-                }
-
-                if(mediumCircle == 1) {
-                    player.sendSystemMessage(Component.literal("We have a medium white circle"));
-                } else if(mediumCircle == 2) {
-                    player.sendSystemMessage(Component.literal("We have a medium red circle"));
-                } else if(mediumCircle == 3) {
-                    player.sendSystemMessage(Component.literal("We have a medium purple circle"));
-                } else {
-                    player.sendSystemMessage(Component.literal("No medium circle to be found"));
-                }
-
-                if(largeCircle == 1) {
-                    player.sendSystemMessage(Component.literal("We have a large white circle"));
-                } else if(largeCircle == 2) {
-                    player.sendSystemMessage(Component.literal("We have a large red circle"));
-                } else if(largeCircle == 3) {
-                    player.sendSystemMessage(Component.literal("We have a large purple circle"));
-                } else {
-                    player.sendSystemMessage(Component.literal("No large circle to be found"));
-                }
             }
             itemList.clear();
         }
-
     }
 
     private boolean hasRecipe(List<ItemEntity> itemEntities) {

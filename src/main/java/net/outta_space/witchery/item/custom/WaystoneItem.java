@@ -26,10 +26,7 @@ public class WaystoneItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
 
-        if(pPlayer.isCrouching() && !pPlayer.getItemInHand(pUsedHand).hasTag()) {
-            BindWaystoneRite.perform(pLevel, pPlayer, pUsedHand);
-
-        } else if(pPlayer.getItemInHand(pUsedHand).hasTag()) {
+        if(pPlayer.getItemInHand(pUsedHand).hasTag()) {
             int[] locationTag = pPlayer.getItemInHand(pUsedHand).getTag().getIntArray("location");
             BlockPos pos = new BlockPos(locationTag[0], locationTag[1], locationTag[2]);
             CompoundTag tag = new CompoundTag();
