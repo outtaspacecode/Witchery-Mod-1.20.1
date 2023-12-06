@@ -18,6 +18,7 @@ import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.item.ModItems;
 import net.outta_space.witchery.recipe.RiteRecipe;
 import net.outta_space.witchery.rite.BindWaystoneRite;
+import net.outta_space.witchery.rite.ChargeAttunedStoneRite;
 import net.outta_space.witchery.rite.UseWaystoneRite;
 import org.checkerframework.checker.units.qual.A;
 
@@ -57,11 +58,11 @@ public class HeartGlyphBlockEntity extends BlockEntity {
             AABB aabb = new AABB(pPos).move(0.5, 0, 0.5).inflate(circleSize, 0, circleSize);
             List<ItemEntity> itemEntities = pLevel.getEntitiesOfClass(ItemEntity.class, aabb);
 
-            if(hasRecipe(itemEntities)) {
+            if(hasRecipe(itemEntities, pLevel, pPos)) {
                 aabb = getAABBSize(itemEntities, pPos);
                 itemEntities = pLevel.getEntitiesOfClass(ItemEntity.class, aabb);
 
-                if(!hasRecipe(itemEntities)) {
+                if(!hasRecipe(itemEntities, pLevel, pPos)) {
                     pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_ACTIVE, false));
                     return;
                 }
@@ -140,6 +141,16 @@ public class HeartGlyphBlockEntity extends BlockEntity {
             UseWaystoneRite.perform(pLevel, pPos, itemList, livingEntities);
         }
 
+        if(resultItem.is(ModItems.CHARGED_ATTUNED_STONE.get())) {
+            ChargeAttunedStoneRite.perform(pLevel, pPos);
+        }
+
+        if(recipe.get().getAltarPower() > 0) {
+            AltarBlockEntity abe = (AltarBlockEntity)pLevel.getBlockEntity(getAltarCorePos(pLevel, pPos));
+            assert abe != null;
+            abe.suckPower(recipe.get().getAltarPower());
+        }
+
         itemList.clear();
     }
 
@@ -152,11 +163,51 @@ public class HeartGlyphBlockEntity extends BlockEntity {
         }
     }
 
-    private boolean hasRecipe(List<ItemEntity> itemEntities) {
+    private boolean hasRecipe(List<ItemEntity> itemEntities, Level pLevel, BlockPos pPos) {
         Optional<RiteRecipe> recipe = getCurrentRecipe(itemEntities);
 
-        return recipe.map(riteRecipe -> riteRecipe.matchesCircles(smallCircle, mediumCircle, largeCircle)).orElse(false);
+        if(recipe.isEmpty()) {
+            return false;
+        }
 
+        return recipe.get().matchesCircles(smallCircle, mediumCircle, largeCircle)
+                && recipe.get().hasAltarPower(getAltarPower(pLevel, getAltarCorePos(pLevel, pPos)));
+
+    }
+
+    private BlockPos getAltarCorePos(Level pLevel, BlockPos pPos) {
+        boolean hasAltar = false;
+        BlockPos corePos = null;
+        for(int x = -14; x < 14; x++) {
+            for(int z = -14; z < 14; z++) {
+                for(int y = -3; y < 3; y++) {
+                    BlockPos checkPos = new BlockPos(pPos.getX() + x, pPos.getY() + y, pPos.getZ() + z);
+                    if(pLevel.getBlockState(checkPos).is(ModBlocks.ALTAR_BLOCK.get())) {
+                        AltarBlockEntity abe = (AltarBlockEntity)pLevel.getBlockEntity(checkPos);
+                        if(abe.getCore() != null) {
+                            hasAltar = true;
+                            corePos = abe.getCore();
+                            break;
+                        }
+                        if(hasAltar) { break; }
+                    }
+                    if(hasAltar) { break; }
+                }
+            }
+        }
+
+        return corePos;
+    }
+
+    private int getAltarPower(Level pLevel, BlockPos corePos) {
+
+        if(corePos == null) {
+            return 0;
+        }
+
+        AltarBlockEntity abe = (AltarBlockEntity)pLevel.getBlockEntity(corePos);
+        assert abe != null;
+        return abe.getCurrentAltarPower();
     }
 
     private Optional<RiteRecipe> getCurrentRecipe(List<ItemEntity> itemEntities) {

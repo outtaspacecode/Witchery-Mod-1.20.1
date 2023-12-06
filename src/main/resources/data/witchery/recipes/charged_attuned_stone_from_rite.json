@@ -1,0 +1,27 @@
+{
+  "type": "witchery:rite",
+  "ingredients": [
+    {
+      "item": "witchery:attuned_stone"
+    },
+    {
+      "item": "minecraft:glowstone_dust"
+    },
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "witchery:wood_ash"
+    },
+    {
+      "item": "witchery:quicklime"
+    }
+  ],
+  "rite_key": {
+    "count": 1,
+    "item": "witchery:charged_attuned_stone"
+  },
+  "small_circle": 1,
+  "medium_circle": 1,
+  "altar_power": 2000
+}

@@ -197,13 +197,5 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('D', ModItems.POPPET.get())
                 .unlockedBy("has_poppet", inventoryTrigger(ItemPredicate.Builder.item().of(ModItems.POPPET.get()).build()))
                 .save(pWriter);
-
-
-        // temporary until circle rituals are working
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.CHARGED_ATTUNED_STONE.get())
-                .requires(ModItems.ATTUNED_STONE.get())
-                .unlockedBy("has_attuned_stone", inventoryTrigger(ItemPredicate.Builder.item()
-                        .of(ModItems.ATTUNED_STONE.get()).build()))
-                .save(pWriter);
     }
 }

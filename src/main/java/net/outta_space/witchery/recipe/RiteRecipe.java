@@ -20,18 +20,20 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
     private final NonNullList<Ingredient> inputItems;
     private final ItemStack riteKey;
     private final ResourceLocation id;
-    private int smallCircle = 0;
-    private int mediumCircle = 0;
-    private int largeCircle = 0;
+    private int smallCircle;
+    private int mediumCircle;
+    private int largeCircle;
+    private int altarPower;
 
     public RiteRecipe(ResourceLocation id, ItemStack riteKey, NonNullList<Ingredient> inputItems,
-                      int smallCircle, int mediumCircle, int largeCircle) {
+                      int smallCircle, int mediumCircle, int largeCircle, int altarPower) {
         this.inputItems = inputItems;
         this.riteKey = riteKey;
         this.id = id;
         this.smallCircle = smallCircle;
         this.mediumCircle = mediumCircle;
         this.largeCircle = largeCircle;
+        this.altarPower = altarPower;
     }
 
     @Override
@@ -82,6 +84,18 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
         return (smallCircle <= 0 || smallCircle == small)
             && (mediumCircle <= 0 || mediumCircle == medium)
             && (largeCircle <= 0 || largeCircle == large);
+    }
+
+    public int getAltarPower() {
+        return altarPower;
+    }
+
+    public boolean hasAltarPower(int power) {
+        if(this.altarPower == 0) {
+            return true;
+        }
+
+        return power > altarPower;
     }
 
     @Override
@@ -145,7 +159,9 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
             int mediumCircle = GsonHelper.getAsInt(json, "medium_circle", 0);
             int largeCircle = GsonHelper.getAsInt(json, "large_circle", 0);
 
-            return new RiteRecipe(id, riteKey, inputs, smallCircle, mediumCircle, largeCircle);
+            int altarPower = GsonHelper.getAsInt(json, "altar_power", 0);
+
+            return new RiteRecipe(id, riteKey, inputs, smallCircle, mediumCircle, largeCircle, altarPower);
         }
 
         @Override
@@ -162,7 +178,9 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
             int mediumCircle = buf.readInt();
             int largeCircle = buf.readInt();
 
-            return new RiteRecipe(id, riteKey, inputs, smallCircle, mediumCircle, largeCircle);
+            int altarPower = buf.readInt();
+
+            return new RiteRecipe(id, riteKey, inputs, smallCircle, mediumCircle, largeCircle, altarPower);
         }
 
         @Override
@@ -178,6 +196,8 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
             buf.writeInt(recipe.smallCircle);
             buf.writeInt(recipe.mediumCircle);
             buf.writeInt(recipe.largeCircle);
+
+            buf.writeInt(recipe.altarPower);
         }
     }
 }
