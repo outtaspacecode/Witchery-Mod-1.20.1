@@ -16,5 +16,6 @@
     "item": "witchery:waystone"
   },
   "small_circle": 1,
-  "altar_power": 500
+  "altar_power": 500,
+  "allows_attuned_stone": true
 }

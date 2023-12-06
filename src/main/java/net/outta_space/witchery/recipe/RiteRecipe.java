@@ -11,8 +11,12 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.fml.common.Mod;
 import net.outta_space.witchery.WitcheryMod;
+import net.outta_space.witchery.item.ModItems;
 import org.jetbrains.annotations.Nullable;
+
+import java.awt.*;
 
 
 public class RiteRecipe implements Recipe<SimpleContainer> {
@@ -20,13 +24,15 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
     private final NonNullList<Ingredient> inputItems;
     private final ItemStack riteKey;
     private final ResourceLocation id;
-    private int smallCircle;
-    private int mediumCircle;
-    private int largeCircle;
-    private int altarPower;
+    private final int smallCircle;
+    private final int mediumCircle;
+    private final int largeCircle;
+    private final int altarPower;
+
+    private final boolean allowsAttunedStone;
 
     public RiteRecipe(ResourceLocation id, ItemStack riteKey, NonNullList<Ingredient> inputItems,
-                      int smallCircle, int mediumCircle, int largeCircle, int altarPower) {
+                      int smallCircle, int mediumCircle, int largeCircle, int altarPower, boolean allowsAttunedStone) {
         this.inputItems = inputItems;
         this.riteKey = riteKey;
         this.id = id;
@@ -34,6 +40,7 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
         this.mediumCircle = mediumCircle;
         this.largeCircle = largeCircle;
         this.altarPower = altarPower;
+        this.allowsAttunedStone = allowsAttunedStone;
     }
 
     @Override
@@ -47,17 +54,29 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
         boolean[] matches = new boolean[inputItems.size()];
         int count = 0;
 
+        boolean hasAttunedStone = false;
         for(int i = 0; i < pContainer.getContainerSize(); i++) {
             if(pContainer.getItem(i) != ItemStack.EMPTY) {
                 count++;
+                if(pContainer.getItem(i).is(ModItems.CHARGED_ATTUNED_STONE.get())) {
+                    hasAttunedStone = true;
+                }
             }
         }
 
-        if(inputItems.size() == count) {
+        boolean hasUsedAttunedStone = !(hasAttunedStone && allowsAttunedStone);
+        if(inputItems.size() == count || ((count == inputItems.size() + 1) && !hasUsedAttunedStone)) {
             for (int i = 0; i < inputItems.size(); i++) {
                 for (int j = 0; j < pContainer.getContainerSize(); j++) {
                     if (pContainer.getItem(j).getCount() == 1) {
-                        match = match || inputItems.get(i).test(pContainer.getItem(j));
+                        if(!hasUsedAttunedStone) {
+                            match = match || (inputItems.get(i).test(pContainer.getItem(j)) || pContainer.getItem(j).is(ModItems.CHARGED_ATTUNED_STONE.get()));
+                            if(pContainer.getItem(j).is(ModItems.CHARGED_ATTUNED_STONE.get())) {
+                                hasUsedAttunedStone = true;
+                            }
+                        } else {
+                            match = match || inputItems.get(i).test(pContainer.getItem(j));
+                        }
                     }
                 }
                 matches[i] = match;
@@ -74,6 +93,10 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
         }
 
         return match;
+    }
+
+    public boolean willAllowAttunedStone() {
+        return this.allowsAttunedStone;
     }
 
     public int[] getCircles() {
@@ -161,7 +184,9 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
 
             int altarPower = GsonHelper.getAsInt(json, "altar_power", 0);
 
-            return new RiteRecipe(id, riteKey, inputs, smallCircle, mediumCircle, largeCircle, altarPower);
+            boolean allowsAttunedStone = GsonHelper.getAsBoolean(json, "allows_attuned_stone", false);
+
+            return new RiteRecipe(id, riteKey, inputs, smallCircle, mediumCircle, largeCircle, altarPower, allowsAttunedStone);
         }
 
         @Override
@@ -180,7 +205,9 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
 
             int altarPower = buf.readInt();
 
-            return new RiteRecipe(id, riteKey, inputs, smallCircle, mediumCircle, largeCircle, altarPower);
+            boolean allowsAttunedStone = buf.readBoolean();
+
+            return new RiteRecipe(id, riteKey, inputs, smallCircle, mediumCircle, largeCircle, altarPower, allowsAttunedStone);
         }
 
         @Override
@@ -198,6 +225,8 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
             buf.writeInt(recipe.largeCircle);
 
             buf.writeInt(recipe.altarPower);
+
+            buf.writeBoolean(recipe.allowsAttunedStone);
         }
     }
 }

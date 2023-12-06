@@ -145,7 +145,16 @@ public class HeartGlyphBlockEntity extends BlockEntity {
             ChargeAttunedStoneRite.perform(pLevel, pPos);
         }
 
-        if(recipe.get().getAltarPower() > 0) {
+        boolean hasAttunedStone = false;
+        for(ItemStack is : itemList) {
+            if(is.is(ModItems.CHARGED_ATTUNED_STONE.get())) {
+                hasAttunedStone = true;
+            }
+        }
+
+        if(recipe.get().willAllowAttunedStone() && hasAttunedStone) {
+            pLevel.addFreshEntity(new ItemEntity(pLevel, pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5, new ItemStack(ModItems.ATTUNED_STONE.get(), 1)));
+        } else if(recipe.get().getAltarPower() > 0) {
             AltarBlockEntity abe = (AltarBlockEntity)pLevel.getBlockEntity(getAltarCorePos(pLevel, pPos));
             assert abe != null;
             abe.suckPower(recipe.get().getAltarPower());
@@ -170,8 +179,22 @@ public class HeartGlyphBlockEntity extends BlockEntity {
             return false;
         }
 
+        boolean hasAttunedStone = false;
+        for(ItemEntity ie : itemEntities) {
+            if(ie.getItem().is(ModItems.CHARGED_ATTUNED_STONE.get())) {
+                hasAttunedStone = true;
+            }
+        }
+
+        for(ItemStack is : itemList) {
+            if(is.is(ModItems.CHARGED_ATTUNED_STONE.get())) {
+                hasAttunedStone = true;
+            }
+        }
+
         return recipe.get().matchesCircles(smallCircle, mediumCircle, largeCircle)
-                && recipe.get().hasAltarPower(getAltarPower(pLevel, getAltarCorePos(pLevel, pPos)));
+                && (recipe.get().hasAltarPower(getAltarPower(pLevel, getAltarCorePos(pLevel, pPos)))
+                    || (recipe.get().willAllowAttunedStone() && hasAttunedStone));
 
     }
 
