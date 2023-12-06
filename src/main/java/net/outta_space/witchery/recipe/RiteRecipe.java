@@ -20,18 +20,18 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
     private final NonNullList<Ingredient> inputItems;
     private final ItemStack riteKey;
     private final ResourceLocation id;
-    private static int smallCircle = 0;
-    private static int mediumCircle = 0;
-    private static int largeCircle = 0;
+    private int smallCircle = 0;
+    private int mediumCircle = 0;
+    private int largeCircle = 0;
 
     public RiteRecipe(ResourceLocation id, ItemStack riteKey, NonNullList<Ingredient> inputItems,
                       int smallCircle, int mediumCircle, int largeCircle) {
         this.inputItems = inputItems;
         this.riteKey = riteKey;
         this.id = id;
-        RiteRecipe.smallCircle = smallCircle;
-        RiteRecipe.mediumCircle = mediumCircle;
-        RiteRecipe.largeCircle = largeCircle;
+        this.smallCircle = smallCircle;
+        this.mediumCircle = mediumCircle;
+        this.largeCircle = largeCircle;
     }
 
     @Override
@@ -51,7 +51,6 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
             }
         }
 
-
         if(inputItems.size() == count) {
             for (int i = 0; i < inputItems.size(); i++) {
                 for (int j = 0; j < pContainer.getContainerSize(); j++) {
@@ -63,8 +62,12 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
                 match = false;
             }
 
-            for (int i = 0; i < inputItems.size() - 1; i++) {
-                match = matches[i] && matches[i + 1];
+            if(inputItems.size() > 1) {
+                for (int i = 0; i < inputItems.size() - 1; i++) {
+                    match = matches[i] && matches[i + 1];
+                }
+            } else {
+                match = matches[0];
             }
         }
 
@@ -172,9 +175,9 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
 
             buf.writeItemStack(recipe.getResultItem(null), false);
 
-            buf.writeInt(smallCircle);
-            buf.writeInt(mediumCircle);
-            buf.writeInt(largeCircle);
+            buf.writeInt(recipe.smallCircle);
+            buf.writeInt(recipe.mediumCircle);
+            buf.writeInt(recipe.largeCircle);
         }
     }
 }

@@ -24,20 +24,6 @@ public class WaystoneItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-
-        if(pPlayer.getItemInHand(pUsedHand).hasTag()) {
-            int[] locationTag = pPlayer.getItemInHand(pUsedHand).getTag().getIntArray("location");
-            BlockPos pos = new BlockPos(locationTag[0], locationTag[1], locationTag[2]);
-            CompoundTag tag = new CompoundTag();
-            pPlayer.getItemInHand(pUsedHand).setTag(tag);
-            pPlayer.teleportTo(pos.getX(), pos.getY(), pos.getZ());
-        }
-
-        return super.use(pLevel, pPlayer, pUsedHand);
-    }
-
-    @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
 
         if(pStack.hasTag()) {

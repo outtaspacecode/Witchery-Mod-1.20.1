@@ -5,9 +5,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -16,8 +18,11 @@ import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.item.ModItems;
 import net.outta_space.witchery.recipe.RiteRecipe;
 import net.outta_space.witchery.rite.BindWaystoneRite;
+import net.outta_space.witchery.rite.UseWaystoneRite;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,6 +60,7 @@ public class HeartGlyphBlockEntity extends BlockEntity {
             if(hasRecipe(itemEntities)) {
                 aabb = getAABBSize(itemEntities, pPos);
                 itemEntities = pLevel.getEntitiesOfClass(ItemEntity.class, aabb);
+
                 if(!hasRecipe(itemEntities)) {
                     pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_ACTIVE, false));
                     return;
@@ -88,55 +94,6 @@ public class HeartGlyphBlockEntity extends BlockEntity {
                 returnItems(pLevel, pPos);
                 resetCooldown();
             }
-
-//        } else if(!itemList.isEmpty()) {
-//
-//            for(ItemStack item : itemList) {
-//                if(item.is(ModItems.CHARGED_ATTUNED_STONE.get())) {
-//                    item = new ItemStack(ModItems.ATTUNED_STONE.get(), 1);
-//                }
-//                pLevel.addFreshEntity(new ItemEntity(pLevel, pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5, item));
-//            }
-//
-//            checkForCircles(pLevel, pPos);
-//
-//            pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
-//                    SoundEvents.LAVA_EXTINGUISH , SoundSource.BLOCKS, 1f, 1, 1);
-//            Player player = pLevel.getNearestPlayer(pPos.getX(), pPos.getY(), pPos.getZ(), 20, false);
-//            if(player != null) {
-//                player.sendSystemMessage(Component.literal("§cUnknown rite."));
-//
-//                if(smallCircle == 1) {
-//                    player.sendSystemMessage(Component.literal("We have a small white circle"));
-//                } else if(smallCircle == 2) {
-//                    player.sendSystemMessage(Component.literal("We have a small red circle"));
-//                } else if(smallCircle == 3) {
-//                    player.sendSystemMessage(Component.literal("We have a small purple circle"));
-//                } else {
-//                    player.sendSystemMessage(Component.literal("No small circle to be found"));
-//                }
-//
-//                if(mediumCircle == 1) {
-//                    player.sendSystemMessage(Component.literal("We have a medium white circle"));
-//                } else if(mediumCircle == 2) {
-//                    player.sendSystemMessage(Component.literal("We have a medium red circle"));
-//                } else if(mediumCircle == 3) {
-//                    player.sendSystemMessage(Component.literal("We have a medium purple circle"));
-//                } else {
-//                    player.sendSystemMessage(Component.literal("No medium circle to be found"));
-//                }
-//
-//                if(largeCircle == 1) {
-//                    player.sendSystemMessage(Component.literal("We have a large white circle"));
-//                } else if(largeCircle == 2) {
-//                    player.sendSystemMessage(Component.literal("We have a large red circle"));
-//                } else if(largeCircle == 3) {
-//                    player.sendSystemMessage(Component.literal("We have a large purple circle"));
-//                } else {
-//                    player.sendSystemMessage(Component.literal("No large circle to be found"));
-//                }
-//            }
-
         }
 
     }
@@ -160,10 +117,30 @@ public class HeartGlyphBlockEntity extends BlockEntity {
         Optional<RiteRecipe> recipe = getCurrentRecipe(List.of());
         ItemStack resultItem = recipe.get().getResultItem(pLevel.registryAccess());
 
-        itemList.clear();
         if(resultItem.is(ModItems.WAYSTONE.get())) {
+            for(ItemStack item : itemList) {
+                if(item.is(ModItems.WAYSTONE.get()) && item.hasTag()) {
+                    Player player = pLevel.getNearestPlayer(pPos.getX(), pPos.getY(), pPos.getZ(), 20, false);
+                    assert player != null;
+                    pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
+                            SoundEvents.NOTE_BLOCK_SNARE, SoundSource.BLOCKS, 1f, 0, 1);
+                    player.sendSystemMessage(Component.literal("§cWaystone cannot already be bound"));
+                    returnItems(pLevel, pPos);
+                    return;
+                }
+            }
+
             BindWaystoneRite.perform(pLevel, pPos);
         }
+
+        if(resultItem.is(Items.ENDER_PEARL)) {
+            AABB aabb = new AABB(pPos).move(0.5, 0, 0.5).inflate(3, 0, 3);
+            List<LivingEntity> livingEntities = pLevel.getEntitiesOfClass(LivingEntity.class, aabb);
+
+            UseWaystoneRite.perform(pLevel, pPos, itemList, livingEntities);
+        }
+
+        itemList.clear();
     }
 
     private void returnItems(Level pLevel, BlockPos pPos) {

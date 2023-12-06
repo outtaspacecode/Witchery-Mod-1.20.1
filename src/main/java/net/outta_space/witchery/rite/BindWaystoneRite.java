@@ -3,6 +3,7 @@ package net.outta_space.witchery.rite;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -12,8 +13,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.outta_space.witchery.item.ModItems;
 
+import java.util.List;
+
 public class BindWaystoneRite {
     public static void perform(Level pLevel, BlockPos pPos) {
+
         CompoundTag tag = new CompoundTag();
         tag.putIntArray("location", new int[]{pPos.getX(), pPos.getY(), pPos.getZ()});
 
