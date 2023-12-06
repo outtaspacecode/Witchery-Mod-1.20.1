@@ -223,13 +223,18 @@ public class AltarBlockEntity extends BlockEntity implements MenuProvider {
     private void setAltarPower() {
         List<Block> acceptedBlockTypes = List.of(Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.MYCELIUM, Blocks.FARMLAND, Blocks.GRASS, Blocks.TALL_GRASS, Blocks.DRAGON_EGG, ModBlocks.INFINITY_EGG.get(),
                 Blocks.WATER, Blocks.RED_MUSHROOM, Blocks.BROWN_MUSHROOM, Blocks.MUSHROOM_STEM, Blocks.BROWN_MUSHROOM_BLOCK, Blocks.RED_MUSHROOM_BLOCK, Blocks.VINE, Blocks.SUGAR_CANE, Blocks.CACTUS,
-                Blocks.PUMPKIN, Blocks.MELON);
+                Blocks.PUMPKIN, Blocks.MELON, Blocks.SWEET_BERRY_BUSH, Blocks.NETHER_WART, Blocks.PODZOL, Blocks.ROOTED_DIRT, Blocks.MANGROVE_ROOTS, Blocks.MUDDY_MANGROVE_ROOTS, Blocks.CRIMSON_ROOTS,
+                Blocks.WARPED_ROOTS, Blocks.HANGING_ROOTS, Blocks.TWISTING_VINES_PLANT, Blocks.WEEPING_VINES_PLANT, Blocks.LILY_PAD, Blocks.BAMBOO);
 
         List<Block> visitedLogBlocks = new ArrayList<>();
         List<Block> visitedLeafBlocks = new ArrayList<>();
         List<Block> visitedFlowerBlocks = new ArrayList<>();
         List<Block> visitedCropBlocks = new ArrayList<>();
         List<Block> visitedSaplingBlocks = new ArrayList<>();
+        List<Block> visitedNyliumBlocks = new ArrayList<>();
+        List<Block> visitedCoralPlantBlocks = new ArrayList<>();
+        List<Block> visitedCoralBlocks = new ArrayList<>();
+        List<Block> visitedCoralBlockBlocks = new ArrayList<>();
         Map<Block, Integer> map = new HashMap<>();
 
         for(BlockState pState : surroundingBlocks) {
@@ -278,6 +283,42 @@ public class AltarBlockEntity extends BlockEntity implements MenuProvider {
                 }
             }
 
+            if(pState.is(BlockTags.NYLIUM)) {
+                if(!visitedNyliumBlocks.contains(pState.getBlock())) {
+                    visitedNyliumBlocks.add(pState.getBlock());
+                    map.put(pState.getBlock(), 1);
+                } else {
+                    map.put(pState.getBlock(), map.get(pState.getBlock()) + 1);
+                }
+            }
+
+            if(pState.is(BlockTags.CORAL_PLANTS)) {
+                if(!visitedCoralPlantBlocks.contains(pState.getBlock())) {
+                    visitedCoralPlantBlocks.add(pState.getBlock());
+                    map.put(pState.getBlock(), 1);
+                } else {
+                    map.put(pState.getBlock(), map.get(pState.getBlock()) + 1);
+                }
+            }
+
+            if(pState.is(BlockTags.CORALS) && !pState.is(BlockTags.CORAL_PLANTS)) {
+                if(!visitedCoralBlocks.contains(pState.getBlock())) {
+                    visitedCoralBlocks.add(pState.getBlock());
+                    map.put(pState.getBlock(), 1);
+                } else {
+                    map.put(pState.getBlock(), map.get(pState.getBlock()) + 1);
+                }
+            }
+
+            if(pState.is(BlockTags.CORAL_BLOCKS)) {
+                if(!visitedCoralBlockBlocks.contains(pState.getBlock())) {
+                    visitedCoralBlockBlocks.add(pState.getBlock());
+                    map.put(pState.getBlock(), 1);
+                } else {
+                    map.put(pState.getBlock(), map.get(pState.getBlock()) + 1);
+                }
+            }
+
 
             for(Block blocks : acceptedBlockTypes) {
                 if(pState.is(blocks)) {
@@ -313,12 +354,34 @@ public class AltarBlockEntity extends BlockEntity implements MenuProvider {
             baseAltarPower += Math.min(map.get(visitedBlock), 20) * 4;
         }
 
+        for(Block visitedBlock : visitedNyliumBlocks) {
+            baseAltarPower += Math.min(map.get(visitedBlock), 20);
+        }
+
+        for(Block visitedBlock : visitedCoralPlantBlocks) {
+            baseAltarPower += Math.min(map.get(visitedBlock), 10) * 8;
+        }
+
+        for(Block visitedBlock : visitedCoralBlocks) {
+            baseAltarPower += Math.min(map.get(visitedBlock), 10) * 5;
+        }
+
+        for(Block visitedBlock : visitedCoralBlockBlocks) {
+            baseAltarPower += Math.min(map.get(visitedBlock), 10) * 3;
+        }
+
 
         if(map.containsKey(Blocks.GRASS_BLOCK)) {
             baseAltarPower += Math.min(map.get(Blocks.GRASS_BLOCK), 80) * 2;
         }
         if(map.containsKey(Blocks.MYCELIUM)) {
             baseAltarPower += Math.min(map.get(Blocks.MYCELIUM), 80) * 2;
+        }
+        if(map.containsKey(Blocks.PODZOL)) {
+            baseAltarPower += Math.min(map.get(Blocks.PODZOL), 80) * 2;
+        }
+        if(map.containsKey(Blocks.ROOTED_DIRT)) {
+            baseAltarPower += Math.min(map.get(Blocks.ROOTED_DIRT), 80) * 3;
         }
         if(map.containsKey(Blocks.DIRT)) {
             baseAltarPower += Math.min(map.get(Blocks.DIRT), 80);
@@ -371,6 +434,40 @@ public class AltarBlockEntity extends BlockEntity implements MenuProvider {
         if(map.containsKey(Blocks.MELON)) {
             baseAltarPower += Math.min(map.get(Blocks.MELON), 20) * 4;
         }
+        if(map.containsKey(Blocks.SWEET_BERRY_BUSH)) {
+            baseAltarPower += Math.min(map.get(Blocks.SWEET_BERRY_BUSH), 20) * 4;
+        }
+        if(map.containsKey(Blocks.NETHER_WART)) {
+            baseAltarPower += Math.min(map.get(Blocks.NETHER_WART), 20) * 4;
+        }
+        if(map.containsKey(Blocks.MANGROVE_ROOTS)) {
+            baseAltarPower += Math.min(map.get(Blocks.MANGROVE_ROOTS), 20) * 3;
+        }
+        if(map.containsKey(Blocks.MUDDY_MANGROVE_ROOTS)) {
+            baseAltarPower += Math.min(map.get(Blocks.MUDDY_MANGROVE_ROOTS), 20) * 3;
+        }
+        if(map.containsKey(Blocks.CRIMSON_ROOTS)) {
+            baseAltarPower += Math.min(map.get(Blocks.CRIMSON_ROOTS), 20) * 2;
+        }
+        if(map.containsKey(Blocks.WARPED_ROOTS)) {
+            baseAltarPower += Math.min(map.get(Blocks.WARPED_ROOTS), 20) * 2;
+        }
+        if(map.containsKey(Blocks.HANGING_ROOTS)) {
+            baseAltarPower += Math.min(map.get(Blocks.HANGING_ROOTS), 20) * 2;
+        }
+        if(map.containsKey(Blocks.TWISTING_VINES_PLANT)) {
+            baseAltarPower += Math.min(map.get(Blocks.TWISTING_VINES_PLANT), 20) * 2;
+        }
+        if(map.containsKey(Blocks.WEEPING_VINES_PLANT)) {
+            baseAltarPower += Math.min(map.get(Blocks.WEEPING_VINES_PLANT), 20) * 2;
+        }
+        if(map.containsKey(Blocks.LILY_PAD)) {
+            baseAltarPower += Math.min(map.get(Blocks.LILY_PAD), 20) * 3;
+        }
+        if(map.containsKey(Blocks.BAMBOO)) {
+            baseAltarPower += Math.min(map.get(Blocks.BAMBOO), 50) * 3;
+        }
+
 
     }
 
