@@ -45,5 +45,8 @@ public class UseWaystoneRite {
         for(LivingEntity entity : livingEntities) {
             entity.teleportTo(pos.getX(), pos.getY(), pos.getZ());
         }
+
+        pLevel.playSeededSound(null, pos.getX(), pos.getY(), pos.getZ(),
+                SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1f, 0, 8);
     }
 }

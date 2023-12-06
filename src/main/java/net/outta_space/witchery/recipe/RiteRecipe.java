@@ -57,7 +57,7 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
         boolean hasAttunedStone = false;
         for(int i = 0; i < pContainer.getContainerSize(); i++) {
             if(pContainer.getItem(i) != ItemStack.EMPTY) {
-                count++;
+                count += pContainer.getItem(i).getCount();
                 if(pContainer.getItem(i).is(ModItems.CHARGED_ATTUNED_STONE.get())) {
                     hasAttunedStone = true;
                 }
@@ -68,15 +68,13 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
         if(inputItems.size() == count || ((count == inputItems.size() + 1) && !hasUsedAttunedStone)) {
             for (int i = 0; i < inputItems.size(); i++) {
                 for (int j = 0; j < pContainer.getContainerSize(); j++) {
-                    if (pContainer.getItem(j).getCount() == 1) {
-                        if(!hasUsedAttunedStone) {
-                            match = match || (inputItems.get(i).test(pContainer.getItem(j)) || pContainer.getItem(j).is(ModItems.CHARGED_ATTUNED_STONE.get()));
-                            if(pContainer.getItem(j).is(ModItems.CHARGED_ATTUNED_STONE.get())) {
-                                hasUsedAttunedStone = true;
-                            }
-                        } else {
-                            match = match || inputItems.get(i).test(pContainer.getItem(j));
+                    if(!hasUsedAttunedStone) {
+                        match = match || (inputItems.get(i).test(pContainer.getItem(j)) || pContainer.getItem(j).is(ModItems.CHARGED_ATTUNED_STONE.get()));
+                        if(pContainer.getItem(j).is(ModItems.CHARGED_ATTUNED_STONE.get())) {
+                            hasUsedAttunedStone = true;
                         }
+                    } else {
+                        match = match || inputItems.get(i).test(pContainer.getItem(j));
                     }
                 }
                 matches[i] = match;

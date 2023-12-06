@@ -13,6 +13,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.phys.AABB;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.item.ModItems;
@@ -41,54 +42,67 @@ public class HeartGlyphBlockEntity extends BlockEntity {
     private int cooldown = 20;
     private List<ItemStack> itemList = new ArrayList<ItemStack>();
 
+    private String failMessage = "";
+
     public void tick(Level pLevel, BlockPos pPos, BlockState pState) {
 
-        if(pState.getValue(IS_ACTIVE)) {
+        if (pState.getValue(IS_ACTIVE)) {
+            if(pLevel.dimensionTypeId() == BuiltinDimensionTypes.OVERWORLD) {
 
-            checkForCircles(pLevel, pPos);
-            int circleSize;
-            if(largeCircle > 0) {
-                circleSize = 7;
-            } else if (mediumCircle > 0) {
-                circleSize = 5;
-            } else {
-                circleSize = 3;
-            }
-
-            AABB aabb = new AABB(pPos).move(0.5, 0, 0.5).inflate(circleSize, 0, circleSize);
-            List<ItemEntity> itemEntities = pLevel.getEntitiesOfClass(ItemEntity.class, aabb);
-
-            if(hasRecipe(itemEntities, pLevel, pPos)) {
-                aabb = getAABBSize(itemEntities, pPos);
-                itemEntities = pLevel.getEntitiesOfClass(ItemEntity.class, aabb);
-
-                if(!hasRecipe(itemEntities, pLevel, pPos)) {
-                    pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_ACTIVE, false));
-                    return;
-                }
-
-                if (cooldown <= 0) {
-
-                if (!itemEntities.isEmpty()) {
-                    itemList.add(itemEntities.get(0).getItem());
-                    itemEntities.get(0).kill();
-                    pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
-                            SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1, 0, 6);
+                checkForCircles(pLevel, pPos);
+                int circleSize;
+                if (largeCircle > 0) {
+                    circleSize = 7;
+                } else if (mediumCircle > 0) {
+                    circleSize = 5;
                 } else {
-                    performRitual(pLevel, pPos, pState);
-                    pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_ACTIVE, false));
+                    circleSize = 3;
                 }
 
-                resetCooldown();
+                AABB aabb = new AABB(pPos).move(0.5, 0, 0.5).inflate(circleSize, 0, circleSize);
+                List<ItemEntity> itemEntities = pLevel.getEntitiesOfClass(ItemEntity.class, aabb);
+
+                if (hasRecipe(itemEntities, pLevel, pPos)) {
+                    aabb = getAABBSize(itemEntities, pPos);
+                    itemEntities = pLevel.getEntitiesOfClass(ItemEntity.class, aabb);
+
+                    if (!hasRecipe(itemEntities, pLevel, pPos)) {
+                        pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_ACTIVE, false));
+                        return;
+                    }
+
+                    if (cooldown <= 0) {
+
+                        if (!itemEntities.isEmpty()) {
+                            itemList.add(itemEntities.get(0).getItem());
+                            itemEntities.get(0).kill();
+                            pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
+                                    SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1, 0, 6);
+                        } else {
+                            performRitual(pLevel, pPos, pState);
+                            pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_ACTIVE, false));
+                        }
+
+                        resetCooldown();
+                    } else {
+                        cooldown--;
+                    }
+                } else if (itemEntities.isEmpty() && itemList.isEmpty()) {
+                    pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_ACTIVE, false));
                 } else {
-                    cooldown--;
+                    Player player = pLevel.getNearestPlayer(pPos.getX(), pPos.getY(), pPos.getZ(), 20, false);
+                    if (player != null) {
+                        player.sendSystemMessage(Component.literal("§c" + failMessage));
+                    }
+                    level.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(), SoundEvents.NOTE_BLOCK_SNARE, SoundSource.BLOCKS, 0.5f, 0, 0);
+                    pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_ACTIVE, false));
+                    returnItems(pLevel, pPos);
+                    resetCooldown();
                 }
-            } else if(itemEntities.isEmpty() && itemList.isEmpty()) {
-                pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_ACTIVE, false));
             } else {
                 Player player = pLevel.getNearestPlayer(pPos.getX(), pPos.getY(), pPos.getZ(), 20, false);
-                if(player != null) {
-                    player.sendSystemMessage(Component.literal("§cUnknown rite."));
+                if (player != null) {
+                    player.sendSystemMessage(Component.literal("§cRites can only be performed in the overworld."));
                 }
                 level.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(), SoundEvents.NOTE_BLOCK_SNARE, SoundSource.BLOCKS, 0.5f, 0, 0);
                 pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_ACTIVE, false));
@@ -176,6 +190,7 @@ public class HeartGlyphBlockEntity extends BlockEntity {
         Optional<RiteRecipe> recipe = getCurrentRecipe(itemEntities);
 
         if(recipe.isEmpty()) {
+            failMessage = "Unknown rite.";
             return false;
         }
 
@@ -191,6 +206,17 @@ public class HeartGlyphBlockEntity extends BlockEntity {
                 hasAttunedStone = true;
             }
         }
+
+        if(!recipe.get().matchesCircles(smallCircle, mediumCircle, largeCircle)) {
+            failMessage = "Incorrect ritual circles.";
+        } else if(recipe.get().willAllowAttunedStone() && !hasAttunedStone && !recipe.get().hasAltarPower(getAltarPower(pLevel, getAltarCorePos(pLevel, pPos)))) {
+            failMessage = "Rite requires altar or charged attuned stone.";
+        } else if(!recipe.get().willAllowAttunedStone() && !recipe.get().hasAltarPower(getAltarPower(pLevel, getAltarCorePos(pLevel, pPos)))) {
+            failMessage = "Rite requires altar.";
+        } else {
+            failMessage = "Unknown rite.";
+        }
+
 
         return recipe.get().matchesCircles(smallCircle, mediumCircle, largeCircle)
                 && (recipe.get().hasAltarPower(getAltarPower(pLevel, getAltarCorePos(pLevel, pPos)))

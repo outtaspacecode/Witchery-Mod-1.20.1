@@ -39,7 +39,7 @@ public class WitchCauldronRecipe implements Recipe<SimpleContainer> {
 
         for(int i = 0; i < pContainer.getContainerSize(); i++) {
             if(pContainer.getItem(i) != ItemStack.EMPTY) {
-                count++;
+                count += pContainer.getItem(i).getCount();
             }
         }
 
@@ -47,9 +47,7 @@ public class WitchCauldronRecipe implements Recipe<SimpleContainer> {
         if(inputItems.size() == count) {
             for (int i = 0; i < inputItems.size(); i++) {
                 for (int j = 0; j < pContainer.getContainerSize(); j++) {
-                    if (pContainer.getItem(j).getCount() == 1) {
-                        match = match || inputItems.get(i).test(pContainer.getItem(j));
-                    }
+                    match = match || inputItems.get(i).test(pContainer.getItem(j));
                 }
                 matches[i] = match;
                 match = false;

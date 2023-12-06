@@ -116,6 +116,9 @@ public class WitchCauldronBlockEntity extends BlockEntity {
                     cookItem();
                     resetCookTimer();
                 }
+            } else {
+                pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_COOKING, false));
+                resetCookTimer();
             }
 
         }

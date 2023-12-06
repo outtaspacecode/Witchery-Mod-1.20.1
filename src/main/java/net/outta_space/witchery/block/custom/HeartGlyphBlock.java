@@ -1,6 +1,9 @@
 package net.outta_space.witchery.block.custom;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -21,6 +24,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.outta_space.witchery.block.entity.HeartGlyphBlockEntity;
 import net.outta_space.witchery.block.entity.ModBlockEntities;
+import net.outta_space.witchery.sound.ModSounds;
 import org.jetbrains.annotations.Nullable;
 
 public class HeartGlyphBlock extends BaseEntityBlock {
@@ -56,6 +60,18 @@ public class HeartGlyphBlock extends BaseEntityBlock {
 //        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
+    @Override
+    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
+        if (pState.getValue(IS_ACTIVE)) {
+            double d0 = (double)pPos.getX() + 0.5D;
+            double d1 = (double)pPos.getY();
+            double d2 = (double)pPos.getZ() + 0.5D;
+
+            pLevel.addParticle(ParticleTypes.WITCH, (double)pPos.getX() + (pRandom.nextDouble() * (10.0D / 16.0D) + 0.15D),
+                    (double)pPos.getY() + 0.0725, (double)pPos.getZ() + (pRandom.nextDouble() * (10.0D / 16.0D) + 0.15D), 0.0D, 0.0D, 0.0D);
+
+        }
+    }
 
     private VoxelShape SHAPE = box(0, 0, 0, 16, 1, 16);
 
