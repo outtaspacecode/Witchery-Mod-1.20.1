@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "witchery:whiff_of_magic"
+    },
+    "B": {
+      "item": "witchery:anointing_paste"
+    },
+    "C": {
+      "item": "minecraft:book"
+    },
+    "D": {
+      "item": "minecraft:feather"
+    },
+    "E": {
+      "item": "witchery:belladonna_flower"
+    }
+  },
+  "pattern": [
+    " A ",
+    "BCD",
+    " E "
+  ],
+  "result": {
+    "item": "patchouli:guide_book",
+    "nbt": {
+      "patchouli:book": "witchery:rituals_recipes_and_rites"
+    }
+  },
+  "show_notification": true
+}
