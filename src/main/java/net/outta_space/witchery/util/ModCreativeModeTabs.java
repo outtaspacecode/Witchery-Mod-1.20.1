@@ -45,6 +45,7 @@ public class ModCreativeModeTabs {
                     output.accept(ModItems.GOLDEN_CHALK.get());
                     output.accept(ModItems.INFERNAL_CHALK.get());
                     output.accept(ModItems.OTHERWHERE_CHALK.get());
+                    output.accept(ModItems.CIRCLE_TALISMAN.get());
                     output.accept(ModItems.BROOM.get());
                     output.accept(ModItems.TAGLOCK_KIT.get());
                     output.accept(ModItems.POPPET.get());

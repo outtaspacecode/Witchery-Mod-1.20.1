@@ -18,6 +18,7 @@ import net.minecraft.world.phys.AABB;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.item.ModItems;
 import net.outta_space.witchery.recipe.RiteRecipe;
+import net.outta_space.witchery.rite.BindCircleTalismanRite;
 import net.outta_space.witchery.rite.BindWaystoneRite;
 import net.outta_space.witchery.rite.ChargeAttunedStoneRite;
 import net.outta_space.witchery.rite.UseWaystoneRite;
@@ -79,8 +80,8 @@ public class HeartGlyphBlockEntity extends BlockEntity {
                             pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
                                     SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1, 0, 6);
                         } else {
-                            performRitual(pLevel, pPos, pState);
                             pLevel.setBlockAndUpdate(pPos, pState.setValue(IS_ACTIVE, false));
+                            performRitual(pLevel, pPos, pState);
                         }
 
                         resetCooldown();
@@ -159,6 +160,21 @@ public class HeartGlyphBlockEntity extends BlockEntity {
             ChargeAttunedStoneRite.perform(pLevel, pPos);
         }
 
+        if(resultItem.is(ModItems.CIRCLE_TALISMAN.get())) {
+            for(ItemStack items : itemList) {
+                if(items.is(ModItems.CIRCLE_TALISMAN.get()) && items.hasTag()) {
+                    Player player = pLevel.getNearestPlayer(pPos.getX(), pPos.getY(), pPos.getZ(), 20, false);
+                    assert player != null;
+                    pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
+                            SoundEvents.NOTE_BLOCK_SNARE, SoundSource.BLOCKS, 1f, 0, 1);
+                    player.sendSystemMessage(Component.literal("§cCircle talisman cannot already be bound"));
+                    returnItems(pLevel, pPos);
+                    return;
+                }
+            }
+            BindCircleTalismanRite.perform(pLevel, pPos, new int[] {smallCircle, mediumCircle, largeCircle});
+        }
+
         boolean hasAttunedStone = false;
         for(ItemStack is : itemList) {
             if(is.is(ModItems.CHARGED_ATTUNED_STONE.get())) {
@@ -213,6 +229,9 @@ public class HeartGlyphBlockEntity extends BlockEntity {
             failMessage = "Rite requires altar or charged attuned stone.";
         } else if(!recipe.get().willAllowAttunedStone() && !recipe.get().hasAltarPower(getAltarPower(pLevel, getAltarCorePos(pLevel, pPos)))) {
             failMessage = "Rite requires altar.";
+        } else if(smallCircle == 0 && mediumCircle == 0 && largeCircle == 0) {
+            failMessage = "Circles required";
+            return false;
         } else {
             failMessage = "Unknown rite.";
         }

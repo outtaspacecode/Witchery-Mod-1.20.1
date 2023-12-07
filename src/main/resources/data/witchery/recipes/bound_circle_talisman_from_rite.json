@@ -1,0 +1,17 @@
+{
+  "type": "witchery:rite",
+  "ingredients": [
+    {
+      "item": "witchery:circle_talisman"
+    },
+    {
+      "item": "minecraft:redstone"
+    }
+  ],
+  "rite_key": {
+    "count": 1,
+    "item": "witchery:circle_talisman"
+  },
+  "altar_power": 1000,
+  "allows_attuned_stone": true
+}

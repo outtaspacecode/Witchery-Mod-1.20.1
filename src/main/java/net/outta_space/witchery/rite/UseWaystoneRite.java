@@ -14,6 +14,7 @@ import net.minecraft.world.level.Level;
 import net.outta_space.witchery.item.ModItems;
 import org.checkerframework.checker.units.qual.C;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UseWaystoneRite {
@@ -42,8 +43,18 @@ public class UseWaystoneRite {
         int[] locationTag = itemList.get(0).getTag().getIntArray("location");
         BlockPos pos = new BlockPos(locationTag[0], locationTag[1], locationTag[2]);
 
+        List<Player> players = new ArrayList<>();
+
         for(LivingEntity entity : livingEntities) {
-            entity.teleportTo(pos.getX(), pos.getY(), pos.getZ());
+            if(entity instanceof Player) {
+                players.add((Player) entity);
+            } else {
+                entity.teleportTo(pos.getX(), pos.getY(), pos.getZ());
+            }
+        }
+
+        for(Player player : players) {
+            player.teleportTo(pos.getX(), pos.getY(), pos.getZ());
         }
 
         pLevel.playSeededSound(null, pos.getX(), pos.getY(), pos.getZ(),
