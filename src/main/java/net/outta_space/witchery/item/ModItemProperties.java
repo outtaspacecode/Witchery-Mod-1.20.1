@@ -12,6 +12,15 @@ public class ModItemProperties {
 
         ItemProperties.register(ModItems.WAYSTONE.get(), new ResourceLocation(WitcheryMod.MOD_ID, "bound"),
                 ((pStack, pLevel, pEntity, pSeed) -> pStack.hasTag() ? 1f : 0f));
+
+        ItemProperties.register(ModItems.CIRCLE_TALISMAN.get(), new ResourceLocation(WitcheryMod.MOD_ID, "bound_circle"),
+                (pStack, pLevel, pEntity, pSeed) -> {
+                    if(pStack.hasTag()) {
+                        return pStack.getTag().getInt("circle");
+                    } else {
+                        return 0;
+                    }
+                });
     }
 
 }

@@ -1,0 +1,62 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "witchery:item/circle_talisman"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "witchery:bound_circle": 1
+      },
+      "model": "witchery:item/circle_talisman_small_white"
+    },
+    {
+      "predicate": {
+        "witchery:bound_circle": 2
+      },
+      "model": "witchery:item/circle_talisman_medium_white"
+    },
+    {
+      "predicate": {
+        "witchery:bound_circle": 3
+      },
+      "model": "witchery:item/circle_talisman_large_white"
+    },
+    {
+      "predicate": {
+        "witchery:bound_circle": 4
+      },
+      "model": "witchery:item/circle_talisman_small_red"
+    },
+    {
+      "predicate": {
+        "witchery:bound_circle": 5
+      },
+      "model": "witchery:item/circle_talisman_medium_red"
+    },
+    {
+      "predicate": {
+        "witchery:bound_circle": 6
+      },
+      "model": "witchery:item/circle_talisman_large_red"
+    },
+    {
+      "predicate": {
+        "witchery:bound_circle": 7
+      },
+      "model": "witchery:item/circle_talisman_small_purple"
+    },
+    {
+      "predicate": {
+        "witchery:bound_circle": 8
+      },
+      "model": "witchery:item/circle_talisman_medium_purple"
+    },
+    {
+      "predicate": {
+        "witchery:bound_circle": 9
+      },
+      "model": "witchery:item/circle_talisman_large_purple"
+    }
+  ]
+}

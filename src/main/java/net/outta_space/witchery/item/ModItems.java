@@ -3,6 +3,7 @@ package net.outta_space.witchery.item;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -82,6 +83,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> TAGLOCK_KIT = ITEMS.register("taglock_kit",
             () -> new TagLockKitItem(new Item.Properties().stacksTo(16)));
+
+    public static final RegistryObject<Item> CIRCLE_TALISMAN = ITEMS.register("circle_talisman",
+            () -> new CircleTalismanItem(new Item.Properties().stacksTo(1)));
 
 
 

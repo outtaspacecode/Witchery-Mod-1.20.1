@@ -197,5 +197,16 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('D', ModItems.POPPET.get())
                 .unlockedBy("has_poppet", inventoryTrigger(ItemPredicate.Builder.item().of(ModItems.POPPET.get()).build()))
                 .save(pWriter);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.CIRCLE_TALISMAN.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', Items.GOLD_NUGGET)
+                .define('B', Items.GOLD_INGOT)
+                .define('C', Items.DIAMOND)
+                .unlockedBy("has_diamond", inventoryTrigger(ItemPredicate.Builder.item().of(Items.DIAMOND).build()))
+                .save(pWriter);
+
     }
 }
