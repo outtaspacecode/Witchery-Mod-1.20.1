@@ -1,0 +1,11 @@
+{
+  "name": "Waystones",
+  "icon": "witchery:waystone",
+  "category": "witchery:circle_rites",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Bind a waystone by throwing it in a small ritual circle alongside some glowstone dust and an ender dew."
+    }
+  ]
+}
