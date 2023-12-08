@@ -1,0 +1,27 @@
+{
+  "type": "witchery:rite",
+  "ingredients": [
+    {
+      "item": "witchery:death_protection_poppet"
+    },
+    {
+      "item": "minecraft:echo_shard"
+    },
+    {
+      "item": "witchery:demonic_blood"
+    },
+    {
+      "item": "minecraft:golden_apple"
+    },
+    {
+      "item": "witchery:taglock_kit"
+    }
+  ],
+  "rite_key": {
+    "count": 1,
+    "item": "witchery:death_protection_poppet"
+  },
+  "medium_circle": 2,
+  "large_circle": 3,
+  "altar_power": 5000
+}

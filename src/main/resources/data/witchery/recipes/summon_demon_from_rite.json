@@ -1,0 +1,21 @@
+{
+  "type": "witchery:rite",
+  "ingredients": [
+    {
+      "item": "witchery:refined_evil"
+    },
+    {
+      "item": "minecraft:blaze_rod"
+    },
+    {
+      "item": "minecraft:ender_pearl"
+    }
+  ],
+  "rite_key": {
+    "count": 1,
+    "item": "witchery:demon_heart"
+  },
+  "large_circle": 2,
+  "altar_power": 3000,
+  "allows_attuned_stone": true
+}

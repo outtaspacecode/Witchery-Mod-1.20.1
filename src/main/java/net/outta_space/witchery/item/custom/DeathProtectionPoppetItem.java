@@ -2,13 +2,21 @@ package net.outta_space.witchery.item.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeHooks;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class DeathProtectionPoppetItem extends Item {
     public DeathProtectionPoppetItem(Properties pProperties) {
@@ -16,20 +24,12 @@ public class DeathProtectionPoppetItem extends Item {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext pContext) {
-        Level pLevel = pContext.getLevel();
-        BlockPos pPos = pContext.getClickedPos();
-        Player pPlayer = pContext.getPlayer();
+    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
 
-        if(!pLevel.isClientSide()) {
-            pLevel.playSeededSound(null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(),SoundEvents.TOTEM_USE, SoundSource.BLOCKS, 0.5f, 1.0f, 2);
-            return InteractionResult.SUCCESS;
-        }
-        for(int i = 0; i < 100; i++) {
-            assert pPlayer != null;
-            pLevel.addParticle(ParticleTypes.TOTEM_OF_UNDYING, pPlayer.getX(), pPlayer.getY() + 1, pPlayer.getZ(), 0, 0, 0);
+        if(pStack.hasTag()) {
+            pTooltipComponents.add(Component.literal("Bound to " + pStack.getTag().getString("bound_player")));
         }
 
-        return InteractionResult.CONSUME;
+        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
 }

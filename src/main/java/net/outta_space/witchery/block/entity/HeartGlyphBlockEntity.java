@@ -15,13 +15,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.fml.common.Mod;
 import net.outta_space.witchery.block.ModBlocks;
 import net.outta_space.witchery.item.ModItems;
 import net.outta_space.witchery.recipe.RiteRecipe;
-import net.outta_space.witchery.rite.BindCircleTalismanRite;
-import net.outta_space.witchery.rite.BindWaystoneRite;
-import net.outta_space.witchery.rite.ChargeAttunedStoneRite;
-import net.outta_space.witchery.rite.UseWaystoneRite;
+import net.outta_space.witchery.rite.*;
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
@@ -173,6 +171,38 @@ public class HeartGlyphBlockEntity extends BlockEntity {
                 }
             }
             BindCircleTalismanRite.perform(pLevel, pPos, new int[] {smallCircle, mediumCircle, largeCircle});
+        }
+
+        if(resultItem.is(ModItems.DEATH_PROTECTION_POPPET.get())) {
+            int index = 0;
+            for(ItemStack items : itemList) {
+                if(items.is(ModItems.CIRCLE_TALISMAN.get()) && items.hasTag()) {
+                    Player player = pLevel.getNearestPlayer(pPos.getX(), pPos.getY(), pPos.getZ(), 20, false);
+                    assert player != null;
+                    pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
+                            SoundEvents.NOTE_BLOCK_SNARE, SoundSource.BLOCKS, 1f, 0, 1);
+                    player.sendSystemMessage(Component.literal("§cPoppet cannot already be bound"));
+                    returnItems(pLevel, pPos);
+                    return;
+                }
+                if(items.is(ModItems.TAGLOCK_KIT.get())) {
+                    if(!items.hasTag()) {
+                        Player player = pLevel.getNearestPlayer(pPos.getX(), pPos.getY(), pPos.getZ(), 20, false);
+                        assert player != null;
+                        pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
+                                SoundEvents.NOTE_BLOCK_SNARE, SoundSource.BLOCKS, 1f, 0, 1);
+                        player.sendSystemMessage(Component.literal("§cTaglock kit must be bound to player"));
+                        returnItems(pLevel, pPos);
+                        return;
+                    }
+                    index = itemList.indexOf(items);
+                }
+            }
+            DeathProtectionRite.perform(pLevel, pPos, itemList.get(index));
+        }
+
+        if(resultItem.is(ModItems.DEMON_HEART.get())) {
+            SummonDemonRite.perform(pLevel, pPos);
         }
 
         boolean hasAttunedStone = false;
