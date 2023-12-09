@@ -176,7 +176,7 @@ public class HeartGlyphBlockEntity extends BlockEntity {
         if(resultItem.is(ModItems.DEATH_PROTECTION_POPPET.get())) {
             int index = 0;
             for(ItemStack items : itemList) {
-                if(items.is(ModItems.CIRCLE_TALISMAN.get()) && items.hasTag()) {
+                if(items.is(ModItems.DEATH_PROTECTION_POPPET.get()) && items.hasTag()) {
                     Player player = pLevel.getNearestPlayer(pPos.getX(), pPos.getY(), pPos.getZ(), 20, false);
                     assert player != null;
                     pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
@@ -257,7 +257,9 @@ public class HeartGlyphBlockEntity extends BlockEntity {
             failMessage = "Incorrect ritual circles.";
         } else if(recipe.get().willAllowAttunedStone() && !hasAttunedStone && !recipe.get().hasAltarPower(getAltarPower(pLevel, getAltarCorePos(pLevel, pPos)))) {
             failMessage = "Rite requires altar or charged attuned stone.";
-        } else if(!recipe.get().willAllowAttunedStone() && !recipe.get().hasAltarPower(getAltarPower(pLevel, getAltarCorePos(pLevel, pPos)))) {
+        } else if(!recipe.get().willAllowAttunedStone() && getAltarCorePos(pLevel, pPos) != null && !recipe.get().hasAltarPower(getAltarPower(pLevel, getAltarCorePos(pLevel, pPos)))) {
+            failMessage = "Not enough altar power.";
+        } else if(!recipe.get().willAllowAttunedStone() && getAltarCorePos(pLevel, pPos) == null) {
             failMessage = "Rite requires altar.";
         } else if(smallCircle == 0 && mediumCircle == 0 && largeCircle == 0) {
             failMessage = "Circles required";

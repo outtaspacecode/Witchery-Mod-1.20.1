@@ -1,8 +1,11 @@
 package net.outta_space.witchery.event;
 
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.Minecraft;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -15,7 +18,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingUseTotemEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -42,44 +48,33 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void savedByTheBell(LivingDeathEvent event) {
+    public static void savedByTheBell(LivingDamageEvent event) {
         if(event.getEntity() instanceof Player player) {
             if (InventoryUtil.hasPlayerStackInInventory(player, ModItems.DEATH_PROTECTION_POPPET.get())) {
                 ItemStack poppet = player.getInventory().getItem(InventoryUtil.getFirstInventoryIndex(player, ModItems.DEATH_PROTECTION_POPPET.get()));
                 if (poppet.hasTag()) {
                     if (Objects.equals(poppet.getTag().getUUID("player_uuid"), player.getUUID())) {
-                        event.setCanceled(true);
-                        player.setHealth(3);
-                        player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 360, 1));
-                        player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 360, 1));
-                        if (event.getSource().is(DamageTypes.LAVA) || event.getSource().is(DamageTypes.IN_FIRE) || event.getSource().is(DamageTypes.ON_FIRE)) {
-                            player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 360, 1));
-                        } else if (event.getSource().is(DamageTypes.DROWN)) {
-                            player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 360, 1));
+                        if (player.getHealth() - event.getAmount() <= 0) {
+                            event.setCanceled(true);
+                            ServerPlayer serverplayer = (ServerPlayer) player;
+                            serverplayer.awardStat(Stats.ITEM_USED.get(ModItems.DEATH_PROTECTION_POPPET.get()), 1);
+                            CriteriaTriggers.USED_TOTEM.trigger(serverplayer, ModItems.DEATH_PROTECTION_POPPET.get().getDefaultInstance());
+
+                            player.setHealth(3.0F);
+                            player.removeAllEffects();
+                            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 360, 1));
+                            player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 360, 1));
+                            if(event.getSource().is(DamageTypes.LAVA) || event.getSource().is(DamageTypes.IN_FIRE) || event.getSource().is(DamageTypes.ON_FIRE)) {
+                                player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 360, 0));
+                            } else if (event.getSource().is(DamageTypes.DROWN)) {
+                                player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 360, 1));
+                            }
+                            player.level().broadcastEntityEvent(player, (byte) 35);
+                            poppet.shrink(1);
                         }
-                        Minecraft.getInstance().level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.TOTEM_USE, SoundSource.PLAYERS, 0.5f, 1, false);
-                        poppet.shrink(1);
                     }
                 }
             }
         }
     }
-
-//    @SubscribeEvent
-//    public static void hoverOnAltarBlock(RenderHighlightEvent.Block event) {
-//        BlockPos pPos = event.getTarget().getBlockPos();
-//        Level pLevel = Minecraft.getInstance().level;
-//        assert pLevel != null;
-//        if (pLevel.getBlockState(pPos).is(ModBlocks.ALTAR_BLOCK.get())) {
-//            AltarBlockEntity abe = (AltarBlockEntity)pLevel.getBlockEntity(pPos);
-//            assert abe != null;
-//            if(abe.getCore() != null) {
-//                AltarBlockEntity core = (AltarBlockEntity)pLevel.getBlockEntity(abe.getCore());
-//                assert core != null;
-//                System.out.println(core.getCurrentAltarPower() + "/" + core.getBaseAltarPower() + " (" + core.getAbsorptionMultipler() + "x)");
-//            }
-//        }
-//    }
-
-
 }

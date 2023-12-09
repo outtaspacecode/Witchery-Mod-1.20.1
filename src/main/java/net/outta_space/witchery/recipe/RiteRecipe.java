@@ -120,6 +120,11 @@ public class RiteRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
         return riteKey.copy();
     }

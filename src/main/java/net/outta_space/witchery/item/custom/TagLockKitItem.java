@@ -12,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.outta_space.witchery.item.ModItems;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -30,10 +31,13 @@ public class TagLockKitItem extends Item {
             tag.putString("bound_player", pPlayer.getName().getString());
             tag.putUUID("player_uuid", pPlayer.getUUID());
 
-            pPlayer.getItemInHand(pUsedHand).setTag(tag);
+            ItemStack taglockKit = new ItemStack(ModItems.TAGLOCK_KIT.get(), 1);
+            taglockKit.setTag(tag);
             DamageSources source = new DamageSources(pLevel.registryAccess());
             pPlayer.hurt(source.playerAttack(pPlayer), 1);
             pLevel.playSeededSound(null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.5f, 1f, 5);
+            pPlayer.getItemInHand(pUsedHand).shrink(1);
+            pPlayer.addItem(taglockKit);
         }
 
         return super.use(pLevel, pPlayer, pUsedHand);

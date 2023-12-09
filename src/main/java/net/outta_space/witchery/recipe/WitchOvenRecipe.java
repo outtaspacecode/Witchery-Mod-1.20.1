@@ -26,6 +26,11 @@ public class WitchOvenRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public boolean matches(SimpleContainer pContainer, Level pLevel) {
 
         if(pLevel.isClientSide()) {
