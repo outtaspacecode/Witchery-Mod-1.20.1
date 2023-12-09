@@ -1,9 +1,11 @@
 package net.outta_space.witchery.rite;
 
 
+import com.mojang.realmsclient.util.task.OpenServerTask;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,11 +13,13 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.outta_space.witchery.item.ModItems;
 import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UseWaystoneRite {
     public static void perform(Level pLevel, BlockPos pPos, List<ItemStack> itemList, List<LivingEntity> livingEntities) {
@@ -49,12 +53,20 @@ public class UseWaystoneRite {
             if(entity instanceof Player) {
                 players.add((Player) entity);
             } else {
-                entity.teleportTo(pos.getX(), pos.getY(), pos.getZ());
+                Vec3 spawn_pointer = Optional.ofNullable(pPos)
+                        .flatMap(pos1 -> Player.findRespawnPositionAndUseSpawnBlock((ServerLevel) pLevel, pos,
+                                0.0f, true, false)).get();
+
+                entity.teleportTo(spawn_pointer.x, spawn_pointer.y, spawn_pointer.z);
             }
         }
 
         for(Player player : players) {
-            player.teleportTo(pos.getX(), pos.getY(), pos.getZ());
+            Vec3 spawn_pointer = Optional.ofNullable(pPos)
+                    .flatMap(pos1 -> Player.findRespawnPositionAndUseSpawnBlock((ServerLevel) pLevel, pos,
+                            0.0f, true, false)).get();
+
+            player.teleportTo(spawn_pointer.x, spawn_pointer.y, spawn_pointer.z);
         }
 
         pLevel.playSeededSound(null, pos.getX(), pos.getY(), pos.getZ(),

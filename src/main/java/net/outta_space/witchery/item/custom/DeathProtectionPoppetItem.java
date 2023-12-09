@@ -17,6 +17,7 @@ import net.minecraftforge.common.ForgeHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 
 public class DeathProtectionPoppetItem extends Item {
     public DeathProtectionPoppetItem(Properties pProperties) {
@@ -27,7 +28,17 @@ public class DeathProtectionPoppetItem extends Item {
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
 
         if(pStack.hasTag()) {
-            pTooltipComponents.add(Component.literal("Bound to " + pStack.getTag().getString("bound_player")));
+            String online = "";
+            assert pLevel != null;
+            for(Player player : pLevel.players()) {
+                assert pStack.getTag() != null;
+                if(Objects.equals(pStack.getTag().getUUID("player_uuid"), player.getUUID())) {
+                    online = "§3";
+                }
+            }
+            pTooltipComponents.add(Component.literal("§7Bound to " + online + pStack.getTag().getString("bound_player")));
+        } else {
+            pTooltipComponents.add(Component.literal("§7Poppet must be bound to player to have an effect."));
         }
 
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
