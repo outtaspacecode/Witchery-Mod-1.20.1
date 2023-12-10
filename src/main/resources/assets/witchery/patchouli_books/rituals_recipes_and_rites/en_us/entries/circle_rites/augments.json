@@ -1,0 +1,15 @@
+{
+  "name": "Augmenting the Altar",
+  "icon": "minecraft:wither_skeleton_skull",
+  "category": "witchery:altars",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Altars may be augmented with various different items. These items must be placed atop the altar for any effect to be rendered."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Augmenting items have tiers, and only the highest tier is regarded. This means, for example, that if a witch were to place both a wither skeleton skull and a normal skeleton skull on an altar, only the wither skull will apply any bonus, and the regular skull will be ignored.$(br2)The augmenting items are:$(br2) - Wither Skeleton Skull$(br) - Skeleton Skull$(br) - Torch"
+    }
+  ]
+}

@@ -5,7 +5,15 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Bind a waystone by throwing it in a small ritual circle alongside some glowstone dust and an ender dew."
+      "text": "Waystones are tools used by witches to fold space through the spirit world, allowing them to 'blip' from one location to another. A waystone must first be bound to a location, and then may be used to return to the bound location."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l)Rite of Binding$()$(br2)$(o)Bind a waystone to a certain location$()$(br2) - Waystone$(br) - Ender Dew$(br) - Glowstone Dust$(br2)Altar power: 500$(br)Charged attuned stone allowed$(br2)Small ritual circle"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l)Rite of Transposition$()$(br2)$(o)Fold space around a waystone to bring any creatures in the circle to the bound location$()$(br2) - Bound Waystone$(br2)Small otherwhere circle"
     }
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "name": "Attuned Stones",
+  "icon": "witchery:charged_attuned_stone",
+  "category": "witchery:circle_rites",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "An attuned stone may be charged by a witch to be later used in place of altar power while performing a rite. Only certain rites allow for the use of attuned stone, as indicated."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l)Rite of Charging$()$(br2)$(o)Store power in an attuned stone for later use$()$(br2) - Attuned Stone$(br) - Glowstone Dust$(br) - Restone$(br) - Wood Ash$(br) - Quicklime$(br2)Altar power: 2000$(br2)Small ritual circle$(br)Medium ritual circle"
+    }
+  ]
+}

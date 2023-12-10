@@ -1,0 +1,31 @@
+{
+  "name": "Basics of Circle Rites",
+  "icon": "witchery:golden_chalk",
+  "category": "witchery:circle_rites",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Ritual circles are central to a lot of witchcraft. All rites require a heart glyph, drawn with golden chalk, to be present in the center of ritual circles. The color and size of ritual circles depends on the rite being performed.$(br2)Ritual circles draw power from the world around them, and therefore can only be performed in the overworld."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Some rites require an altar to be nearby, with the indicated amount of power stored. If the rite allows for a charged attuned stone to be used, no altar will need to be present. This can be very useful in situations where an altar would not have enough flora around it to generate sufficient power. The attuned stone will not be used in this process, although it will drain its stored power."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To perform a rite, a witch will ensure that the proper circles are drawn, and the appropriate altar power is present. Some rites will also require a certain time of day, weather, familiar, or amount of coven witches to be present. The witch will then through the required items on the ground within the circle and activate the heart rune in the center of the circles. After all items have been consumed, the rite will then be performed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Only the noted circles in a given rite will be checked.$(br)For example, if a rite calls for a small ritual circle, that rite can be performed with any medium or large circles present. Because of this, multiple different rituals may be performed at the same location, even though they may require different circles."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l)Troubleshooting$()$(br2)If a rite is not working as expected, first double-check that all factors are present. Circle magic is a complex art; many things must be perfectly in line for the rite to function. If everything seems to be in proper order and the rite still fails, a witch should check the circles for any foreign or overlooked items."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Rites being performed outside are prime targets for chickens to sabotage by laying an unsuspecting egg within the circles."
+    }
+  ]
+}

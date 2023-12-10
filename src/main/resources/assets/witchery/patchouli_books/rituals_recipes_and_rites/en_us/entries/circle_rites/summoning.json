@@ -1,0 +1,15 @@
+{
+  "name": "Summoning Creatures",
+  "icon": "witchery:demon_heart",
+  "category": "witchery:circle_rites",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Through rites witches are able to summon a host of different creatures, some natural and some maybe not so natural."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l)Demon Summoning Rite$()$(br2)$(o)Summon a demon to the overworld [WIP]:Currently only grants a demon heart$()$(br2) - Refined Evil$(br) - Blaze Rod$(br) - Ender Pearl$(br2)Altar power: 3000$(br)Charged attuned stone allowed$(br2)Large infernal circle"
+    }
+  ]
+}

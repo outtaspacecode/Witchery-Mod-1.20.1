@@ -1,0 +1,15 @@
+{
+  "name": "Poppets",
+  "icon": "witchery:poppet",
+  "category": "witchery:circle_rites",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Poppets are used by witches in an array of situations. More information can be found in the 'Poppets' section of this book; this section exists merely to teach aspiring witches how to bind poppets to players."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l)Rite of Binding$()$(br2)$(o)Bind a death protection poppet to a player$()$(br2) - Death Protection Poppet$(br) - Echo Shard$(br) - Demonic Blood$(br) - Golden Apple$(br) - Bound Taglock Kit$(br2)Altar power: 5000$(br2)Medium infernal circle$(br)Large otherwhere circle"
+    }
+  ]
+}

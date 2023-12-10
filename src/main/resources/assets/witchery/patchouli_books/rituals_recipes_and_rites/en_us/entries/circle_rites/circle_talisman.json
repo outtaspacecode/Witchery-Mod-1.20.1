@@ -1,0 +1,15 @@
+{
+  "name": "Circle Talismans",
+  "icon": "witchery:circle_talisman",
+  "category": "witchery:circle_rites",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A circle talisman is an extremely useful tool for the practicing witch. It is possible to bind circles to the talisman for later use, making it unnecessary for the witch to draw circles by hand. The order circles are bound to talismans goes from smallest to largest."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l)Rite of Binding$()$(br2)$(o)Bind the smallest circle present to a talisman$()$(br2) - Circle Talisman$(br) - Redstone$(br2)Altar power: 1000$(br)Charged attuned stone allowed$(br2)Any circles allowed"
+    }
+  ]
+}
