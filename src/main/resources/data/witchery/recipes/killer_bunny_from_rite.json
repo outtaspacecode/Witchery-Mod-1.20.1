@@ -1,0 +1,22 @@
+{
+  "type": "witchery:rite",
+  "ingredients": [
+    {
+      "item": "minecraft:golden_carrot"
+    },
+    {
+      "item": "witchery:demon_heart"
+    },
+    {
+      "item": "witchery:refined_evil"
+    }
+  ],
+  "rite_key": {
+    "count": 1,
+    "item": "minecraft:carrot"
+  },
+  "medium_circle": 1,
+  "large_circle": 2,
+  "altar_power": 1500,
+  "allows_attuned_stone": true
+}

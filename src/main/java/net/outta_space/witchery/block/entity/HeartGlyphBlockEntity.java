@@ -6,6 +6,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -203,6 +204,23 @@ public class HeartGlyphBlockEntity extends BlockEntity {
 
         if(resultItem.is(ModItems.DEMON_HEART.get())) {
             SummonDemonRite.perform(pLevel, pPos);
+        }
+
+        if(resultItem.is(Items.CARROT)) {
+            AABB aabb = new AABB(pPos).move(0.5, 0, 0.5).inflate(7, 0, 7);
+            List<Rabbit> rabbits = pLevel.getEntitiesOfClass(Rabbit.class, aabb);
+
+            if(rabbits.isEmpty()) {
+                Player player = pLevel.getNearestPlayer(pPos.getX(), pPos.getY(), pPos.getZ(), 20, false);
+                assert player != null;
+                pLevel.playSeededSound(null, pPos.getX(), pPos.getY(), pPos.getZ(),
+                        SoundEvents.NOTE_BLOCK_SNARE, SoundSource.BLOCKS, 1f, 0, 1);
+                player.sendSystemMessage(Component.literal("§cRabbit must be present"));
+                returnItems(pLevel, pPos);
+                return;
+            }
+
+            ConvertDemonBunnyRite.perform(pLevel, pPos, rabbits.get(0));
         }
 
         boolean hasAttunedStone = false;

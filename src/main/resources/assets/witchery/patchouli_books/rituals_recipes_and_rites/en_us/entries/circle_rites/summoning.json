@@ -10,6 +10,10 @@
     {
       "type": "patchouli:text",
       "text": "$(l)Demon Summoning Rite$()$(br2)$(o)Summon a demon to the overworld [WIP]:Currently only grants a demon heart$()$(br2) - Refined Evil$(br) - Blaze Rod$(br) - Ender Pearl$(br2)Altar power: 3000$(br)Charged attuned stone allowed$(br2)Large infernal circle"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l)Rite of Killer Conversion$()$(br2)$(o)Grants a rabbit bloodthirst$()$(br2) - Golden Carrot$(br) - Demon Heart$(br) - Refined Evil$(br2)Altar power: 1500$(br)Charged attuned stone allowed$(br2)Medium ritual circle$(br)Large infernal circle$(br2)Rabbit must be present"
     }
   ]
 }
